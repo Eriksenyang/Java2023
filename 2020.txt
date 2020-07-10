@@ -1,0 +1,5 @@
+1.download tomcat
+	https://blog.csdn.net/cyz1151148946/article/details/76691976/
+2.tomcat localhost:8080 404 - use Tomcate installtion
+	https://stackoverflow.com/questions/8520267/http-status-404-the-requested-resource-is-not-available 
+3.not git bush
