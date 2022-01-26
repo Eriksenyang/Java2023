@@ -1,8 +1,8 @@
 public int[] selectionSort(int[] nums){
   if(nums == null || nums.length <= 0) return nums; //边际
-  for(int i = 0; i < nums.length - 1; ++i){ //loop arry, 找到 MIN 并把它放在 i，i++ 
+  for(int i = 0; i < nums.length - 1; ++i){ //loop arry, 每个位置
     int min = i;
-    for(int j = i + 1; j < nums.length; ++j){
+    for(int j = i + 1; j < nums.length; ++j){//loop把未排序的， 找到 MIN 并把它放在 i，i++
       if(nums[j] < nums[min]){
         min = j;
       }
