@@ -1,13 +1,16 @@
+/*
+*
+*/
 private void insertionSort(int[] nums){
   int len = nmus.length;
   for(int i = 0; i < len; ++i){ //loop 每个位置
-    int tmp = nums[i]; // 把 i 出列， 寻找到合适的位置 再插回去
-    int j = i; //j指针
-    while(j > 0 && nums[j - 1] > tmp){ //因为 i 并没有实际出列，
-      nums[j] = nums[j - 1]; //所以从 i之前一位开始找比 i大的数，然后右移到i位置
+    int tmp = nums[i]; //记录nums[i] (出列)， 寻找到合适的位置 再插回去
+    int j = i; //j指针 从i开始， 
+    while(j > 0 && nums[j - 1] > tmp){ //J 从i之前一位一直到头（向左移动）。 只有发现比nums[i]大的才进入
+      nums[j] = nums[j - 1]; //然后把这个值右移1位。
       --j; // j 继续左移， 看是否还有比 i 大的数
     }
-    nums[j] = tmp; //结束while循环(j之前都比i小)， 把i插入到 J位置， 就有序了
+    nums[j] = tmp; //结束while循环(j之前都比i小)， 把i插入到 J位置， 就有序了。 
+    //如果它之前都比它小， 就不会进入while loop, 直接到这里， 然后返回到for loop 去下一位
   }
-
 }
