@@ -1,8 +1,11 @@
+/*
+* 分成有序 和无序的， 把无序中最小的放到有序的最后
+*/
 public int[] selectionSort(int[] nums){
   if(nums == null || nums.length <= 0) return nums; //边际
   for(int i = 0; i < nums.length - 1; ++i){ //loop arry, 每个位置
-    int min = i;
-    for(int j = i + 1; j < nums.length; ++j){//loop把未排序的， 找到 MIN 并把它放在 i，i++
+    int min = i;  //记录 i: i之后都无序
+    for(int j = i + 1; j < nums.length; ++j){//从 i+1 开始loop把未排序的， 找到 MIN 并把它放在 i，i++
       if(nums[j] < nums[min]){
         min = j;
       }
