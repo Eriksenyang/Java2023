@@ -5,13 +5,13 @@ https://www.youtube.com/watch?v=ddt4Dzi2LqM&t=1582s
 */
  public void shellSort(int[] nums){
   int len = nums.length;
-  for(int gap = len/2; gap > 0; gap/2){
-    for(int i = 0; i < len; ++i){
-      int tmp = nums[i];
+  for(int gap = len/2; gap > 0; gap/2){//比如8个数，gap为4 比较以gap(4)为长度的窗口(0,3/1,4)，下一次loop： gap/2=2, 比较以gap(2)为长度的窗口,最后比较gap为1
+    for(int i = gap; i < len; ++i) {// 例如 8个数，gap为4：比较N[0], N[3].  下一个循环 ++i=5: 比较N[1], N[4], i[gap - len-1]
+      int tmp = nums[i];            
       int j = i;
-      while(j > 0 && nums[j - 1] > tmp){
-        nums[j] = nums[j - 1];
-        --j;
+      while(nums[j - gap] > tmp){//while: 比较以gap(4)为长度的窗口的2个数: (j-gap): 比较N[0], N[3]
+        nums[j] = nums[j - gap];
+        j -= gap;                //以gap为长度比较： 0 , 3
       }
     }
     nums[j] = tmp;
