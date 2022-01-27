@@ -1,1 +1,20 @@
-
+public int[] quckSor(int[] array){
+  helper(arry, 0, arry.length - 1);
+  return array;
+}
+private helper(int[] array, int left, int right){
+  if(left >= right) return;
+  int pivot = partition(array, left, right);
+  helper(array, left, pivot - 1);
+  helper(array, pivot + 1, right);
+}
+private int partition(int nums, int left, int right){
+  int pivot = nums[right];
+  for(int i = 0; i < right; ++i){ //从 0 到 right 
+    if(nums[i] < pivot){  // 遇到小于pivot的 往前放， 放到 left 的位置上
+      swap(nums, i, left);
+      ++left; //右移left
+    }    
+  }
+  swap(nums, left, right);//把pivot 放到left的位置上, <pivot<
+}
