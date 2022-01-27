@@ -1,1 +1,20 @@
 https://www.youtube.com/watch?v=ddt4Dzi2LqM&t=1582s
+/*
+* shelesort:一个for loop 以gap为区间滑动指针来处理这2个元素， 全部处理一次后 gap/2(gap减半) 再loop 一直到gap =1 
+* 这2个元素使用insertinonSort
+*/
+ public void shellSort(int[] nums){
+  int len = nums.length;
+  for(int gap = len/2; gap > 0; gap/2){
+    for(int i = 0; i < len; ++i){
+      int tmp = nums[i];
+      int j = i;
+      while(j > 0 && nums[j - 1] > tmp){
+        nums[j] = nums[j - 1];
+        --j;
+      }
+    }
+    nums[j] = tmp;
+ }
+}
+  
