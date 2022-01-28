@@ -3,13 +3,13 @@ public int[] quckSor(int[] array){
   return array;
 }
 private helper(int[] array, int left, int right){
-  if(left >= right) return;
-  int pivot = partition(array, left, right);
-  helper(array, left, pivot - 1);
+  if(left >= right) return;//边界条件
+  int pivot = partition(array, left, right); //找分界点
+  helper(array, left, pivot - 1); //二分法
   helper(array, pivot + 1, right);
 }
-private int partition(int nums, int left, int right){
-  int pivot = nums[right];
+private int partition(int[] nums, int left, int right){
+  int pivot = nums[right]; //初始化分界点
   for(int i = 0; i < right; ++i){ //从 0 到 right 
     if(nums[i] < pivot){  // 遇到小于pivot的 往前放， 放到 left 的位置上
       swap(nums, i, left);
@@ -17,4 +17,18 @@ private int partition(int nums, int left, int right){
     }    
   }
   swap(nums, left, right);//把pivot 放到left的位置上, <pivot<
+  return left;
 }
+
+//第2种 partition
+  private int partition2(int[] nmus, int l, int r){
+    int pivot = nums[r];
+    int end = r -1;
+    while( l <= end){
+      if(nums[l] <= pivot) ++l;
+      else if(nums[end] > pivot) --end;
+      else swap(nums, l++, end--);
+    }
+    swap(nums, l, r);
+    return l;
+  }
