@@ -22,6 +22,11 @@ private int[] merge(int[] left, int[] right){
       res[k] = right[j++];
     }
   }
-  i < left.length ? res[k++] = nums[i++] : res[k++] = nums[j++];  
-  
+  while(i < left.length){
+    res[k++] = nums[i++];
+  }
+  while(j < right.length){
+   res[k++] = nums[j++];  
+   }
+ return res;
 }
