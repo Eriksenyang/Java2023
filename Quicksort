@@ -9,8 +9,8 @@ private helper(int[] array, int left, int right){
   helper(array, pivot + 1, right);
 }
 private int partition(int[] nums, int left, int right){
-  int pivot = nums[right]; //初始化分界点
-  for(int i = 0; i < right; ++i){ //从 0 到 right 
+  int pivot = nums[right]; //初始化分界点为最右元素
+  for(int i = 0; i < right; ++i){ //从 0 到 right - 1 
     if(nums[i] < pivot){  // 遇到小于pivot的 往前放， 放到 left 的位置上
       swap(nums, i, left);
       ++left; //右移left
