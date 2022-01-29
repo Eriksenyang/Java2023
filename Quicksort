@@ -2,7 +2,7 @@ public int[] quckSor(int[] array){
   helper(arry, 0, arry.length - 1);
   return array;
 }
-private helper(int[] array, int left, int right){
+private void helper(int[] array, int left, int right){
   if(left >= right) return;//边界条件
   int pivot = partition(array, left, right); //找分界点
   helper(array, left, pivot - 1); //二分法
