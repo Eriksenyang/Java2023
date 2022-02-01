@@ -5,27 +5,27 @@ public int[] mergeSort(int[] nums){
 }
 
 private int[] divide(int[] nums, int l, int r){
-  if(l >= r) return new int[] {nums[l]}; //边界条件， 
-  int mid = l + (r - l)/2;
-  int[] leftR = divide(nums, l, mid);
-  int[] rightR = divide(nums, mid + 1, r);
-  retrun merge(leftR, rightR);
+  if(l >= r) return new int[] {nums[l]}; //边界条件， l >= r
+  int mid = l + (r - l)/2;  //找到mid
+  int[] leftR = divide(nums, l, mid); //重复divide(l -> mid)
+  int[] rightR = divide(nums, mid + 1, r);//重复divide(mid+1 -> r)
+  retrun merge(leftR, rightR); //merge
 }
 
 private int[] merge(int[] left, int[] right){
-  int[] res = new int[left.length + right.length]; //答案 array
+  int[] res = new int[left.length + right.length]; //新 array
   int i = 0, j = 0, k = 0;
-  while(i < left.length && j < right.length){ //取left, right中小的 进入 res
+  while(i < left.length && j < right.length){ //取left & right中小的 进入 res
     if(left[i] <= right[j]){
       res[k] = left[i++];
     }else{
       res[k] = right[j++];
     }
   }
-  while(i < left.length){
+  while(i < left.length){ //left 还有剩余， 全部加入res
     res[k++] = nums[i++];
   }
-  while(j < right.length){
+  while(j < right.length){//right 还有剩余， 全部加入res
    res[k++] = nums[j++];  
    }
  return res;
