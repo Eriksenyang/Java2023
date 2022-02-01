@@ -17,9 +17,9 @@ private int[] merge(int[] left, int[] right){
   int i = 0, j = 0, k = 0;
   while(i < left.length && j < right.length){ //取left & right中小的 进入 res
     if(left[i] <= right[j]){
-      res[k] = left[i++];
+      res[k++] = left[i++];
     }else{
-      res[k] = right[j++];
+      res[k++] = right[j++];
     }
   }
   while(i < left.length){ //left 还有剩余， 全部加入res
