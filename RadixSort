@@ -1,0 +1,28 @@
+//基数排序:对个位sort, 对十位sort, 对百位sort
+
+static void radixSort(int[] arr){
+  int n = Arrays.stream(arr).max().getAsInt();
+  for(int exp = 1; n / exp > 0; exp +=10){
+    countSort(arr, arr.length, exp);
+  }
+}
+
+static void countSort(int[] arr, int n, int exp){
+  int[] output = new int[n];
+  int i;
+  int[] count = new int[10];
+  Arrays.fill(count, 0);
+  for(int i = 0; i < n; i++){
+    count[(arr[i] / exp) % 10]++;
+  }
+  for(int i = 1; i < 10; i++){
+    count[i] += count[i - 1];
+  }
+   for(int i = n - 1; i >= 0; i--){
+    output[count[(arr[i] / exp) % 10] - 1] = arr[i];
+    count[(arr[i] / exp) % 10]--;
+  }
+    for(int i = 0; i < n; i++){
+    arr[i] = output[i];
+  }
+}
