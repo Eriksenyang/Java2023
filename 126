@@ -1,62 +1,72 @@
-//此外，BFS 的过程中，把最短路径的高度用 min 也记录下来，在 DFS 的时候到达高度后就可以提前结束。
-int min = 0;
+//此外我们要判断的是当前节点在之前层有没有出现过，当前层正在遍历的节点先加到 subVisited 中。
+
 public List<List<String>> findLadders(String beginWord, String endWord, List<String> wordList) {
   List<List<String>> ans = new ArrayList<>();
   if(!WordList.contains(endWord)){
     return ans;
   }
-  HashMap<String, ArrayList<String>> map = bfs(beginWord, endWord, wordList);
+  //HashMap<String, Integer> distance = new HashMap<>();
+  HashMap<String, ArrayList<String>> map = new HashMap<>();
+  bfs(beginWord, endWord, wordList, map);
   ArrayList<String> temp = new ArrayList<String>();
   temp.add(beginWord);
   findLadderHelper(beginWord, endWord, map, tmp, ans);
   return ans;
 }
+
 private void findLaddersHelper(String beginWord, String endWord, HashMap<String, ArrayList<String>> map,
                                ArrayList<String> temp, List<List<String>> ans) {
   if(beginWord.equals(endWord)){
     ans.add(new ArrayList<String>(temp));
     return;
   }                             
-  if(temp.size() -1 == min){
-    return;
-  }
   ArrayList<String> neighbors = map.getOrDefault(beginWord, new ArrayList<String>());
   for(String beighbor : neighbors){
-    if(tmp.contains(beighbor)){
-      continue;
-    }
-    tmp.add(neighbor);
-    findLaddersHelper(neighbor, endWord, map, temp, ans);
-    temp.remove(temp.size() - 1);
+      tmp.add(neighbor);
+      findLaddersHelper(neighbor, endWord, map,temp, ans);
+      temp.remove(temp.size() - 1);
   }
 
-public HashMap<String, ArrayList<String>> bfs(String beginWord, String endWord, List<String> wordList) {  
+public void bfs(String beginWord, String endWord, List<String> wordList, HashMap<String, ArrayList<String>> map) {
+
  Queue<String> queue = new LinkedList<>();
  queue.offer(beginWord);
- HashMap<String, ArrayList<String>> map = new HashMap<>();
+ //distance.put(beginWord, 0);
  boolean isFound = false;
+ int depth = 0;
  
- Set<String> dict = new  HashSet<>();
+ Set<String> dict = new  HashSet<>(wordList);
+ Set<String> visited = new HashSet<>();
+ visited.add(beginWord);
  while(!queue.isEmpty()){
   int size = queue.size();
-  min++;
+  depth++;
   for(int j = 0; j < size; ++j){
     String tmp = queue.poll();
     ArrayList<String> neighbors = getNeighbors(tmp, dict);
-    map.put(tmp, neighbors);
-    for(String neighbor : neighbors){
-      if(neighbor.equls(endWord)){
-        isFound = true;
-      }
-      queue.offer(neighbor);
+    Iterator<String> it = neighbors.iterator();
+    while(it.hasNext()){
+      String neighbor = it.next();
+      if(!visited.contains(neighbor)){
+        if(!distance.containsKey(neighbor)){
+          distance.put(neighbor, depth);
+          if(neighbor.equals(endWord)){
+            isFound = true;
+          }
+           queue.offer(neighbor);
+           subVisited.add(neighbor);
+        }else{
+          it.remove();
+        }     
     }
+    map.put(tmp, neighbors);
   }
+  visited.addAll(subVisited);
   if(isFound){
     break;
   }
  }
- return map;
- }
+
  private ArrayList<String> getNeighbors(String node, Set<String> dict) {
   ArrayList<String> res = new ArrayList<String>();
   char[] chs = node.toCharArray();
