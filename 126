@@ -1,3 +1,4 @@
+//此外，BFS 的过程中，把最短路径的高度用 min 也记录下来，在 DFS 的时候到达高度后就可以提前结束。
 int min = 0;
 public List<List<String>> findLadders(String beginWord, String endWord, List<String> wordList) {
   List<List<String>> ans = new ArrayList<>();
