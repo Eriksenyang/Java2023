@@ -1,0 +1,18 @@
+1. int initCapacity = 10; https://stackoverflow.com/questions/2555284/java-priority-queue-with-a-custom-anonymous-comparator
+
+int initCapacity = 10;
+PriorityQueue<Node> pq = new PriorityQueue<Node>(initCapacity, new Comparator<Node>() {
+    public int compare(Node n1, Node n2) {
+        // compare n1 and n2
+    }
+});
+
+
+2.leetcode 23: https://leetcode-cn.com/problems/merge-k-sorted-lists/solution/leetcode-23-he-bing-kge-pai-xu-lian-biao-by-powcai/
+
+    PriorityQueue<ListNode> queue = new PriorityQueue<ListNode>(lists.length, new Comparator<ListNode>(){
+        @Override
+        public int compare(ListNode n1, ListNode n2){
+            return n1.val - n2.val;
+        }   
+    });
