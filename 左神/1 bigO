@@ -30,4 +30,28 @@
  
 3 ^无进位相加 30:00 
   1：07 最右的1 : a &(~a + 1) 
-1:14
+ 
+4. Insert Sort 1:15 : 0~0有序, 0~1有序,
+  public static void insertionSort(int[] arr){
+    if(arr == null || arr.length < 2) return;
+    
+    for(int i = 1; i < arr.length; i++){ // 1~i有序
+      for(int j = i -1; j >= 0 && arr[j] > arr[j+1}; j-- ){ // 若j>j+1,交换. j左移
+        swap(arr, j, j+1);
+      }
+    }
+  }
+ 
+ 5.二分
+
+
+
+
+
+
+
+
+
+
+
+
