@@ -22,10 +22,10 @@
       }
     }
   }
-  public static void swap(int[] arr, int i, int j){
-    arr[i] = arr[i] ^ arr[j];  a = 甲 ^ 乙
-    arr[j] = arr[i] ^ arr[j];              b =
-    arr[i] = arr[i] ^ arr[j];
+  public static void swap(int[] arr, int i, int j){ // a=a b=b
+    arr[i] = arr[i] ^ arr[j]; // 这行 a = a^b, b不变 b= b
+    arr[j] = arr[i] ^ arr[j]; // a不变a = a^b,  这行 b= a^b => a^b^b(带入L26) => a 
+    arr[i] = arr[i] ^ arr[j]; // 这行 a = a^b(带入L27)=>a^b^a =>b   , b不变 b=a 
   }
  
 3 ^无进位相加 30:00 
