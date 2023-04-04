@@ -84,9 +84,9 @@ public static int[] partition(int[] arr, int l, int r){
   int lBound = l - 1;
   int rBound = r;
   while(l < rBound){
-    if(arr[l] < arr[r]){
+    if(arr[l] < arr[r]){  //i]和 小于区域下一个数交换, 小于等区域右阔, i++
       swap(arr, l++, ++lBound);
-    }else if(arr[l] > arr[r]){
+    }else if(arr[l] > arr[r]){ // [i]和 大于区域前一个数交换, 大于等区域左阔. i不动 
       swap(arr, l, --rBound);
     }else{ //arr[l] == arr[r]
       l++;
