@@ -1,4 +1,4 @@
-1. merge sort(35:00) : 左半sort, 右半sort, merge 
+1. merge sort(35:00) nlogn : 左半sort, 右半sort, merge 
 public static void mergeSort(int[] arr){
   if(arr == null || arr.length < 2) return;
   provcess(arr, 0, arr.length - 1);
@@ -15,16 +15,54 @@ public static void merge(int[] arr, int l, int mid, int r ){
   int i = 0;
   int p1 = l;
   int p2 = m + 1;
-  while(p1 < m && p2 < r){ //左右都有
+  while(p1 <= m && p2 <= r){ //左右都有
     tmp[i++] = arr[p1] <= arr[p2] ? arr[p1++] : arr[p2++];
   }
-  while(p1 < m ){ //只有左
+  while(p1 <= m ){ //只有左
     tmp[i++] = arr[p1++]
   }
-  while(p2 < r){ //只有右
+  while(p2 <= r){ //只有右
     tmp[i++] = arr[p2++];
   }
   for(i = 0; i < arr.length; i++){
     arr[l + 1] = tmp[i];
   }
 }
+
+2.小和问题 (1:00) 右边有几个数比i大 
+  public static int process(int[] arr, int l, int r){
+    if(l == r) return 0;
+    int mid = l + (r - l)/2;
+    return process(arr, l, mid); //左
+            + process(arr, mid + 1, r); //右
+            + merge(arr, l, mid, r);
+   }
+  public static void merge(int[] arr, int l, int mid, int r ){
+    int[] tmp = new int[r - l + 1];
+    int i = 0;
+    int p1 = l;
+    int p2 = m + 1;
+    int res = 0;
+    while(p1 <= m && p2 <= r){ //左右都有,相等时 先用右
+      res += arr[p1] < arr[p2] ? arr[p1] * (r - p2 + 1) : 0;
+      tmp[i++] = arr[p1] < arr[p2] ? arr[p1++] : arr[p2++];
+    }
+    while(p1 <= m ){ //只有左
+      tmp[i++] = arr[p1++]
+    }
+    while(p2 <= r){ //只有右
+      tmp[i++] = arr[p2++];
+    }
+    for(i = 0; i < arr.length; i++){
+      arr[l + 1] = tmp[i];
+    }
+    return res;
+  }
+
+
+
+
+
+
+
+
