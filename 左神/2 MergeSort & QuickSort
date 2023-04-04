@@ -44,7 +44,7 @@ public static void merge(int[] arr, int l, int mid, int r ){
     int p2 = m + 1;
     int res = 0;
     while(p1 <= m && p2 <= r){ //左右都有,相等时 先用右
-      res += arr[p1] < arr[p2] ? arr[p1] * (r - p2 + 1) : 0;
+      res += arr[p1] < arr[p2] ? arr[p1] * (r - p2 + 1) : 0; // ？ p1 * 个数 ： 0
       tmp[i++] = arr[p1] < arr[p2] ? arr[p1++] : arr[p2++];
     }
     while(p1 <= m ){ //只有左
@@ -58,6 +58,55 @@ public static void merge(int[] arr, int l, int mid, int r ){
     }
     return res;
   }
+
+3.Quick Sort(1:45)
+3.1 1)[i]<= Target: [i]和 小于等区域下一个数交换, 小于等区域右阔, i++
+    2)[i]> Target: i++
+3.2 1)[i]< Target: [i]和 小于区域下一个数交换, 小于等区域右阔, i++
+    2)[i]= Target: i++
+    3)[i]> Target: [i]和 大于区域前一个数交换, 大于等区域左阔. i不动 
+QuickSort 1 O(n2)： 最后一个为T partition
+QuickSort 2 O(n2)： 用荷兰国旗 3.2 [ <] =  [>]
+QuickSort 3 O(nlogn):  随机 T 2:21:00
+public static void quickSort(int[] arr){
+  if(arr == null || arr.length < 2) return;
+  quickSort(arr, 0, arr.length - 1);
+}
+public static void quickSort(int[] arr, int l, int r){
+  if(l < r){
+    swap(arr, l + (int)(Math.random() * (r- l + 1)), r); //random ,放到 R
+    int[] p = partition(arr, l, r); // < [左边界 = 右边界] <
+    quickSort(arr, l, p[0] - 1); // <区域
+    quickSort(arr, p[1] + 1, r); // >区域
+  }
+}
+public static int[] partition(int[] arr, int l, int r){
+  int lBound = l - 1;
+  int rBound = r;
+  while(l < rBound){
+    if(arr[l] < arr[r]){
+      swap(arr, l++, ++lBound);
+    }else if(arr[l] > arr[r]){
+      swap(arr, l, --rBound);
+    }else{ //arr[l] == arr[r]
+      l++;
+    }
+  }
+  swap(arr, rBound, r);
+  return new int[]{lBound + 1, rBound};
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
