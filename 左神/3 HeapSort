@@ -13,7 +13,7 @@
       if(larger == index){ //合适的位置break
         break;
       }
-      swap(arr, larger, index); //交换
+      swap(arr, larger, index); //还可以下走 交换
       index = larger;
       left = index * 2 + 1;
     }
