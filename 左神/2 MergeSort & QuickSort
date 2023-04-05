@@ -92,10 +92,27 @@ public static int[] partition(int[] arr, int l, int r){
       l++;
     }
   }
-  swap(arr, rBound, r);
-  return new int[]{lBound + 1, rBound};
-}
-
+  swap(arr, rBound, r);// r放到大于的位置
+  return new int[]{lBound + 1, rBound};//[小于界， 大于界]
+} 
+3. 双指针分区算法  https://leetcode.cn/leetbook/read/sort-algorithms/eul7hm/
+  public static int partition(int[] arr, int start, int end){
+    int pivot = arr[end];
+    int l = start;
+    int r = end - 1;
+    while(l < r){
+      while(l < r && arr[l] <= pivot) l++;
+      while(l < r && arr[r] >= pivot) r--;
+      if(l < r){
+        swop(arr, l, r);
+        l++;
+        r--;
+      }
+    }
+    if(l == r && arr[r] > pivot) r--;//当l等于r, 最后一次check 
+    swap(arr, r, end);
+    return r;
+  }
 
 
 
