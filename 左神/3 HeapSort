@@ -1,11 +1,11 @@
 1. HeapSort 20:00
-  public static void heapinsert(int[] arr, int index){ //插入index, 放到合适的位置
+ 向上 public static void heapinsert(int[] arr, int index){ // 向上插入index, 放到合适的位置
     while(arr[index] > arr[(index - 1) / 2]){
       swap(arr, arr[index], arr[(index - 1) / 2]);
       index = (index - 1)/2;
     }
   }
-  public static void heapify(int[]arr, int index, int heapSize){ //37:00 从index向下heapfy
+向下  public static void heapify(int[]arr, int index, int heapSize){ //37:00 从index向下heapfy
     int left = index * 2 + 1;
     while(index < heapSize){ //界内
       int larger = left + 1 < heapSize && arr[left + 1] > arr[left] ? left + 1 : left; //比左右
@@ -16,5 +16,18 @@
       swap(arr, larger, index); //还可以下走 交换
       index = larger;
       left = index * 2 + 1;
+    }
+  }
+HeapSort 50:00
+  public static void heapSort(int[] arr){
+    heapSize = arr.length;
+    if(arr == null ||  heapSize< 2) return;            
+    for(int i = 0; i < heapSize; i++){               for(int i = heapSize - 1; i >= 0; i--){  //1:18
+      heapInsert(arr, i); //建大根堆 O(NlongN)            heapify(arr, i, heapSize);
+    }                                                 }
+    swap(arr, 0, --heapSize); //大根堆，max出堆
+    while(heapSize > 0){ //O(N)
+      heapify(arr, 0, heapSize);
+      swap(arr, 0, --heapSize);
     }
   }
