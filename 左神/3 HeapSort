@@ -5,15 +5,15 @@
       index = (index - 1)/2;
     }
   }
-  public static void heapify(int[]arr, int index, int heapSize){ //37:00 从index向下
+  public static void heapify(int[]arr, int index, int heapSize){ //37:00 从index向下heapfy
     int left = index * 2 + 1;
-    while(index < heapSize){
-      int larger = left + 1 < heapSize && arr[left + 1] > arr[left] ? left + 1 : left;
-      larger = arr[larger] > arr[index] ? larger : index;
-      if(larger == index){
+    while(index < heapSize){ //界内
+      int larger = left + 1 < heapSize && arr[left + 1] > arr[left] ? left + 1 : left; //比左右
+      larger = arr[larger] > arr[index] ? larger : index; // 比父
+      if(larger == index){ //合适的位置break
         break;
       }
-      swap(arr, larger, index);
+      swap(arr, larger, index); //交换
       index = larger;
       left = index * 2 + 1;
     }
