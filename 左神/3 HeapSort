@@ -31,3 +31,79 @@ HeapSort 50:00
       swap(arr, 0, --heapSize);
     }
   }
+2. 小根堆： 1:25  基本有序的数组,离合适位置不超过k步 
+  PriorityQueue<Integer> heap = new PriorityQueue<>();
+  int index = 0;
+  for(; index <= Math.min(k, arr.length); index++){
+   heap.add(arr[index]); 
+  }
+  int i = 0;
+  for(; index < arr.length; i++, index++){
+   heap.add(arr[index]);
+   arr[i] = heap.poll();
+  }
+  while(!arr.isEmpty()){
+   arr[i++] = heap.poll();
+  }
+  
+ 3.比较器 1:37
+  Arrays.sort(arr);
+  Arrays.sort(Students, new Comparator<Student>(){
+   @Override
+   public int compare(Student s1, Student s2){
+    return s1.id - s2.id;
+   }
+  });
+  
+  4.bucket sort 1:50 基数排序 从个位开始, 入桶, 出桶 
+   public static void radixSort(int[] arr){
+    if(arr == null || arr.length < 2) return;
+    radixSort(arr, 0, arr.length - 1, maxbits(arr));
+   }
+   private static int maxbits(int[] arr){
+    int max = Integer.MIN_VALUE;
+    int res = 0;
+    for(int i = 0; i < arr.length; i++){
+     max = Math.max(max, arr[i]);
+    }
+    while(max != 0){
+     res++;
+     max /= 10;
+    }
+    return res;
+   }
+   private static void radixSort(int[] arr, int left, int right, int digit){ //2:10:00
+    final int radix = 10; // 10进制
+    int i = 0, j = 0;
+    int[] bucket = new int[right - left + 1];
+    for(int d = 1; d <= digit; d++){ //位数 等于 出入桶多少次(100) 3次
+     int[] count = new int[radix]; // 10个桶
+     for(i = lfet; i <= right; i++){
+      j = getDigit(arr[i], d); //取那个位数的数 ： 比如210：十位上 是 1. 当取十位 j=1
+      count[j]++;
+     }
+     for(i = 1; i < radix; i++){ //前缀和
+      count[i] = count[i] + count[i - 1];
+     }
+     for(i = right; i >= left; i--){ //出桶： 右->左遍历
+      j = getDigit(arr[i], d);
+      bucket[count[j] - 1] = arr[i];
+      count[j]--;
+     }
+     for(i = left, j = 0; i <= right; i++, j++){
+      arr[i] = bucket[j];
+     }
+    }
+   }
+  
+  
+
+
+
+
+
+
+
+
+
+
