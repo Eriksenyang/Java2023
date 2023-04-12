@@ -1,0 +1,12 @@
+1. ArrayList
+  扩容：add init 0, -> 10 -> x1.5 
+       addALl(max(10, 加入长度))
+2. Iterator
+   failFast: 遍历时有人修改就报错
+3.LL vs ArrayList
+  Arraylist : array连续, 可根据下标, 尾部增删快， 不占内存
+  LinkedList : Link不连续, 不可根据下标, 头尾增删快， 占内存
+4.HashMap
+  1.7 array + LL
+  1.8 array + LL(8)| red-black Tree  : 1.扩容可以减少HashMap 的LL长度 2.树化(Array size大于64，LL上个数超过8),
+  Index: hashcode() -> hash()
