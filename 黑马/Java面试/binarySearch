@@ -43,8 +43,8 @@ for(int j = nums.length - 1; j > 0; j--){//数组一直减小
   }
 4. InsertSort :  0~0有序, 0~1有序,
   public static void InsertionSort(int[] nums){
-    for(int i = 1; i < nums.length; i++ ){
-      for(int j = i - 1; j >= 0; j--){
+    for(int i = 1; i < nums.length; i++ ){ //无序的
+      for(int j = i - 1; j >= 0; j--){ //有序的
         if(nums[i] < nums[j]){
           swap(nums, i, j);
         }
