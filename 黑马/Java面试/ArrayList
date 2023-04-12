@@ -10,3 +10,5 @@
   1.7 array + LL
   1.8 array + LL(8)| red-black Tree  : 1.扩容可以减少HashMap 的LL长度 2.树化(Array size大于64，LL上个数超过8),
   Index: hashcode() -> hash()
+5.HashMap : multi thread unsafe
+6.HashMap: null 可以为key. 要重写hashcode & equals 
