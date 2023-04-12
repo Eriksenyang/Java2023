@@ -51,7 +51,26 @@ for(int j = nums.length - 1; j > 0; j--){//数组一直减小
       }
     }
   }
-
+5.QuickSort
+  private static void quick(int[] nums, int l, int r){
+    int mid = partition(nums, l, r);
+    partition(nums, l, mid - 1);
+    partition(nums, mid + 1, r);
+  }
+  private static int partition(int[] nums, int l, int r){
+    int pivot = nums[l];
+    int i = l;
+    int j = r;
+     while(i < j){
+      while(i < j && nums[j] > pivat) j--; //i< j 防止i, j交叉
+      while(i < j && nums[i] <= pivot) i++; //i< j 防止i, j交叉.  l为pivot,所以当 nums[l] = pivot时, i要移动.
+      swap(nums, i, j);     
+      }
+      if(i == j && nums[i] < pivot)
+      swap(nums, l, j);
+      return j;
+    }
+  }
 
 
 
