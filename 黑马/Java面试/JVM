@@ -16,3 +16,12 @@ ConcurrentMaskSweep GC  标记清除
 G1 GC
 
 outOfMemory: 
+
+
+引用类型
+1.强引用 A a = new A();
+2.软引用 Soft s = new Soft(new A());
+3.弱引用 
+4.虚引用
+
+finalize
