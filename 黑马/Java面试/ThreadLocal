@@ -1,0 +1,4 @@
+ThreadLocal: 线程内的资源共享, 线程间资源隔离
+      threadLocalMap: key;thread 
+                      value: resource
+ 
