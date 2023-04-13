@@ -8,3 +8,52 @@
  * 提供get实例方法
   public static Singleton1 getInstance(){ return  INSTANCE; }
  
+ 2.枚举
+  INSTANCE
+ 
+ 
+ 3.
+  public static synchronized Singleton1 getInstance(){ 
+     if(INSTANCE == null){ 
+      INSTANCE = new Singleton4();
+    }
+    return  INSTANCE; 
+  }
+ 
+ 4. P59
+ private static volatile Singleton1 INSTANCE = null; //volatile 保证多线程时构造 可见性 有序性
+
+ public static Singleton1 getInstance(){ 
+  if(INSTANCE == null){ //外层check
+   synchronized(Singleton4.class){ //lock
+    if(INSTANCE == null){ // 内层多线程check
+     INSTANCE = new Singleton4();
+    }
+   }
+  }  
+ return  INSTANCE; 
+ }
+ 
+ 5.P61 内部类laze singleton
+ public class Sinleton5 implements Serializable{
+  private Sinleton5(){SOP }//构造方法
+
+  private static class Holder{//内部类
+   static Sinleton5 INSTANCE = new Sinleton5();
+  }
+  public static Sinleton5 getInstance(){ //提供 get方法
+   return Holder.INSTANCE;
+  }
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
