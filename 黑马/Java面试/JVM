@@ -1,0 +1,18 @@
+GC : heap 
+1. 标记 ： GC root
+   清除 : (有碎片)
+
+2. 标记 ： GC root
+   整理 : (无碎片)
+
+3. 标记 ： GC root
+   复制 : (copy to )
+
+Parallel GC eden: minor 标记复制
+            old   full  标记整理
+
+ConcurrentMaskSweep GC  标记清除
+
+G1 GC
+
+outOfMemory: 
