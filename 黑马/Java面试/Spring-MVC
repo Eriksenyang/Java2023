@@ -46,8 +46,45 @@ Anotation
   @Value() 根据 @PropertySource()读到 value  
   
 2.web
+  Mapping
   @RequestMapping
+  
+  rest
+  @RequestBody() json -> obj
+  @ResponseBody() obj -> json
+  @ResponseStatus() 
+  @RestController() = @Controller +  @ResponseBody(
 
+  统一处理
+  @ControllerAdvice
+  @ExceptionHandler
+  
+  参数
+  @PathVariable()
+  
+  ajax
+  @CrossOrigin
+  
 
 3.boot
+  properties
+  @ConfiguratjionProperties() 简化@Value操作 
+  @EnableConfiguratjionProperties
+  
+  Condition
+  @ConditionOnClass() 包含这个class 才启用
+  @ConditionOnMissiingBean() 缺少时启用, eg 设定default value 
+  @ConditionOnProperty() key-value 配置了才启用
+  
+  auto
+  @SpringBootApplication =  @SpringBootConfiguration + @EnableAutoConfiguration + @ConponentScan()
+  
+  @EnableAutoConfiguration
+  
+   
+     
+              
+              
+              
+              
               
