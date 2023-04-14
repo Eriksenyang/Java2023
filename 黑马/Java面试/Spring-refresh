@@ -36,7 +36,8 @@ bean lifeCycle
           request : 生命周期结束时
           
           
-异常处理
+spring-tx事物失效 异常处理
+  
   @Configuratjion
   @PropertySource("classpath:jdbc.properties")
   @EnableTransactionManagerment
@@ -59,6 +60,48 @@ bean lifeCycle
     }
   }
 
+2. try-catch 错误 : throw | setRollbackOnly()
+    try{
+    }catch(FileNotFoundException e){
+        e.printStackTrace();
+        throw new RuntimeException(e);
+        / TransactionInterceptor.currentTransactionStatus().setRollbackOnly();
+    }
+    
+ 3.@Aspect 异常 ：throw | setRollbackOnly()　｜　
+ 
+ 4.非public 
+    @Transaction
+    public XXX
+  5.父子容器 : 父只scan父的
+  6.本类方法调用 :                                   @
+    @Autowired                                     ((Services)AopContext.currentProxy()).bar()
+    private Service poxy;
+    
+    poxy.bar();
+7. 原子性 :
+    @Transactional(rollBackFor = exception.class) // 用 rollBackFor 保证回滚
+        public void transfer(int from, int to, int amount){
+            int fromeBalance = accountMapper.findBalanceBy(from);
+            if(fromeBalance - amount >= 0){
+                accountMapper.update(from, -1 * amount);
+                accountMapper.update(to, amount);
+            }
+    }
+    7.1 在调用方法上 lock 
+    Object lock = new Object
+    new myThread(()->{
+            synchronized(lock){
+            bean.transfer(1, 2, 100);
+        }
+        latch.countDown();
+    }, t1).start();
+    7.2 在DB 用 select... from update 保证原子性
+    public interface AccountMapper{
+        @Select("select balance from account where accountNo=#{accountNo} from update")
+        int findBalanceBy(int accountNo);
+    }
+    
 
 
 
