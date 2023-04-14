@@ -1,0 +1,75 @@
+Application context
+1.  prepareRefresh : environment 
+    @Value("${aaa}") 从properties中读值
+
+2. obtainFreshBeanFactory: beanFactory : bean definition(xml, @Bean ,scan)
+
+3. prepareBeanFactory
+
+4. postProcessBeanFactory
+
+5. invokeBeanFactoryPostProcessores
+
+6.  registerBeanPostProcessors
+
+7.  initMessageSource : applicationContext
+8.  initApplicationEventMulticaster : 发布事件
+9.  onRefresh
+10. registerLiseners : 监听器
+11. finishBeanFactoryInialization
+12. finishRefresh
+
+bean lifeCycle
+1.处理别名, 检查缓存：三级缓存 1.singletonObject  2.earlySingletonObject 3. singletonFactories 
+2.处理父子容器 :
+3.deponsOn
+4.scope : singleton : check singleton pool, 没有就创建然后放入单例池
+          prototype : 每次都 建新的
+          request : 从request范围内找, 没有就新建放入request
+5.create 1.创建 autowiredAnnotationBeanPostProcessor / defaut
+         2. DI ： 1.Autowired/Common AnnotationBeanPostProcess 2.AUTOWIRED_By_NAME/TYPE 3.applyPropertyValues   
+         3. init: @PostConstruct/ initializaingBean / initMethod
+         4.注册可销毁bean: DisposableBean / Autocloseable, destroyMethod, close/shutdown, @PreDestroy 
+6.类型转换
+7.销毁 ： singleton : ApplicationContext.close 
+          prototype : 可手动销毁 AutowireCapableBeanFactory.destroyBean
+          request : 生命周期结束时
+          
+          
+异常处理
+  @Configuratjion
+  @PropertySource("classpath:jdbc.properties")
+  @EnableTransactionManagerment
+  @ComponentScan("xxx.service") //scan 包
+  @MapperScan()
+  public class AppConfig{
+    @ConfigurationProperties("jdbc")
+    @Bean
+    public DataSource dataSource(){ return new HikariDataSource(); }
+  }
+
+  @Service  
+  public class Services1{
+    @Autowird
+    private AccountMapper accountMapper;
+    
+    @Transactional(rollBackFor = exception.class) // 用 rollBackFor 保证回滚
+    public void transfer(){
+      
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+          
+          
