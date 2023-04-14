@@ -1,1 +1,53 @@
+1.init
+  web call-> DispatchServlet -> init -> spring web (HandlerMapping, HandlerAdapter, HandlerExceptionResolver, ViewResovler)
 
+2. request -> DispatchServlet 遍历 HandlerMapping 找 @RequestMapping(HandlerMethod) 生成 HandlerExecutionChain -> HandlerAdapter 找对象处理 HandlerMethod
+
+3.执行: 
+  1. preHandle
+  2. HandlerAdapter call HandlerMethod
+  3. normal : modleAndView / @ResponseBoday, postHandle
+     exception: HandlerExceptionResolver
+  4.afterCompletion
+  
+Anotation
+
+1.Spring
+  1.事物 Transactional
+  @Transactional
+  
+  @EnableTransactionManagement: @Import(引入bean) : 
+    ProxyTransactionManagementConfiguration(BeanFactoryTransactionAttributeSourceAdvisor, TransactionAttributeSource(解析@Transactional), TransactionInterceptor(事物拦截器))
+  
+  2.核心
+  @Order 执行
+  
+  3.切面 
+  @EnableAspectAutoProxy
+  AspectAutoProxyRegistrar(AnotationAwareAspectAutoProxyCreator)
+  
+  4.Scan & set 
+  @Component
+  @Controller
+  @Service
+  @Repository
+  
+  @ComponentScan() 根据路径scan 
+  @Conditional() 根据条件加入容器
+  @Configuration（）配置类
+  @Bean
+  @Import
+  @Lazy () class上延迟创建。 成员变量上解决循环依赖
+  
+  @PropertySource() 读取properties.xml
+  
+  @Autowired
+  @Qualifier() 同一type多个 表示唯一
+  @Value() 根据 @PropertySource()读到 value  
+  
+2.web
+  @RequestMapping
+
+
+3.boot
+              
