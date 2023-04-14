@@ -82,6 +82,12 @@ Anotation
   @EnableAutoConfiguration
   
    
+SpringBoot 
+  @SpringBootApplication
+    @Configuration
+    @ComponentScan
+    @EnableAutoConfiguration
+  
      
               
               
