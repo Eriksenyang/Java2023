@@ -47,8 +47,15 @@ https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#be
   7.获取obj: getBean()
   8. destroy : 1.是否实现DispoableBean接口 2.调用destroyMethod()
  
- 
- 
+4.cycle dependcy
+  总： a->b b->a
+  1. 创建A，实例A， b==null, 填充b
+  2. search B, 找不到 
+  3. 创建B，实例B, a==null
+  4. search A, 找不到
+  A(实例化, 未初始化) 和 B(实例化, 未初始化) : 使用proxy分开实例化和初始化(赋值), 就可以解决
+  L1/L2 容器中对象有2种状态: 完整化(放L1), 非完整(实例化, 未初始化)放L2. 所以要用 L1/L2 map来存储
+  L3 ObjectFactory(lambda): 先实例 beanm , 才能生成代理 proxy. 实例和代理不能同时出现在容器中, 代理要覆盖实例. bean对象优先放L3,要proxy,返回proxy. 要实例,返回实例 
  
  
  
