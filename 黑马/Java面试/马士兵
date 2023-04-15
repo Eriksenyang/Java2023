@@ -62,11 +62,26 @@ https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#be
    L2 : from L3 sure is proxy后 放L2, del L3 : getSingleton 
    L1 : 实例化, 初始化后 发 L1， del L2 & L3 : addSingleton
  
-6.Bean Factory vs FactoryBean
-    Bean Factory
-    FactoryBean
+6.Bean Factory vs FactoryBean : 都是create bean
+    Bean Factory : 复杂 whole life cycle 
+    FactoryBean interface: 简便: isSingleton(单例),  getObjectType(), getObject(自定义创建过程)new, refelaction, proxy 
  
+7.Sping patten
+    singleton : bean
+    Factory : BeanFactory
+    tamplet:jdbcTemplate
+    Stratege: XmlBeanDefinition
+    Observation: Listener, multicasst, event
+    decrition: beanWrapper
  
+？？ 8.AOP : IOC 的扩展 ：BeanPostProcess
+   总： AOP， 应用 
+   分： bean的扩展, 在BeanPostProcess
+        1. 代理对象 proxy (advice, aspect, pointCut )
+        2. JDK & cglib(enhance, callback)
+        3. 调用字节码文件中 DynamicAdvisedInterceptor.intercept() 执行
+        4. 根据定义好的通知生成拦截器
+        5. 从拦截器的通知 1个个执行
  
  
  
