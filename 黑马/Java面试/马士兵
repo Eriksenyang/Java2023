@@ -1,7 +1,9 @@
 https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans
 
-总 ： 关键点
-分 : 技术名词
+总 : 关键点
+分 : 以1,2,3...细分关键点(技术名词:概念,接口,关键方法). 不会的直接忽略
+遇到熟悉问题一直说,拖时间.(面试官多题,自己多漏洞,尽量少题)
+
 
 1.SPring IOC : all obj let spring to handle 
     总
@@ -24,5 +26,37 @@ https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#be
     11. finishBeanFactoryInitialization: singletonObjects(单例池)
     12. finishRefresh生命周期管理器: lifecycleProcessor
 
-    
-    
+2.Spring IOC 底层实现
+    DI， factory
+    createBeanFactory, getBean(调doGetBean), createBean  , 
+                       doGetBean(实际get)  , doCreateBean
+    1. using createBeanFactory create bean factory (DefaultListableBeanFactory)
+    2. looping create bean: because bean is singleton, so use getBean/doGetBean to search
+    3. if no bean, then reflection to create bean: createBean/doCreateBean(无参构造 getDeclaredConstructor(), newinstance)
+    4. inject properties:  populateBean()
+    5. initializingBean
+
+
+3.Bean lifeCycle
+  1.实例化bean : 反射
+  2.填bean属性 : populateBean(), 循环依赖
+  3.aware interface : invokeAwareMethod: BeanaName, BeanFactory, BeanClassLoader 属性设置
+  4.beanPostProcessor: ApplicationContextPostProcessor(setup ApplicationContext, Enviroment)
+  5.调initmethod : InvoikeInitmethod()判断是否实现 initializingBean 接口: if yes call afterPropertiesSet()
+  6.调beanPostProcessor : spring aop在这里实现. 常用的AbstractAutoProxyCreator, 
+  7.获取obj: getBean()
+  8. destroy : 1.是否实现DispoableBean接口 2.调用destroyMethod()
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
