@@ -57,10 +57,14 @@ https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#be
   L1/L2 容器中对象有2种状态: 完整化(放L1), 非完整(实例化, 未初始化)放L2. 所以要用 L1/L2 map来存储
   L3 ObjectFactory(lambda): 先实例 beanm , 才能生成代理 proxy. 实例和代理不能同时出现在容器中, 代理要覆盖实例. bean对象优先放L3,要proxy,返回proxy. 要实例,返回实例 
  
+5. 缓存放置/删除
+   L3 : createBeanInstance后放 L3 : addSingletonFactory
+   L2 : from L3 sure is proxy后 放L2, del L3 : getSingleton 
+   L1 : 实例化, 初始化后 发 L1， del L2 & L3 : addSingleton
  
- 
- 
- 
+6.Bean Factory vs FactoryBean
+    Bean Factory
+    FactoryBean
  
  
  
