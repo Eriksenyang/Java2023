@@ -33,12 +33,13 @@ static class Aspect1
   
 
   
-set()循环依赖
-  L1 singletonObjects :  不解绝循环依赖
-  L2 singletonFactories : 解绝循环依赖， 不解绝proxy循环依赖
-  L3 earlySingletonObjects : 
+单例 set()循环依赖
+  L1 singletonObjects (obj):  不解绝循环依赖 
+  L2 earlySingletonObjects (obj or proxy): 
+  L3 singletonFactories (proxy): 解绝循环依赖， 不解绝proxy循环依赖
+ 
   
-构造函数循环依赖
+构造函数 | 多例 循环依赖
   1.ObjectFactory<B>
   2.@Lazy
   3.@Scope
