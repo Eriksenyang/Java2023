@@ -1,0 +1,18 @@
+总 ： key
+分 : 技术名词
+
+1.SPring IOC : all obj let spring to handle 
+    总
+    DI: Inject dependcy to obj
+    container: use map L3 memery: singletonObject, earlySingletonObject, singletonFactories
+    分
+    创建过程： 
+    1. 创建 beanFactory | DefaultListableBeanFactory
+    2 .xml or @ 
+    3. BeanPostProcessor (configurationClassPostProcessor)
+    4. BeanPostProcessor registration
+    5. reflaction create bean
+    6. init-method
+    7. getBean()
+    8. destroy
+    
