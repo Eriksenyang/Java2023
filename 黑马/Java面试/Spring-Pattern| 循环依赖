@@ -1,0 +1,45 @@
+1. singleton bean 是singleton pattern?  No! Spring 每个容器中相同id的 bean 只有一个
+
+2. builder: 1 灵活 2.执行build,才产生obj 3.链式构建 ： http.ResponseEntity.HeadersBuilder
+
+3. Factory Method ：  applicationContext & beanFacory : getBean
+
+4. Adapter : HandlerAdapter : @RequestMapping
+
+5. Composite : 统一分散的调用
+
+6. Decorator : 装饰 (功能增强)
+
+7. Proxy : (访问控制)
+
+
+
+循环依赖
+aspect = advice(1或多 通知) + pointcut(1或多 切点)
+advisor = advice(1 通知) + pointcut(1切点)
+ 
+ proxyFactory.addAdvice(MehodInterceptor) invocation ->{});
+ AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut("execution(* foo())");
+ 
+ proxyFactory.addAdvisor(pointcut,  invocation ->{});
+
+@Aspect //
+static class Aspect1
+  @Around("execution(* foo())") //切点
+  public Object aound() throws Throwable{
+    
+  }
+  
+  
+
+  
+set()循环依赖
+  L1 singletonObjects :  不解绝循环依赖
+  L2 singletonFactories : 解绝循环依赖， 不解绝proxy循环依赖
+  L3 earlySingletonObjects : 
+  
+构造函数循环依赖
+  1.ObjectFactory<B>
+  2.@Lazy
+  3.@Scope
+  4.Provier<>
