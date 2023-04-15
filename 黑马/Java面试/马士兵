@@ -1,21 +1,28 @@
 https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans
 
-总 ： key
+总 ： 关键点
 分 : 技术名词
 
 1.SPring IOC : all obj let spring to handle 
     总
-    DI: Inject dependcy to obj
-    container: use map L3 memery: singletonObject, earlySingletonObject, singletonFactories
-    分
-    创建过程： 
-    1. 创建 beanFactory | DefaultListableBeanFactory
-    2 .xml or @ 
-    3. BeanPostProcessor (configurationClassPostProcessor)
-    4. BeanPostProcessor registration
-    5. reflaction create bean
-    6. init-method
-    7. getBean()
-    8. destroy
+    DI:  dependcy Injection to obj @Autowired
+    ApplicationContext(管理bean生命周期) : use map,  L3 memery: singletonObject, earlySingletonObject, singletonFactories. 
+    分    
+    创建过程： ApplicationContext.refresh()
+    --beanFactory
+    1. prepareRefreshz准备: environment(obj):properties (QualifierAnnotationAutowireCandidateResolver.getSuggestedValue) 取@Value("hi")
+    2  obtainFreshBeanFactory获取|创建: beanDefinitionMap(蓝图), DefaultListableBeanFactory(), bean definition来源(xml, @Bean ,scan)
+    3. prepareBeanFactory准备 : ResouceEditorRegistrar (用1的environment 解析 ${})
+    4. PostProcessBeanFactory扩展 : 
+    5. invokeBeanFactoryPostProcessors :扩展 configurationClassPostProcessor解析 @Configuration @Bean, PlaceHolderConfigurSupport
+    6. registerBeanPostProcessors:AutowiredAnnotationBeanPostProcessor:处理@Autowired, AnnotationAwareAspectJAutoProxyCreator: proxy切面
+    --applicationContext
+    7. initMessageSource国际化: messageSource
+    8. InitApplicationEventMulticaster: 事件发布器
+    9. onRefresh:子类扩展
+    10. registerListeners: 监听器
+    11. finishBeanFactoryInitialization: singletonObjects(单例池)
+    12. finishRefresh生命周期管理器: lifecycleProcessor
+
     
     
