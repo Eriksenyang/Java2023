@@ -83,6 +83,34 @@ https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#be
         4. 根据定义好的通知生成拦截器
         5. 从拦截器的通知 1个个执行
  
+ 9. Transaction: rollback
+    总: AOP: 生成proxy,按照AOP流程实现. Transactioninterceptor call invoke
+    分: 1. pre 解析属性
+        2. connect DB, 关闭自动提交,开启 transaction
+        3. sql query
+        4.1 fail: call completeTransactionAfterThrowing. doRollBack() 先获取连接对象,通过对象rollback
+        4.2 pass: call commitTransactionAfterReturning. doCommit() 先获取连接对象,通过对象rollback
+        5. cleanupTransactionInfo: clean
+        
+ 10. Transaction broadcast
+       Required
+       Requires_new
+       Support
+       Not_support
+       Nested
+       Never
+       Mandatory
+      总 : 不同方法嵌套使用, 事务如何处理. 同一个事务还是不同事物. 异常时回滚还是提交. Required, Requires_new, nested 
+      分 : 1.分类: 
+            内外相同: 外处理
+            内外不同: 外不影响内, 内影响外(外调用内) 
+            外 Required     内 Required, Requires_new, nested
+            外 Requires_new 内 Required, Requires_new, nested
+            外 nested       内 Required, Requires_new, nested
+ 
+ 
+ 
+ 
  
  
  
