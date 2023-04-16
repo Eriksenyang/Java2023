@@ -82,7 +82,31 @@ https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#be
         3. 调用字节码文件中 DynamicAdvisedInterceptor.intercept() 执行
         4. 根据定义好的通知生成拦截器
         5. 从拦截器的通知 1个个执行
- 
+     黑马spring5 底层原理
+     JDK(只能对interface) proxy: import JDK代理类需要实现(implements)父接口. target和proxy 是兄弟关系
+        inferface Foo{
+            void foo();
+        }
+        
+        ClassLoader classLoader= new ClassLoader();
+        Target target = new Target();
+        Foo interfaceProxy = (Foo)Proxy.newProxyInstance(classLoader加载, interface(new Class[]{a.class}), new InvocationHandler(proxy, method, args){ 
+            Object res = method.invoke(target, ars);//反射
+            return res;
+         });
+         interfaceProxy.foo();
+         
+     cglib : target和proxy 是父子关系
+        Target target = new Target();
+        Target TargetProxy = Enhancer.create(target, (MethodInterceptor)(proxy, method, args, methodProxy(不需要用反射来代理))->{
+            Object res = method.invoke(target, ars);//反射
+            return res;
+        });
+        TargetProxy.foo();
+     
+     
+    
+    
  9. Transaction: rollback
     总: AOP: 生成proxy,按照AOP流程实现. Transactioninterceptor call invoke
     分: 1. pre 解析属性
