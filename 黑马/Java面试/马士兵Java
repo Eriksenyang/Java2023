@@ -5,3 +5,15 @@
   线程安全 :
   HashTable vs ConcurrentHashMap https://github.com/Eriksenyang/2020Self/edit/master/%E9%BB%91%E9%A9%AC/Java%E9%9D%A2%E8%AF%95/HashTable%20vs%20ConcurrentHashMap
    
+2.Exception : https://www.bilibili.com/video/BV1uJ411k7wy?p=300&spm_id_from=pageDriver
+  Throwable (void printStackTrace(), String getMessage(), String toString() )
+            : error
+            : exception : runtimeException  : jvm creat obj(内容，位置), if try{}carch, 给caller处理, 顶层jvm 打印异常, 中断程序
+                            eg NullPointerException, ArrayIndexOutOfBoundsException
+                        : compilertime Exception
+                            eg FileNotFoundException
+                            
+       finally{}                     
+                            
+                            
+                           
