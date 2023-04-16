@@ -1,1 +1,7 @@
-
+1. Collections : 常用接口, 实现
+  https://github.com/Eriksenyang/2020Self/blob/master/%E9%BB%91%E9%A9%AC/Java%E9%9D%A2%E8%AF%95/ArrayList
+  
+  非线程安全 : ArrayList, LL, HashSet, HashMap, TreeMap
+  线程安全 :
+  HashTable vs ConcurrentHashMap https://github.com/Eriksenyang/2020Self/edit/master/%E9%BB%91%E9%A9%AC/Java%E9%9D%A2%E8%AF%95/HashTable%20vs%20ConcurrentHashMap
+   
