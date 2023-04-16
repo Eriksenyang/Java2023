@@ -15,6 +15,23 @@
                             
        finally{}                     
   springBoot 统一处理 ： https://www.bilibili.com/video/BV1924y1o7Sm/?spm_id_from=333.337.search-card.all.click
+    
+    public enum AppExceptionCodeMsg{ //枚举
+      //统一 和业务相关
+      INVALI_ID_CODE(1000, "无效ID");
+    }
+    
+    public class AppException extends RuntimeException {//自定义的异常
+      private in code = "500";
+      private String msg = "service error";
+      public AppException(AppExceptionCodeMsg appExceptionCodeMsg){
+        supper();
+        this.code = appExceptionCodeMsg.getCode();
+        this.msg = appExceptionCodeMsg.getMsg();
+      }
+      get/set
+    }
+    
     public class Resp<T>{ //统一返回值的class
       private int code = "200";
       private String msg = "success";
@@ -40,9 +57,9 @@
        get/set
     }  
     
-    @ControllerAdvice
+    @ControllerAdvice  //
     public class GlobleExeHandler{ //统一拦截error的类
-      @ExceptionHandler(value = {Exception.class})
+      @ExceptionHandler(value = {Exception.class}) //
       @ResponseBody
       public <T> Resp<T> exceptionHandler(Exception e){
         if(e instanceof AppException){ // 是否是自定义的异常
@@ -53,20 +70,8 @@
       return Resp.error(500, "service error"); //不是自定义的异常
     }
     
-    public class AppException extends RuntimeException {//自定义的异常
-      private in code = "500";
-      private String msg = "service error";
-      public AppException(AppExceptionCodeMsg appExceptionCodeMsg){
-        supper();
-        this.code = appExceptionCodeMsg.getCode();
-        this.msg = appExceptionCodeMsg.getMsg();
-      }
-      get/set
-    }
-    public enum AppExceptionCodeMsg{
-      //统一 和业务相关
-      INVALI_ID_CODE(1000, "无效ID");
-    }
+
+
     
     
                            
