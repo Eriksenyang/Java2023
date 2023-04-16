@@ -82,7 +82,7 @@ https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#be
         3. 调用字节码文件中 DynamicAdvisedInterceptor.intercept() 执行
         4. 根据定义好的通知生成拦截器
         5. 从拦截器的通知 1个个执行
-     黑马spring5 底层原理
+     黑马spring5 底层原理 ：https://www.bilibili.com/video/BV1P44y1N7QG/?spm_id_from=333.337.search-card.all.click
      JDK(只能对interface) proxy: import JDK代理类需要实现(implements)父接口. target和proxy 是兄弟关系
         inferface Foo{
             void foo();
