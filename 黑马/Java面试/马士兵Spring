@@ -71,7 +71,7 @@ https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#be
     Factory : BeanFactory
     tamplet:jdbcTemplate
     Stratege: XmlBeanDefinition
-    Observation: Listener, multicasst, event
+    Observation: Listener, multicaster, event
     decrition: beanWrapper
  
 ？？ 8.AOP : IOC 的扩展 ：BeanPostProcess
@@ -108,8 +108,15 @@ https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#be
             外 Requires_new 内 Required, Requires_new, nested
             外 nested       内 Required, Requires_new, nested
  
- 
- 
+ 11. @bean vs @component  https://www.baeldung.com/spring-component-annotation
+        @Component is a class-level annotation, but @Bean is at the method level, so @Component is only an option when a class's source code is editable. 
+        @Bean can always be used, but it's more verbose.
+
+        @Component is compatible with Spring's auto-detection, but @Bean requires manual class instantiation.
+
+        Using @Bean, decouples the instantiation of the bean from its class definition. This is why we can use it to make third-party classes into Spring beans. 
+        It also means we can introduce logic to decide which of several possible instance options for a bean to use.
+
  
  
  
