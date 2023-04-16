@@ -70,7 +70,8 @@
       return Resp.error(500, "service error"); //不是自定义的异常
     }
     
-
+3. Object 常用方法
+   toString : obj string formate : path @ hashcode
 
     
     
