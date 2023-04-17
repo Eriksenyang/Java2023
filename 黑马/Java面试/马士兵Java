@@ -72,6 +72,11 @@
     
 3. Object 常用方法
    toString : obj string formate : path @ hashcode
+   clone: 重写 cloneable
+   finalized : GC 调用   JVM--------------
+
+4. java 1.8 
+   https://blog.csdn.net/ss810540895/article/details/123691862
 
     
     
