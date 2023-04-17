@@ -1,0 +1,57 @@
+SpringData common/ JPA : 黑马spring JPA https://www.bilibili.com/video/BV1RE41167Pk/?spm_id_from=333.337.search-card.all.click
+
+ ORM : Obj Relation Mapping 
+ JPA: Java Persistence API : JPA - Hibernate - JDBC - DB
+ 
+  实体类 
+   @Entity
+   @Table(name = "article")
+   public class Article{
+
+      @Column(name = "aid")
+      @GenerateValue(strategy = GenerationType.IDENTITY)
+      private Integer aid;
+
+   }
+ 
+ 配置文件 peizmain/resources/META/persistence.xml 
+  <persistence-unit name="jpa01" transction-type="RESOURCE_LOCAL">
+    <provider>org.hibernate.jpa.HibernatePersistenceProvide<> // ORM 框架
+    <properties>
+      <property name="javax.persistence.jdbc.dirver" value="com.mysql.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.url" value="jdbx:mysql:///springdata"/>
+      <property name="javax.persistence.jdbc.user" value="xxx"/>
+      <property name="javax.persistence.jdbc.password" value="xxx"/>
+ 
+ 测试
+  public class JpaTest{
+    
+    @Test
+    public void testSave(){
+      Article aticle = new Article();
+      aticle.setTitle("aaa");
+    }
+    //Entity Manager  factory
+      String persistenceUnitName = "jpa01"; //从 配置文件 来 
+      EntityManagerFactory factory = Persistence.createEneityManagerFactory(persistenceUnitName);
+    //entityManager
+      EntityManager entityManager = factory.createEntityManager();
+    //transaction
+      EntityTransaction transaction = entityManager.getTransaction();
+      transaction.begain();
+    //operate
+      entityManager.persist(aticle);//保存  | 查询 entityManager.find(Article.class, 1) |修改: 查-改-entityManager.merge(aticle);|删 : 查 entityManager.remove(aticle);
+    //commit
+      transaction.commit();
+    //close
+      entityManager.close();
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+  
