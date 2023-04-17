@@ -33,9 +33,22 @@
 
 7.Enums
   
-8 deepCopy vs  shallowCopy
-  
-9 pass by ref vs pass by value
+8 clone: implement Cloneable interface
+  deep copy : copy original object into new objects
+  shallowCopy: which shares the same references as the original object
+
+9. Equals : override equals() with hashCode()
+    equals : compares two objects for equality
+    ==     : two objects point to the same address in memory
+    
+10. HashCode : primarily useful for hash table
+      object into an integer
+
+11. toString : textual representation of an object,
+
+12. pass by ref vs pass by value
+
+13. Overrideing vs Overloading
 
 
 
