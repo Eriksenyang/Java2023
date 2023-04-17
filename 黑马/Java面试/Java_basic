@@ -17,4 +17,32 @@
       abstract : 抽象类是对类抽象    1.抽象类主要用来抽取子类的通用特性，作为子类的模板
       interface： 接口是对行为的抽象 1.接口是抽象方法的集合，声明了一系列的方法操作
       
-3.
+3. JVM-JRE-JDK 
+  JVM) is a process virtual machine that can execute Java bytecode(“Platform Independent Programming Language)
+  https://github.com/Eriksenyang/2020Self/blob/master/%E9%BB%91%E9%A9%AC/Java%E9%9D%A2%E8%AF%95/JVM
+
+4.byte(8) short(16) int(32) long(64) float(32) double(64) char(16) boolean 
+
+5.String:  string 被建后不可修改. 修改是String pool 新建的
+ StringBuffer :   慢. thread safe
+ StirngBuilder :  快, thread unsafe
+ 
+6. == vs equals ：
+    ==     : 基本类型:value,  引用类型 @
+    equals : 
+
+7.Enums
+  
+8 deepCopy vs  shallowCopy
+  
+9 pass by ref vs pass by value
+
+
+
+
+
+
+
+
+
+
