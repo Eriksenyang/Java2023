@@ -1,27 +1,65 @@
-GC : heap 
-1. 标记 ： GC root
-   清除 : (有碎片)
+马士兵 java面试清单
+JVM : .java -> .class
+      JVM Stack : java code
+      Navtive Method Stack : no java code
+      program counter Register : bytecode point
+      
+      method area
+      stack : new 
+      
+      Interpreter(解释)
+      JIT Compiler
 
-2. 标记 ： GC root
-   整理 : (无碎片)
+Class Loader
+   1.load
+      BootStrap
+      Extension : classLoader - securityClassLoader - urlClassLoader (loadClass, defineClass, findClass)
+      Application
+      custome
+   2.link 
+   3.init : 执行static 
 
-3. 标记 ： GC root
-   复制 : (copy to )
+GC : heap  -Xms | -Xmx
 
-Parallel GC eden: minor 标记复制
-            old   full  标记整理
+   (标记 复制)Young Generation (生命短): eden |  (survivor space)from | to 
+   (标记 清除)ould Gen         (生命长): tenured space
+   metaData
 
-ConcurrentMaskSweep GC  标记清除
+   GC 算法:
+   1. 标记 ： GC root
+      清除 : (有碎片)
 
-G1 GC
+   2. 标记 ： GC root
+      整理 : (无碎片)
+
+   3. 标记 ： GC root
+      复制 : (copy to )
+
+jvm GC 回收器
+   单线程 : Serial 
+            Serial old
+   多线程 :  Parallel GC eden: minor 标记复制
+            Parallel old   full  标记整理
+
+   ConcurrentMaskSweep GC  标记清除
+
+G1 GC 
 
 outOfMemory: 
+   java.lang.OutOfMemeoryError: java heap space : 代码问题
+   java.lang.OutOfMemeoryError: -Xss
+
 
 
 引用类型
-1.强引用 A a = new A();
-2.软引用 Soft s = new Soft(new A());
-3.弱引用 
-4.虚引用
+   1.强引用 A a = new A();
+   2.软引用 Soft s = new Soft(new A());
+   3.弱引用 
+   4.虚引用
 
-finalize
+finalize: may not run
+  1. finalizerThread, may not run
+  2. slow
+
+
+
