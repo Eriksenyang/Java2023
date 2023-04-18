@@ -33,8 +33,9 @@
 4.byte(8) short(16) int(32) long(64) float(32) double(64) char(16) boolean 
 
 5.String:  string 被建后不可修改. 修改是String pool 新建的
- StringBuffer :   慢. thread safe
- StirngBuilder :  快, thread unsafe
+    String s1 = "R"; String s2 = "R";(string pool中 同一个), String s4 = new String("R");(heap中 新的)      
+   StringBuffer :   慢. thread safe
+   StirngBuilder :  快, thread unsafe
  
 6. == vs equals ：
     ==     : 基本类型:value,  引用类型 @
@@ -68,10 +69,18 @@
 
 
 16. Collection : group of objs
-      List : ordered & can dup elements 
-      set  : no duplicate elements
+      List : ordered & can dup 
+      set  : no ordered & no duplicate 
       map  : key & value, no dup
       iterator
+      
+      Array: int[] a = new int[size];  Arrays.sort() Arrays.binarySreach(Object[] a, Object key)
+      ArrayList: size(), get(), set(), add(), remove(), Collections.sort()
+      LinkedList: size(), get(), add(), remove(),
+      HashSet: 不重复, 有null, 无序, 线程不安全, contains(),  size(), add(), remove(),
+      HashMap: 1个null key. size(), keySet(), entrySet(), values(),  put(), get(key), remove(key), clean() 
+      
+      
     
 17. fail-fast(java.util) : only iterator.remove(), 其他情况 对集合的个数做出修改（添加、删除） ConcurrentModificationException. 预防 synchronized
     fail-safe(java.util.concurrent) : 对集合结构的修改都会在一个复制的集合上进行(开销大 | 无法保证读取的数据是目前原始数据)
