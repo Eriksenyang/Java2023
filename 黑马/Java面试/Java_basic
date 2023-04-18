@@ -1,3 +1,10 @@
+0.1 Variables : https://m.runoob.com/java/java-variable-types.html
+  Static/class variable(private static int staticVar) :  class内, method外, static修饰
+  Instance variable(成员) : class内, method外, 被整个class用. ***不用初始化(有默认值)
+  local variable(局部) : class内, emthod内, 被method用.       ***要初始化
+
+
+
 1.OOP https://www.jianshu.com/p/d05da985ead8   https://www.cnblogs.com/taylorshi/p/16640751.html
   Encapsulation : purposefully hiding information(intrnal characteristics & behavior) : public/prtected/default/private
     封装也叫作信息隐藏或者数据访问保护。类通过暴露有限的访问接口，授权外部访问
@@ -59,6 +66,15 @@
     
 15 Thread
 
+
+16. Collection : group of objs
+      List : ordered & can dup elements 
+      set  : no duplicate elements
+      map  : key & value, no dup
+      iterator
+    
+17. fail-fast(java.util) : only iterator.remove(), 其他情况 对集合的个数做出修改（添加、删除） ConcurrentModificationException. 预防 synchronized
+    fail-safe(java.util.concurrent) : 对集合结构的修改都会在一个复制的集合上进行(开销大 | 无法保证读取的数据是目前原始数据)
 
 
 
