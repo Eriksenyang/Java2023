@@ -7,4 +7,11 @@
    
 2. pos
    cos : 可靠性, complex, 一致性
-    
+   
+
+3.  ActiveMQ  RabbitMQ  RocketMQ  Kafka  
+     6k        12K        100K      1M
+               Erlang                    
+               
+4. Kafka
+   1.persistence, 1M, dynamic extension, Kafka Stream, multi(java, c, c++), security, lightWeight, backup, zip
