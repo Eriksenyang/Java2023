@@ -3,6 +3,7 @@
   Instance variable(成员) : class内, method外, 被整个class用. ***不用初始化(有默认值)
   local variable(局部) : class内, emthod内, 被method用.       ***要初始化
 
+0.2 jvm + lib = jre + dev tools = jdk
 
 
 1.OOP https://www.jianshu.com/p/d05da985ead8   https://www.cnblogs.com/taylorshi/p/16640751.html
