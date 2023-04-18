@@ -15,8 +15,10 @@
     
 2. interface vs abstract class  ： https://blog.csdn.net/chenssy/article/details/12858267
       abstract : 抽象类是对类抽象    1.抽象类主要用来抽取子类的通用特性，作为子类的模板
+                  abstract classes are used to plan an inheritance hierarchy and simplify the work of subclasses
       interface： 接口是对行为的抽象 1.接口是抽象方法的集合，声明了一系列的方法操作
-      
+                  Interfaces are used to introduce a layer of abstraction and decouple modules of code
+                  
 3. JVM-JRE-JDK 
   JVM) is a process virtual machine that can execute Java bytecode(“Platform Independent Programming Language)
   https://github.com/Eriksenyang/2020Self/blob/master/%E9%BB%91%E9%A9%AC/Java%E9%9D%A2%E8%AF%95/JVM
@@ -50,7 +52,11 @@
 
 13. Overrideing vs Overloading
 
-
+14. Exception : classLevel https://github.com/Eriksenyang/2020Self/blob/master/%E9%BB%91%E9%A9%AC/Java%E9%9D%A2%E8%AF%95/%E9%A9%AC%E5%A3%AB%E5%85%B5Java
+    Throwable : 
+      unchecked exception(RuntimeEx) :                                              NullPointerExceptions
+      checked exception(Exception)   :   try{}catch{}finally or throwsIOExceptions  IOExceptions
+    
 
 
 
