@@ -67,7 +67,10 @@
       checked exception(Exception)   :   try{}catch{}finally or throwsIOExceptions  IOExceptions
     
 15 Thread
-
+    https://github.com/Eriksenyang/2020Self/blob/master/%E9%BB%91%E9%A9%AC/Java%E9%9D%A2%E8%AF%95/Thread
+    
+15.1 HashTable vs ConcurrentHashMap
+      https://github.com/Eriksenyang/2020Self/blob/master/%E9%BB%91%E9%A9%AC/Java%E9%9D%A2%E8%AF%95/HashTable%20vs%20ConcurrentHashMap
 
 16. Collection : group of objs
       List : ordered & can dup 
