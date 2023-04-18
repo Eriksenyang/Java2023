@@ -1,4 +1,4 @@
-1. thread status : 
+1. thread lifecycle/status : 
   new : start
   runnable : cpu
   terminated : 完毕
