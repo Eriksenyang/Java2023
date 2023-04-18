@@ -1,11 +1,11 @@
 1. thread lifecycle/status : 
-  new : start
+  new : start()
   runnable : cpu
   terminated : 完毕
-  blocked : runnale 获取lock失败时
-  waiting : 获取lock wait()时 / notify()激活
-  time_waiting : wait(long)时 / wait时间到激活| notify
-                 sleep(long)时 / sleep时间到
+  blocked : runnable 获取lock失败时
+  waiting : 获取lock: wait()时 / notify()激活
+  time_waiting : 获取lock: wait(long)时 / wait时间到| notify() 激活 
+                 runnable: sleep(long)时 / sleep时间到
                  
 2.
   private static void testNewRunnableTerminated(){
@@ -14,29 +14,30 @@
     }); 
   }
   
-3.Thread pool
+3.Thread pool : submit(task)-> workQueue : 当coreThread 满, workQueue满 才开emergencyThread
   corePoolSize : 处理完还保留在pool中
   maximumPoolSize : core + emerge(处理完就销毁)
   keepAliveTime : emergeThread
   unit时间单位 ：emergeThread
-  workQueue　：　Q
+  workQueue　：　设定Queeu容量
   threadFactory　：　
-  handler 拒绝策略　：　
+  handler 拒绝策略　：AbourtPolicy(满了报EX), CallerRunsPolicy(满了谁调谁自己跑), DiscardPolicy(丢), DiscardOlestPolicy(丢老的)
   
-  ArrayBlockingQueue<Runnable> queue = new ArrayBlockingQueue<>(2); //capacity : 2
+  ArrayBlockingQueue<Runnable> queue = new ArrayBlockingQueue<>(2); //workQueue 容量 : 2
   ThreadPoolExecutor threadPool = new ThreadPoolExecutor(
-    2, 3, 0, TimeUnit.MILLISECONDS, queue, 
-    r -> new Thread(r, "myThread" + c.getAndIncrement()),
+    corePoolSize 2,maximumPoolSize 3,keepAliveTime 0, TimeUnit.MILLISECONDS, queue, 
+    r -> new Thread(r, "myThread" + c.getAndIncrement())//计数器,
     new ThreadPoolExecutor.AbourtPolicy()
   );
   
   6. sleep() vs wait()
-      1.wait() 只能notify. sleep(时间) & wait(时间) 时间到就醒, 也可notify
-      2.先拿到lock才能用wait(). sleep()没有这个限制
-      3.wait() 放弃lock. sleep()不放弃lock
+      wait():      先拿到lock 才wait(),  wait弃锁,  notiy()
+      sleep(time): 不用拿lock sleep(),  sleep占锁,  到时间或 notiy()
+        
+      
   7.Lock VS synchronized
-    synchronized : 自动解锁   较少功能
-    lock :         手动解锁   更多功能(wait())
+    synchronized :jvm c++  自动解锁   较少功能
+    lock :        jdk java 手动解锁   更多功能(wait())
   
   8.volatile
   
