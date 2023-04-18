@@ -57,7 +57,13 @@
       unchecked exception(RuntimeEx) :                                              NullPointerExceptions
       checked exception(Exception)   :   try{}catch{}finally or throwsIOExceptions  IOExceptions
     
+15 Thread
 
+
+
+
+
+99.concurrentHashMap thread-safe
 
 
 
