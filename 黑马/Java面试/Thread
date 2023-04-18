@@ -35,14 +35,36 @@
       sleep(time): 不用拿lock sleep(),  sleep占锁,  到时间或 notiy()
         
       
-  7.Lock VS synchronized
-    synchronized :jvm c++  自动解锁   较少功能
-    lock :        jdk java 手动解锁   更多功能(wait())
-  
-  8.volatile
-  
-  
+  7.Lock VS synchronized : 排他(1把锁), 同步(要等)
+    synchronized : 无竞争快  jvm c++  自动解锁   较少功能             
+    lock :         有竞争快  jdk java 手动解锁   更多功能(wait()), ReentrantLock(重复功能)(false 不公平)
     
+  8. Lock Condition
+      c1.await() - 放弃lock, 
+      c1.signal() - 唤醒, 加入到workQueue
+  
+  9.volatile : no thread safe
+     1.visable: ok
+     2.sequency: ok
+     3.automic: no (thread 可以从中间插入, 造成没法执行整段代码)
+   
+  10.negtive lock:(synchro & lock) thread有lock才去操作,1个有lock, 其他都block. (synchroized 阻止交错, 保证线程安全)
+        THread t1 = new Thread(()->
+          sychronized(lock){
+            account.balance = account.balance - 5;  
+          }, t1 );
+     positive lock:(AtomicInteger |unsafe) 不要lock, 1个运行, 其他都不断重试直到成功. compareAndSet() + volatile type balance
+        Unsafe u = Unsafe.getUnsafe() //修改变量为原子
+        BALANCE = u.objectFieldOffset(x.class, variable)
+        volatile type balance = x；
+        THread t1 = new Thread(()->
+          while(true){
+            int n = account.balance - 5;
+            if(U.compareAndSetInt(account, BALANCE, o, n){ //动态看balance,如果有thread改了原始值就再循环, 直到拿到合适的值 break
+              break;
+            }
+           }
+        }, t1);
     
     
     
