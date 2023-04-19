@@ -14,7 +14,7 @@
       channle.exchangeDeclare(exchangName, BuiltinExchangeType.DIRCT, true, false, null); 
                        队列   //name, 队列名称持久化  队列是否私有, 没消息是否删除, 结构化参数
       channle.queueDeclare(queueName, true, false, false, null);
-      //队列绑定交换机  交换机        交换机     路由key(直连下用队列名)
+      //队列绑定交换机  交换机        交换机     路由key
       channle.queueBind(queueName, exchangName, queueName);
       String message = "hello";
                             //交换机 队列   other info, 消息体
@@ -53,3 +53,31 @@
       connection.close();
     }   
   }
+
+dirct: 精确匹配
+      //队列绑定交换机  交换机        交换机     路由key
+      channle.queueBind(queueName, exchangName, queueName);
+
+fanout: 交换机 发消息给所有连接的队列
+
+topic : 模糊匹配 
+      # : 0 or 多
+      * : 1个
+      
+headers : all 完全匹配 : headerMap.put("x-match", "all") 
+                        channle.queueBind(queueName, exchangName, headerMap);
+          any 有任意部分匹配
+      
+Mirror:
+
+HAProxy:
+
+
+
+
+
+
+
+
+
+
