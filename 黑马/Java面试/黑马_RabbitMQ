@@ -1,0 +1,5 @@
+AMQP: Adv Msg Que Protocol
+                               Broker
+   publisher    -      exhcange -routers- queue     -     consumer
+           connection           binding          connection
+             channel          virtual host         channel
