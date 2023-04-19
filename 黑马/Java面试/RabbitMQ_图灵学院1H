@@ -1,0 +1,55 @@
+  public class Producer{
+    public static void main(Sring[] args) throw Exception{
+      String queueName = "xc_queue_name";
+      String exchangName = "xc_exchange_name";
+      
+      ConnectionFactory factory = new ConnectionFactory(); // factory
+      factory.setHost("192.168.163.XX");//host
+      factory.setUsername("admin");
+      factory.setPassword("admin");
+      factory.setPort(5672);
+      Connection conn = factory.newConnction(); //connection
+      Channle channle = conn.createChannel();     
+                       交换机   //name,              type,                   持久化, 没队列是否删除, 结构化参数Map<String,Obj> 
+      channle.exchangeDeclare(exchangName, BuiltinExchangeType.DIRCT, true, false, null); 
+                       队列   //name, 队列名称持久化  队列是否私有, 没消息是否删除, 结构化参数
+      channle.queueDeclare(queueName, true, false, false, null);
+      //队列绑定交换机  交换机        交换机     路由key(直连下用队列名)
+      channle.queueBind(queueName, exchangName, queueName);
+      String message = "hello";
+                            //交换机 队列   other info, 消息体
+      channle.basicPublish(exchangName，queueName, null, message.getByters() );//发布消息
+      
+      channle.close();
+      connection.close();
+    }   
+  }
+  
+  public class Consumer{
+    public static void main(Sring[] args) throw Exception{
+      String queueName = "xc_queue_name";
+      String exchangName = "xc_exchange_name";
+      
+      ConnectionFactory factory = new ConnectionFactory(); // factory
+      factory.setHost("192.168.163.XX");//host
+      factory.setUsername("admin");
+      factory.setPassword("admin");
+      factory.setPort(5672);
+      Connection conn = factory.newConnction(); //connection
+      Channle channle = conn.createChannel();     
+        
+      DeliverCallback deliverCallback = (consumerTage, message) ->{  //接受callBack
+        SOP(new String(message.getBody()));
+      };
+      
+      CancelCallback cancelCallback = (consumerTage) ->{  //取消callBack
+        SOP("disconnect");
+      };
+      
+                             队列   消费后是否自动应答
+      channle.basicConsume(queueName, true,   deliverCallback, cancelCallback);//消费消息
+      
+      channle.close();
+      connection.close();
+    }   
+  }
