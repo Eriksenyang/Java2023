@@ -1,24 +1,11 @@
 basic 7 + adv 5 + 2 interview
 
-
-06 跨服务调用
- @MapperScan("com.")
- @SpringBootApplication
- public class OrderApplication{
-  public static void main(String[] args){
-    SpringApplication.run(OrderApplication.class, args);
-  }
-  
-  @Bean
-  public RestTemplate restTemlate(){
-    return new RestTemplate();
-  }  
- }
- 
- @Service
- public class OrderService{
-  @Autowired
-  private RestTemplate restTemplate;
-  
-  User user = restTemplate.getForObject(url, retrunObj.class);
- }
+08 Eureka : regester contral
+   EurekaServer 
+    1.regester service infor
+    2.heart beet check 30s keep
+   EurekaClient
+     provider: put info to EurekaServer
+              sent heart beet to EurekaServer
+     consumer : get prodider list
+                acording loading balance to call 
