@@ -1,0 +1,22 @@
+06 跨服务调用
+ @MapperScan("com.")
+ @SpringBootApplication
+ public class OrderApplication{
+  public static void main(String[] args){
+    SpringApplication.run(OrderApplication.class, args);
+  }
+  
+  @Bean
+  public RestTemplate restTemlate(){
+    return new RestTemplate();
+  }  
+ }
+ 
+ @Service
+ public class OrderService{
+  @Autowired
+  private RestTemplate restTemplate;
+  
+  User user = restTemplate.getForObject(url, retrunObj.class);
+ }
+
