@@ -4,6 +4,15 @@
   3. FeignClient interface
   4. FeignClient方法 替代restTemplate 
    
+   @SpringBootApplication
+   @EnableFeignClients
+   @MappingScan("cn.itcst.order.mapper")
+   public class OrderApplication{
+    public static void main(String[] args){
+      SpringApplication.run(OrderApplication.class, args);
+    }
+   }
+   
    @Service
    public class OrderService{
 
@@ -27,4 +36,26 @@
     User findById(@PthVariable("id") Long id);
   }
   
-  
+31 Feign setting 
+    feign.Logger.level: NONE, BASIC, HEADERS, FULL
+    feign.codec.Decoder: 结果: json->java obj
+    feign.codec.Eecoder: java->http
+    
+32 Feign优化
+   1. httpClient : feign-httpclient
+   2. yml setting
+
+33 best prectics
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
