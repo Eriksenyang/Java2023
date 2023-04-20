@@ -1,0 +1,30 @@
+30 Feign
+  1.依赖 : spring-cloud-starter-openfeign
+  2. @EnableFeignClients
+  3. FeignClient interface
+  4. FeignClient方法 替代restTemplate 
+   
+   @Service
+   public class OrderService{
+
+    @Autowired
+    private OrderMapper orderMapper;
+    @Autowird
+    priavte UserClient userClient;
+    
+    public Order queryOrderById(Long orderId){
+      Order order = orderMapper.findById(orderId);
+      User user = userClient.findById(order.getUserId());
+      order.setUser(user);
+      return order;
+    }
+   }
+ 
+  
+  @FeignClient("userservice") //client
+  public interface UserClient{
+    @GetMapping("/user/{id}")
+    User findById(@PthVariable("id") Long id);
+  }
+  
+  
