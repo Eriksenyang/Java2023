@@ -18,4 +18,10 @@ docker(linux): image (read-only): pack lib, runtime env
 55                         -e pw                        volumn  tmp 挂到 etc/mysql下
    docker run --name mysql -e MYSQL_ROOT_PASSWORD=123  -v /tmp/conf/hmy.cnf:/etc/mysql/conf.d/hmy.cnf -p 3306:3306     -d  nginx
    
-56 image 
+56 image : 
+
+57 dockerfile
+    FROM java:8-alpine
+
+58 DockerCompose
+  
