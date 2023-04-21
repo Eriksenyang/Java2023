@@ -158,7 +158,7 @@
           }
   
   74 Dirct 
-       publisher  测试
+       1.publisher  测试
           @RunWith(SpringRunner.class)
           @SpringBootTest
           public class SpringAmqpTest{
@@ -172,18 +172,45 @@
               rabbitTemplate.convertAndSend(exhangName, "red", message);
             }
           }
-      3. Consumer:
+      2. Consumer:
           public class SpringRabbitListener{       
             @RabbitListener(bindings = @QueueBinding(
                 value = @Queue(name = "d.queue1"),
-                exchange = @Exchange(name = d.direct, type = ExchangeTypes.DIRECT),
-                key= {"red", "blue"}
+                exchange = @Exchange(name = "d.direct", type = ExchangeTypes.DIRECT),
+                key = {"red", "blue"}
                 ))
             public void ListenDirectMQ1(String msg) throws InterruptedException{
               SOP(msg);
             }
           }
   
+  75 TopicExchange : key : 多个( # : 0|多 ) x: 1个
+      1.publisher  测试
+          @RunWith(SpringRunner.class)
+          @SpringBootTest
+          public class SpringAmqpTest{
+            @Autowired
+            private RabbitTemplate rabbitTemplate;
+          
+            @Test
+            public void testToicQueue(){
+              String exhangName = "t.topict"
+              String message = "hello";
+              rabbitTemplate.convertAndSend(exhangName, "China.news", message);
+            }
+          }
+      2. Consumer:
+          public class SpringRabbitListener{       
+            @RabbitListener(bindings = @QueueBinding(
+                value = @Queue(name = "t.queue1"),
+                exchange = @Exchange(name = "t.topic", type = ExchangeTypes.TOPIC),
+                key = {"China.#"}
+                ))
+            public void ListenTopicMQ1(String msg) throws InterruptedException{
+              SOP(msg);
+            }
+          }
+    
   
   
   
