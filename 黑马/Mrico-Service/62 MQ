@@ -1,0 +1,105 @@
+  67 Basic 
+  
+  public class Producer{
+    public static void main(Sring[] args) throw Exception{
+      String queueName = "xc_queue_name";
+      //String exchangName = "xc_exchange_name";
+      
+      ConnectionFactory factory = new ConnectionFactory(); // factory
+      factory.setHost("192.168.163.XX");//host
+      factory.setPort(5672);
+      factory.setVirtualHost("/");
+      factory.setUsername("admin");
+      factory.setPassword("admin");
+      
+      Connection conn = factory.newConnction(); //connection
+      Channle channle = conn.createChannel();     
+                       交换机   //name,              type,                   持久化, 没队列是否删除, 结构化参数Map<String,Obj> 
+      //channle.exchangeDeclare(exchangName, BuiltinExchangeType.DIRCT, true, false, null); 
+                       队列   //name, 队列名称持久化  队列是否私有, 没消息是否删除, 结构化参数
+      channle.queueDeclare(queueName, true, false, false, null);
+      //队列绑定交换机  交换机        交换机     路由key
+      //channle.queueBind(queueName, exchangName, queueName);
+      String message = "hello";
+                            //交换机 队列   other info, 消息体
+      channle.basicPublish(exchangName，queueName, null, message.getByters() );//发布消息
+      
+      channle.close();
+      connection.close();
+    }   
+  }
+  
+  public class Consumer{
+    public static void main(Sring[] args) throw Exception{
+      String queueName = "xc_queue_name";
+      //String exchangName = "xc_exchange_name";
+      
+      ConnectionFactory factory = new ConnectionFactory(); // factory
+      factory.setHost("192.168.163.XX");//host
+      factory.setPort(5672);
+      factory.setVirtualHost("/");
+      factory.setUsername("admin");
+      factory.setPassword("admin");
+      
+      Connection conn = factory.newConnction(); //connection
+      Channle channle = conn.createChannel();     
+      
+      channle.queueDeclare(queueName, true, false, false, null);
+       
+        // DeliverCallback deliverCallback = (consumerTage, message) ->{  //接受callBack
+              SOP(new String(message.getBody()));
+        //    };
+
+         //   CancelCallback cancelCallback = (consumerTage) ->{  //取消callBack
+              SOP("disconnect");
+       //     };
+      
+                             队列   消费后是否自动应答
+      channle.basicConsume(queueName, true, new DefaultConsumer(channel){
+        @Override
+        public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException{
+          String message = new String(body);
+          SOP(message)
+        }); //消费消息
+      
+      channle.close();
+      connection.close();
+    }   
+  }
+  
+  68 SpringAMQP
+    1.依赖: spring-boot-starter-amqp
+    2.publisher 
+       1. application.yml
+          spring:/ rabbitmq:/ host: 192.. port: 5672 virtual-host : username: password
+       2. 测试
+          @RunWith(SpringRunner.class)
+          @SpringBootTest
+          public class springAmqpTest{
+            @Autowired
+            private RabbitTemplate rabbitTemplate;
+            @Test
+            public void testSimpleQueue(){
+              String queueName = "simple.queue";
+              String message = "hello";
+              rabbitTemplate.convertAndSend(queueName, message);
+            }
+          }
+     3. Consumer 
+     
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
