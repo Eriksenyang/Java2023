@@ -1,0 +1,13 @@
+docker(linux): image (read-only): pack lib, runtime env  
+               container: isolate to other container
+               DockerHub: hub / registry
+               client - server : docker pull/ docker run
+
+46 centOS install docker
+
+47  docker --help
+    docker images
+    docker pull
+    docker push/ docker save -> .tar file -> docker load
+  
+49 docker run/ docker pause | unpause / docker start/ docker stop / dockr ps (status)
