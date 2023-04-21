@@ -211,9 +211,21 @@
             }
           }
     
-  
-  
-  
+  76 AMQP
+     JSON 序列化
+     1.依赖：  jackson-dataformat-xml
+     2.publisher中声明 MessageConverter
+      @Bean
+      public MessageConverter jsonMessageConverter(){
+        return new Jackson2JsonMessageConverter（）；
+        
+      }
+     3.Consumer 中使用
+      @RabbitListene(queues= "")
+      public void  jsonMessageConverter(Map<String, Object> msg){
+       SOP(msg);
+        
+      }
   
   
   
