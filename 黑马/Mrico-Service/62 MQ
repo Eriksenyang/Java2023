@@ -90,8 +90,7 @@
           spring:/ rabbitmq:/ host: 192.. port: 5672 virtual-host : username: password
        2. 收消息
           @Component
-          public class SpringRabbitListener{
-         
+          public class SpringRabbitListener{         
             @RabbitListener(queue="simple.queue")
             public void ListenSimpleMQ(String msg) throws InterruptedException{
               SOP(msg);
@@ -158,7 +157,32 @@
             }
           }
   
-  
+  74 Dirct 
+       publisher  测试
+          @RunWith(SpringRunner.class)
+          @SpringBootTest
+          public class SpringAmqpTest{
+            @Autowired
+            private RabbitTemplate rabbitTemplate;
+          
+            @Test
+            public void testDirctQueue(){
+              String exhangName = "d.direct"
+              String message = "hello";
+              rabbitTemplate.convertAndSend(exhangName, "red", message);
+            }
+          }
+      3. Consumer:
+          public class SpringRabbitListener{       
+            @RabbitListener(bindings = @QueueBinding(
+                value = @Queue(name = "d.queue1"),
+                exchange = @Exchange(name = d.direct, type = ExchangeTypes.DIRECT),
+                key= {"red", "blue"}
+                ))
+            public void ListenDirectMQ1(String msg) throws InterruptedException{
+              SOP(msg);
+            }
+          }
   
   
   
