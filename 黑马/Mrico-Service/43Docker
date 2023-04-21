@@ -11,3 +11,11 @@ docker(linux): image (read-only): pack lib, runtime env
     docker push/ docker save -> .tar file -> docker load
   
 49 docker run/ docker pause | unpause / docker start/ docker stop / dockr ps (status)
+
+54 volumn       将volumn html挂到container root/html下  主机8080映射80      镜像
+    docker run --name mn -v html:/root/html -p 8080:80     -d  nginx
+    
+55                         -e pw                        volumn  tmp 挂到 etc/mysql下
+   docker run --name mysql -e MYSQL_ROOT_PASSWORD=123  -v /tmp/conf/hmy.cnf:/etc/mysql/conf.d/hmy.cnf -p 3306:3306     -d  nginx
+   
+56 image 
