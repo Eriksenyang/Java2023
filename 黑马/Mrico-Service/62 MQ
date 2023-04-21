@@ -97,6 +97,66 @@
               SOP(msg);
             }
           }
+  71. WorkQueue
+        prefetch: 1
+  
+  72. publish/ subscribe : fanout/direct/topic
+  
+  73. Fanout : 发每一个
+      1. 绑定       
+      @Configuration
+      public class FanoutConfig{
+        @Bean
+        public fanoutExchange fanoutExchange(){   //exchange
+          return new FanoutExchange("f.exchange");
+        }
+        @Bean
+        public Queue fanoutQueue1(){  //q1
+          return new Queue("f.queue1");
+        }
+        @Bean
+        public Queue fanoutQueue2(){ //q2
+          return new Queue("f.queue2");
+        }
+        @Bean
+        public Binding bindingQueue1(Queue fQueue1, FanoutExchange fExchange){ //q1 bind ex
+          return BindingBuilder.bind(fQueue1).to(fExchange);
+        }
+        @Bean
+        public Binding bindingQueue1(Queue fQueue2, FanoutExchange fExchange){ ////q2 bind ex
+          return BindingBuilder.bind(fQueue2).to(fExchange);
+        }       
+      }    
+      2.publisher 
+       1. application.yml
+          spring:/ rabbitmq:/ host: 192.. port: 5672 virtual-host : username: password
+       2. 测试
+          @RunWith(SpringRunner.class)
+          @SpringBootTest
+          public class SpringAmqpTest{
+            @Autowired
+            private RabbitTemplate rabbitTemplate;
+          
+            @Test
+            public void testFanoutQueue(){
+              String exhangName = "f.exchange"
+              String message = "hello";
+              rabbitTemplate.convertAndSend(exhangName, "", message);
+            }
+          }
+     3. Consumer:
+          @Component
+          public class SpringRabbitListener{
+         
+            @RabbitListener(queue="f.Queue1")
+            public void ListenFanoutMQ(String msg) throws InterruptedException{
+              SOP(msg);
+            }
+            @RabbitListener(queue="f.Queue2")
+            public void ListenFanoutMQ(String msg) throws InterruptedException{
+              SOP(msg);
+            }
+          }
   
   
   
