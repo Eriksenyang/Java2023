@@ -17,3 +17,9 @@
   
  85 Mapping
     type : text(可拆分)  keyword(不可拆分) 
+    index : 是否参与分词
+  
+ 86
+ 
+ 90 RestClient
+ 
