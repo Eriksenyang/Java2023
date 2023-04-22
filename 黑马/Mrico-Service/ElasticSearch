@@ -1,0 +1,19 @@
+80.  mysql     ElasticSearch
+     table      index
+     row        document
+     column     field
+     schema     mapping
+     SQL        DSL
+ 
+ 
+ 81 Kibana: json html request
+      docker -e :  environment variable
+ 
+ 83 IK analyzer
+    ik_smart /  ik_max_word
+    
+ 84 exdension
+    <properties> setting
+  
+ 85 Mapping
+    type : text(可拆分)  keyword(不可拆分) 
