@@ -13,9 +13,14 @@
     }
    }
    
+     @FeignClient("userservice")  //feign interface
+     public interface UserClient{
+        @GetMapping("/user/{id}")
+        User findById(@PthVariable("id") Long id);
+      }
+  
    @Service
    public class OrderService{
-
     @Autowired
     private OrderMapper orderMapper;
     @Autowird
@@ -29,12 +34,6 @@
     }
    }
  
-  
-  @FeignClient("userservice") //client
-  public interface UserClient{
-    @GetMapping("/user/{id}")
-    User findById(@PthVariable("id") Long id);
-  }
   
 31 Feign setting 
     feign.Logger.level: NONE, BASIC, HEADERS, FULL
