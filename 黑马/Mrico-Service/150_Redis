@@ -2,3 +2,5 @@ Redis : persistence
         read/write
         哨兵
         clust
+
+RDB : Redis Database Backup
