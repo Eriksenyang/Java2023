@@ -13,11 +13,11 @@
     }
    }
    
-     @FeignClient("userservice")  //feign interface
-     public interface UserClient{
-        @GetMapping("/user/{id}")
+   @FeignClient("userservice")  //feign interface
+   public interface UserClient{
+      @GetMapping("/user/{id}")
         User findById(@PthVariable("id") Long id);
-      }
+   }
   
    @Service
    public class OrderService{
@@ -50,6 +50,7 @@
           @GetMapping("/user/{id}")
           User findById(@PthVariable("id") Long id);
       }
+      
       @RestController
       public class UserController implements UserAPI{}
       
@@ -73,7 +74,7 @@
                @GetMapping("/user/{id}")
                User findById(@PthVariable("id") Long id);
              }
-          settings:
+         settings:
               public class DefaultFeignConfiguration{
                 @Bean
                 public Logger.Level logLevel(){
