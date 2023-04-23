@@ -1,1 +1,51 @@
+147 分布式事务例子 seata
+  A: Atomicity 原子
+  C: Consistency 一致
+  I: Isolation 隔离
+  D: Durability 持久
+   
+ CAP:   Consistency / Availability / Partition tolerance
+        如果分区, 可用性和一致性不能同时满足
+ 
+ BASE: basically available
+       soft state
+       eventually consistent
+       
+148 Seata TC(Transation Coordinator) server 
+    1. 依赖
+    2. applicatin.yml : 
+       seata: registry: type: nacos:/server-addr: namespce: group: application:
+              tx-service-group:
+              service: vgroup-mapping:/ seata-demo
 
+149 
+   XA基于DB 本身特性: 强一致 /性能差，依赖DB
+      DTP DistributedTransactinProcessing : TC 与 RM
+      1.每个各种执行 2.报告TC： 成功 commit
+                               失败 rollback
+      2.实现
+        1. application.yml： seata/ data-source-proxy-mode ： XA
+        2.全局事务如果添加 @GlobalTransactional
+          @Override
+          @GlobalTransactional
+          public Long create(Order order){
+            orderMapper.inser(order);
+            return order.getId();
+          }
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
