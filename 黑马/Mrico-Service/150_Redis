@@ -1,0 +1,4 @@
+Redis : persistence
+        read/write
+        哨兵
+        clust
