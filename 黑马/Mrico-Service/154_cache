@@ -1,1 +1,64 @@
+1. flow
+   request - tomcat - redis - DB
+   brower cache - nginx - redis - tomcat - DB
 
+  本地 cache: caffeine(33:00)
+    @Test
+    void testBasicOps(){
+      Cache<String, String> cache = Caffeine.newBuilder().maximumSize(1)  .build(); //根据缓存上限建cache
+                                                         .expireAfterWrite(Duration.ofSeconds(10)) .build();//根据缓存有效时间建cache
+      cache.put("gf", "aa"); //存
+      String gf = cache.getIfPresent("gf"); //取, 不存在return null
+      String gf1 = cache.get("key", key ->{ });// 取:cache没有再去DB根据key找. 找到以后return & 写入cache
+    }
+    
+    案例 41:00
+      1.config
+      @Configuration
+      public class CaffeineConfig{        
+        @Bean
+        public Cache<Long, Item> itemCache(){
+          return Caffeine.newBuilder()
+                         .initialCapacity(11)
+                         .maximumSize(1000)
+                         .build();
+        }
+        @Bean
+        public Cache<Long, ItemStock> stockCache(){
+          return Caffeine.newBuilder()
+                         .initialCapacity(11)
+                         .maximumSize(1000)
+                         .build();
+        }       
+      }
+      2.controller
+        @RestController
+        @RequesMapping("item")
+        public class ItemController{
+          @Autowired
+          private Cache<Long, Item> itemCache;
+          @Autowired
+          private Cache<Long, ItemStock> stockCache;
+          
+          @GetMapping("/{id}")
+          public Item findById(@PathVariable("id") Long id){
+            return itemCache.get(id, key -> itemService.query()
+                                    .ne("status", 3),eq("id", key)
+                                    .one());
+          }          
+        }
+      
+155      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
