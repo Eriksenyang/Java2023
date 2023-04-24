@@ -28,4 +28,35 @@ AOF(28:00)Append Only File(备份) : 记录写的命令到AOF文件
                 (增大repl_backlog)
                 增量同步(restart): replac提交offset, master根据repl_backlog,把offset之后的命令给replcat
                 
-                
+sentinel哨兵(152)                
+       1.sentinel : slave upto master
+       2.sentinel 通知 谁是 master
+       3.检测: ping/sencend (quorum : )
+        slave upto master
+          1.sentinel 发送 slaveof no one : 该slave变 master
+          2.sentinel 发送 salaveof XXX.port 通知其他salve新的master的地址
+          3.sentinel 标记故障master为slave      
+
+
+        搭建(14:00)
+        RedisTemplate sentinel(28:00)
+         1.依赖： spring-boot-starter-data-redis
+         2.application.yml : set sentinel
+                spring:/ redis:/ master :  nodes:
+         3.读写分离 ： master/master_preferred/replica/replica_preferred
+         @SrpingBootApplication
+         public class RedisDemoApplication{
+                @Bean
+                public LettuceClientConfigurationBuilderCustomizer configurationBuilderCustomizer(){
+                        return new LettuceClientConfigurationBuilderCustomizer(){
+                                @Override
+                                public void customize(LettuceClientConfiguration.LettuceClientConfigurationBuilder  clientConfigBuilder)
+                                clientConfigBuilder.readFrom(ReadFrom.REPLICA_PREFERRED);
+                }
+             // return clientConfigBuilder -> clientConfigBuilder.readFrom(ReadFrom.REPLICA_PREFERRED);
+           
+分片集群(153)
+
+
+
+
