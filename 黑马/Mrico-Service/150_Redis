@@ -55,7 +55,23 @@ sentinel哨兵(152)
                 }
              // return clientConfigBuilder -> clientConfigBuilder.readFrom(ReadFrom.REPLICA_PREFERRED);
            
-分片集群(153)
+分片集群(153) redis-cli --cluster create
+        slot
+        新增 25:00 :  add-node 
+        手动换master: clust fallover
+        Resttemple（41：00） 
+        1.application.yml 
+                spring: / redis/ cluster :/ nodes:
+        2.
+
+
+
+
+
+
+
+
+
 
 
 
