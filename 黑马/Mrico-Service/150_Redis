@@ -1,6 +1,24 @@
-Redis : persistence
+Redis(150) : persistence
         read/write
         哨兵
         clust
 
-RDB : Redis Database Backup
+RDB :内存快照 Redis Database Backup:默认服务停止时
+      1.redis-cli
+             save//单线程, 会block所有其他命令
+             gbsave//异步 后台save
+      2.redis.confi 自己设定
+            save 900 1 ...
+      3. main thread fork new thread to bgsave, new RDB
+
+AOF(28:00)Append Only File(备份) : 记录写的命令到AOF文件
+     1.开启: redis.conf : appendonly yes
+               always
+               everysec : 默认
+               no
+      2.bgrewriteaof: 合并同类项(减少大小)
+ 
+ 
+ Redis(151)主master-从slave/replica： 写少读多
+         1.replicaof master' ip port
+         2.同步：  bgsave(RDB) -> slave & repl_backlog(当主发RDB时新产生的)
