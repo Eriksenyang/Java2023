@@ -136,7 +136,151 @@
             }
            } 
 
+159 dead letter
+    TTL(Time To live)
+        Consummer 消费者
+            @Sfl4j
+            @Componont
+            public class SpringRabbitListener{
+                @RabbitListener(bindings = @QueueBinding(value=@Queue(name="dl.queue", durable="true"),
+                                                         exchange=@Exchange(name="dl.direct"),
+                                                         key="dl"))
+                public void listenDlQueue(String msg){
+                    log.info("get DL msg");
+                }          
+            }
             
+        publisher 生产者
+           @Configuration
+           public class TTLMessageConfig{
+            @Bean
+            public DirectExchange ttlDirectExchange(){
+                return new DirectExchange("ttl.dirct");
+            }
+            @Bean
+            publc Queue ttlQ(){
+                return new QueueBuilder
+                             .durable("ttl.queue")
+                             .ttl(10000)             //队列延迟 time (10s)
+                             .deadLettlerExchange("ttl.dirct")
+                             .deadLettlerRoutingKey("dl")
+                             .build();
+            }   
+            @Bean
+            public Binding errorBinding(){                                        //routingKey
+                return BindingBuilder.bind(ttlQ().to(ttlDirectExchange())).with("ttl");
+            }
+            @Bean  //      2.republishMsgRecoverer
+            public MessageRecoverer republishMsgRecoverer(RabbitTemplate rabbitTemplate){
+                return new RepublishMssageRecoverer(rabbitTemplate, "error.dirct", "error");
+            }
+           } 
+       
+       publisher 生产者TEST
+            @RunWith(SpringRunner.class)
+            @SpringBootTest
+            @Slf4j
+            public class SpringAmqpTest{
+               @Autowired
+               private RabbitTemplate rabbitTemplate;
+                @Test
+                public void testTTLMessage(){
+                    Message msg = MessageBuilder.withBody("msg".getBytes(StandardCharasets.UTF_8))
+                                   .setDeliveryMode(MessageDeliveryMode.PERSISTENT)  //  3.msg  消息持久化
+                                   .setExpiration("5000")                       //msg 延迟5秒
+                                   .build();
+                    rabbitTemplate.convertAndSend("ttl.dirct", "ttl", msg); //发消息
+                }
+            }
+        
+        
+    延迟队列(25:00)  Delay Exchange
+         Consummer 消费者
+            @Sfl4j
+            @Componont
+            public class SpringRabbitListener{
+                @RabbitListener(bindings = @QueueBinding(value=@Queue(name="delay.queue", durable="true"),
+                                                         exchange=@Exchange(name="dl.direct", delayed="true"), //delay
+                                                         key="delay"))
+                public void listenDelayQueue(String msg){
+                    log.info("get delay msg");
+                }          
+            }
+          
+          publisher 生产者TEST
+            @RunWith(SpringRunner.class)
+            @SpringBootTest
+            @Slf4j
+            public class SpringAmqpTest{
+               @Autowired
+               private RabbitTemplate rabbitTemplate;
+                @Test
+                public void testDelayMessage(){
+                    Message msg = MessageBuilder.withBody("msg".getBytes(StandardCharasets.UTF_8))
+                                   .setDeliveryMode(MessageDeliveryMode.PERSISTENT)  //  3.msg  消息持久化
+                                   .setHeader("x-delay" ,5000)                       //msg 延迟5秒
+                                   .build();
+                    CorrelationData correlationData = new CorrelationData(UUID.randomUUID().toString());
+                    rabbitTemplate.convertAndSend("delay.dirct", "delay", msg, correlationData); //发消息
+                }
+            }
+        
+        单例的ReturnCallback： 每个RabbitTemplate只有1个, 所以要在项目启动时配置
+          @Slf4j
+          @Configuration
+          public class commonConfig implements ApplicationContextAware{
+            @Override
+            public void setApplicationContext(ApplicationContext applicationContext) throws BeansException{
+              RabbitTemplate rabbitTemplate = applicationContext.getBean(RabbitTemplate.class);
+                                               //                     原因
+              rabbitTemplate.setReturnCallback((message, replyCode, replyText, exchange, routingKey) ->{
+                if(message.getMessageProperties().getReceivedDelay() > 0){ // 如果是delay延迟发送的消息, 就忽略消息发送失败
+                    return
+                }
+                log.error(“msg 发送失败”, message.toString(), replyCode, replyText, exchange, routingKey )});
+            }          
+          }
+       
+   160 消息堆积 Lazy Queue 惰性Q, 直接写入desk
+      Consummer 消费者
+        @Configuration
+        public class LazyConfig{ 
+            @Bean   
+            public Queue lazyQueue(){  //                  2. queue 队列持久化
+                return QueueBuilder.durable("name")
+                        .lazy()     //lazy
+                        .build();
+            }
+        }
+     
+     publisher  
+            @RunWith(SpringRunner.class)
+            @SpringBootTest
+            @Slf4j
+            public class SpringAmqpTest{
+               @Autowired
+               private RabbitTemplate rabbitTemplate;
+               @Test
+               public void testlazyQueue() throws InterruptedException{
+                    Message msg = MessageBuilder.withBody("msg".getBytes(StandardCharasets.UTF_8))
+                                   .setDeliveryMode(MessageDeliveryMode.NON_PERSISTENT)  //  3.msg  消息持久化
+                                   .build();
+                    rabbitTemplate.convertAndSend("lazy.queue", msg); //发消息
+                }
+            }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         
