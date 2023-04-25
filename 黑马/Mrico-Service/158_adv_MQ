@@ -1,4 +1,5 @@
-158 reliability
+158 reliability: publisher:生产者确认机制 | MQ: 持久化 | consumer: 消费者确认机制
+
     1. RabbitMQ : 发消息给生产者 
         publisher confirm : msg成功发送到exchage : ack
                             msg未成功发送到exchage : nack
@@ -66,7 +67,76 @@
               rabbitTemplate.convertAndSend(msg, correlationData); //发消息
             }
 
-    消息持久化(40:00)
+    消息持久化(40:00) persistent
+       1.  Cosumer
+        @Configuration
+        public class CommonConfig{ 
+            @Bean
+            public DirectExchange simpleExchange(){ //        1. exchange持久化
+                                        //名字， 持久化， 是否自动删除，
+                return new DiectExchange("name", true, false);
+            }
+            @Bean   
+            public Queue simpleQueue(){  //                  2. queue 队列持久化
+                return QueueBuilder.durable("name").build();
+            }
+        }
+        
+       2. publisher  
+            @RunWith(SpringRunner.class)
+            @SpringBootTest
+            @Slf4j
+            public class SpringAmqpTest{
+               @Autowired
+               private RabbitTemplate rabbitTemplate;
+                @Test
+                public void testDurableMessage(){
+                    Message msg = MessageBuilder.withBody("msg".getBytes(StandardCharasets.UTF_8))
+                                   .setDeliveryMode(MessageDeliveryMode.PERSISTENT)  //  3.msg  消息持久化
+                                   .build();
+                    rabbitTemplate.convertAndSend("simple.queue", msg); //发消息
+                }
+            }
+
+  消费者消息确认(53:00)
+     1. manual
+     2. auto: 
+     3. none:
+     cosummer : application.yml
+      spring:/ rabbitmq/ listener? simple/ prefetch: 1/acknowledge-mode: auto
+      
+   失败重试（1：02）
+      1.在本地retry
+          cosummer : application.yml                      //重试                               1s        等待时间为3的倍数    最多3次                                                           //
+          spring:/ rabbitmq/ listener? simple/ prefetch: 1/retry/ enable: true/ initial-interval: 1000/multiplier:3/max-attempts:3/ stateless: true
+      2.消费者失败消息处理 MessageRecoverer
+         RejectAndDontRequestRecoverer ： reject,default
+         ImmediateRequeueMessageRecoverer: 重入Q
+         RepublishMessageRecoverer: 重发到指定exchange
+         
+         1.error msg exchange, queue, binding
+           consummer 
+           @Configuration
+           public class ErrorMessageConfig{
+            @Bean
+            public DirectExchange errorMsgExchange(){
+                return new DirectExchange("error.dirct");
+            }
+            @Bean
+            publc Queue errorQ(){
+                return new Queue("error.queue", true);
+            }
+            @Bean
+            public Binding errorBinding(){                                        //routingKey
+                return BindingBuilder.bind(errorQ().to(errormsgExchange())).with("error");
+            }
+            @Bean  //      2.republishMsgRecoverer
+            public MessageRecoverer republishMsgRecoverer(RabbitTemplate rabbitTemplate){
+                return new RepublishMssageRecoverer(rabbitTemplate, "error.dirct", "error");
+            }
+           } 
+
+            
         
         
         
