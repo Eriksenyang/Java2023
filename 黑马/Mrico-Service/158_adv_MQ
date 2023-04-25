@@ -1,0 +1,86 @@
+158 reliability
+    1. RabbitMQ : 发消息给生产者 
+        publisher confirm : msg成功发送到exchage : ack
+                            msg未成功发送到exchage : nack
+        publisher return :  msg成功发送到exchage, 未到queue. ack & 路由失败原因
+        
+    2. SpringAMQP
+        1. 生产者 application.yml                            异步                                             ReturnCallback提供信息
+            spring / rabbitmq/ publisher-confirm-type: correlated / pubbisher-return: true / template/ mandatory: true
+        
+        2.单例的ReturnCallback： 每个RabbitTemplate只有1个, 所以要在项目启动时配置
+          @Slf4j
+          @Configuration
+          public class commonConfig implements ApplicationContextAware{
+            @Override
+            public void setApplicationContext(ApplicationContext applicationContext) throws BeansException{
+              RabbitTemplate rabbitTemplate = applicationContext.getBean(RabbitTemplate.class);
+                                               //                     原因
+              rabbitTemplate.setReturnCallback((message, replyCode, replyText, exchange, routingKey) ->{
+                log.error(“msg 发送失败”, message.toString(), replyCode, replyText, exchange, routingKey )});
+            }          
+          }
+
+        3. 测试
+            @RunWith(SpringRunner.class)
+            @SpringBootTest
+            @Slf4j
+            public class SpringAmqpTest{
+              @Autowired
+              private RabbitTemplate rabbitTemplate;
+              @Test
+              public void testSendMsg2SimpleQueue() throws InterruptedException{
+                String queueName = "simple.queue";
+                String message = "hello";
+                CorrelationData correlationData = new CorrelationData(UUID.randomUUID().toString());
+                correlationData.getFuture().addCallback(
+                  result) ->{  //成功
+                    if(result.isAck){
+                      log.dubug(“消息发送成功”,correlationData.getiId());
+                    }else{ //nAck
+                      log.error("error", correlationData.getId());
+                      //重发
+                    }
+                  }, ex ->{ //失败
+                    log.error("error", ex);
+                });
+
+                rabbitTemplate.convertAndSend(queueName, routingKey ,message, correlationData); //发送
+              }
+            }
+
+        4.ConfirmCallback
+            @Test
+            public void testSendMessage2SimpleQueue() throws InterruptedException{
+              String msg = "hi, spring amqp";
+              CorrelationData correlationData = new CorrelationData(UUID.randomUUID().toString());
+              correlationData.getFuture().addCallback( //将来的消息
+                result -> { if(result.isAck()){                                          
+                              log.dubug(“消息发送成功”,correlationData.getiId());
+                            }else{
+                              log.error(“消息发送失败”,correlationData.getId(),  result.getReason());
+                            }
+                           }, 
+                           ex -> log.error(“消息发送异常”,correlationData.getId(),  result.getReason())  
+              );
+              rabbitTemplate.convertAndSend(msg, correlationData); //发消息
+            }
+
+    消息持久化(40:00)
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
