@@ -176,22 +176,7 @@
             }
            } 
        
-       publisher 生产者TEST
-            @RunWith(SpringRunner.class)
-            @SpringBootTest
-            @Slf4j
-            public class SpringAmqpTest{
-               @Autowired
-               private RabbitTemplate rabbitTemplate;
-                @Test
-                public void testTTLMessage(){
-                    Message msg = MessageBuilder.withBody("msg".getBytes(StandardCharasets.UTF_8))
-                                   .setDeliveryMode(MessageDeliveryMode.PERSISTENT)  //  3.msg  消息持久化
-                                   .setExpiration("5000")                       //msg 延迟5秒
-                                   .build();
-                    rabbitTemplate.convertAndSend("ttl.dirct", "ttl", msg); //发消息
-                }
-            }
+   1.拿cookie
         
         
     延迟队列(25:00)  Delay Exchange
@@ -268,11 +253,31 @@
                     rabbitTemplate.convertAndSend("lazy.queue", msg); //发消息
                 }
             }
+     
+  161 MQ cluster
+     classic cluster: 共享exchange,queue info, 但没有队列中msg信息
+     1.拿cookie
+     
+     image cluster: 共享exchange,queue info, msg
+        exactly: 
+        all:
+        nodes: 
+     
+     v3.8之后, 基于Raft协议
+        consumer application.yml
+            spring/rabbitmq/addresses: 192.168.101.x
         
-        
-        
-        
-        
+        consummer 
+           @Configuration
+           public class QuorumConfig{
+  
+            @Bean
+            publc Queue quorumQ(){
+                return  QueueBuilder.durable("quorum.queue")
+                                    .quorum()
+                                    .build();
+            }
+           } 
         
         
         
