@@ -21,7 +21,28 @@ P6 sping
     
  p10 静态工厂
     1.public class OrderDaoFactory{ public static OrderDao getOrderDao(){return new OrderDaoImpl(); }}
-    2.配置文件applicationContext.xml <bean id="" class="..orderDaoFactory" factory-method="">
+    2.配置文件applicationContext.xml <bean id="" class="..orderDaoFactory" factory-method=""//工厂类的方法>
+ 
+ p11 实例化工厂(配置文件applicationContext.xml )
+     1.<bean id="" class="">
+     2.<bean id="" factory-bean="" factory-method="">
+    
+ p12 lifeCycle: 初始化(创建对象/构造方法/set方法/bean初始化), 使用bean, 销毁
+    10:00 推荐使用
+    public class BImpl implements B, InitializingBean, DisposebleBean
+     public void afterPropertiesSet() throws Exception{}
+     public void destroy throws Exception()
+    
+    1.public class
+        public void init(){}
+        public void destory(){}
+    2.配置文件applicationContext: <bean id="" class="" init-method="" destroy-method="">
+    3.要用destroy方法,要关闭容器  ClassPathXmlApplicationContext.registerShutdownHook() / ClassPathXmlApplicationContext.close()
+    
+    
+    
+    
+    
     
     
     
