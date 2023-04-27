@@ -11,3 +11,16 @@
 
 165 Nacos源码
    protocol Buffer: 协议
+
+167 Nacos支持10万注册压力
+    把注册任务放入队列, thread pool asynch异步处理
+
+168 避免并发读写冲突
+    copyOnWrite复制1份, 更新复制的列表, 再用这个列表覆盖原列表
+
+169               API                     实例               健康检测                        服务发现
+    Eureka   Rest API(注册/发现)         临时实例                心跳                         定时pull
+    nacos :  Rest API(注册/发现)    临时实例 & 永久实例  临时实例(心跳)&永久实例(主动)        定时pull & push
+ 
+ 170
+           
