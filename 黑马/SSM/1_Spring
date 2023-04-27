@@ -1,1 +1,3 @@
-
+P5 IoC
+  IoC: Inversion of Control: spring contain 控制对象(bean)创建
+  DI: Dependency Injection: 建立 bean的依赖关系
