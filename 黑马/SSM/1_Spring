@@ -39,6 +39,43 @@ P6 sping
     2.配置文件applicationContext: <bean id="" class="" init-method="" destroy-method="">
     3.要用destroy方法,要关闭容器  ClassPathXmlApplicationContext.registerShutdownHook() / ClassPathXmlApplicationContext.close()
     
+p13  DI ： 强制依赖用construct DI/ 随意的用setting DI
+    1. setter DI 引用类型
+        1.1 class: public class BImpl implements BService{ public void setDao(){}}
+        1.2 xml: <bean id="" class="">
+                    <property name="" ref="被引用">
+                 <bean id="被引用" class="">  //被引用的bean 
+    
+    2. setter DI 一般类型
+        2.1 class: public class BImpl implements BService{ public void setNumber(){}}
+        2.2 xml: <bean id="" class="">
+                    <property name="" value="5">
+    
+    3.construct DI 引用类型
+         3.1  class: public class BImpl implements BService{ public BImpl(Obj obj){this.obj = obj}}     
+         3.2 xml: <bean id="" class="">
+                        <constructor-arg name="obj" ref="被引用">
+                  <bean id="被引用" class="">  //被引用的bean     
+    
+    4.construct DI 一般类型
+         4.1  class: public class BImpl implements BService{ public BImpl(int number){this.number = number}}     
+         4.2 xml: <bean id="" class="">
+                        <constructor-arg name="number" value="10">
+p15: autowire
+   按类型
+      1.class set方法: public class BImpl implements BService{ public void setNumber(){}}
+      2.xml autowire: <bean id="" class="" autowird="byType">   //按类型
+                      <bean id="被引用" class="">  //被引用的bean 
+    按名称
+        xml autowire: <bean id="" class="" autowird="byName">   //按名称
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
