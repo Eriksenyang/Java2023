@@ -31,7 +31,46 @@
                 优点： 低开销,            缺点：控制性弱, 不支持异步
 
 172 Sentinel VS Gateway
-   
+   Sentinel: 通过计数器来, 限流(只给固定量的线程)， 隔离(只给固定量的线程)， 降级&熔断
+    1.processorSlotChain
+
+173 Process
+
+174 Sentinel Entry
+
+175 Sentinel Context
+
+176 Sentinel API
+    AbstractSentinelInterceptor       @SentinelResource("resource")
+      resourceName
+      contextName
+      origin
+      init Context
+       *EntranceNode
+       *Context
+      init Entry
+  
+ 177 NodeSelectSlot & ClusterBuilderSlot
+ 
+ 178 StatisticSlot(统计)
+ 
+ 179 AuthoritySlot 
+ 
+ 180 SystemSLot : 负载
+ 
+ 181 ParamFlowSlot : 热点限流
+ 
+ 182 flowSlot: 限流
+      流量控制： 直接 / 关联 / 链路(从某个链路来的)
+      流控效果： fail-fast(到阈值就fail)/ warm-up(阈值波动: 小->大) / queue(先入Q)
+  
+ 183 FlowSlot: 预期等待时长=上一个预期等待时长 + 间隔时间
+ 
+ 184 DegradeSlot : 降级
+      close(正常运行时DegradeSlot关闭) -超过阈值->   open(DegradeSlot拦截所有)   -时间(可设定5s)->  half-Optn(尝试进行1次) - 失败就进入 open
+                                                                                                                       - 成功就进入 close
+                                                                                                                       
+                                                                                                                       
 
 
 
