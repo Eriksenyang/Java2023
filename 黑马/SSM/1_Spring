@@ -1,3 +1,37 @@
 P5 IoC
   IoC: Inversion of Control: spring contain 控制对象(bean)创建
   DI: Dependency Injection: 建立 bean的依赖关系
+
+P6 sping
+   1.依赖 : spring-context
+   2.接口& 实现 ：public interface BookService{} & public class BookServiceImpl implement BookService{}
+   2.配置文件applicationContext.xml  <bean id="" class="" />
+   3.main: ApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
+   
+ P7 DI
+     1.配置文件applicationContext.xml <property name="" ref="">
+     2.主方法加入 set方法, 调用依赖的 bean
+     
+ p8 bean配置
+    bean别名name ：配置文件applicationContext.xml  <bean id="" name="别名" class="" />
+    bean scope： singleton(哪些适合用service,dao, util), prototype(每次new新的) 
+    
+ p9 bean 实例化
+    1.反射construct建
+    
+ p10 静态工厂
+    1.public class OrderDaoFactory{ public static OrderDao getOrderDao(){return new OrderDaoImpl(); }}
+    2.配置文件applicationContext.xml <bean id="" class="..orderDaoFactory" factory-method="">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+   
