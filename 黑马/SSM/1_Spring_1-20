@@ -75,15 +75,23 @@ p16 <property name="array">
 
 20230428
 P17 管理外部bean
-      1.导依赖 pom.xml
-      2.配xml:
+      1.导依赖到 pom.xml
+      2.配xml: <bean id="" class=""> 
+                  <property name="" calue="">
 
-p18 
+p18 spring 加载properies
+      1.xml 开启contxt : xmlns:context
+      2.使用context加载properties文件 <context:proprety-placeholder location="xxx.properties" /> //locatijon 在resource包下
+      3.用${}读取属性值 <bean class="">
+                            <property name="url" value=${properties文件中name: eg${jabc.url}}>p19
     
-    
-    
-    
-    
+ p19 container
+       1. ClassPathXmlApplicationContext() //立即加载bean. BeanFactory(顶层接口) 延迟加载bean
+       2. FileSystemXmlApplicationContext() //文件路径
+    获取bean
+      1.按名称： (BookDao)ctx.getBean("name");
+      2.按类型  ctx.getBean(类型.class);
+      
     
     
     
