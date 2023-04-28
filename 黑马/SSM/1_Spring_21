@@ -1,2 +1,11 @@
-p21 @
+p21 注解开发
+  1. 注解 @Component("name")/ @Controller @Service @Repository
+  2. 配置文件扫描bean ： application.xml  <comtext:component-scan base-package="bean的包">
+ 
+p22 用config class 替代 pom.xml    
+    1.@Configuration
+      @ComponentScan("包")//扫包
+      public class SpringConfig{     }
+    2.main 使用
+      AnnotationConfigApplicationContext(springConfig.class);
   
