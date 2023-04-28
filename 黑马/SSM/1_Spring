@@ -72,8 +72,13 @@ p15: autowire
 p16 <property name="array">
       <array>        <map>                              <props>
         <value>         <entry key="" value="">            <prop key="">xxx</prop>
-    
-    
+
+20230428
+P17 管理外部bean
+      1.导依赖 pom.xml
+      2.配xml:
+
+p18 
     
     
     
