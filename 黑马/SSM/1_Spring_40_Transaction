@@ -1,1 +1,53 @@
-
+p40 public interface PlatFormTransactionManager commit/rollback
+    public class DataSourceTransactjionManager
+    
+    1. 用在接口中把要管理的  @Transaction 
+    public interface AccountService{
+      @Transaction 
+      public void transfer(String out, String in, Double Money);
+    }
+    2.在JdbcConfig file中定义1个bean
+    public class JdbcConfig(){
+      @Bean
+      public PlatformTransctionManager transactionManager(DataSource dataSource){
+        DataSourceTransactionManager dstManager = new DataSourceTransactionManager();
+        dstManager.setDataSource(dataSource);
+        return dstManager;
+      }
+    }
+    3.在spring总config文件开启@EnableTransactionManagement
+    @Configuration
+    @ComponentScan("")
+    @PropertySource()
+    @Import(JdbcConfig.class)
+    @EnableTransactionManagement // 开启
+    
+p42 setting
+    Rollbakc : error / runtimeException
+    @Transacation(rollbackFor = {NullPointException})
+    
+     一定要运行的transaction, 比如日志
+     @Transaction(propagation=Propagation.REQUIERS_NEW)//新开一个事物,无论其他成功失败,这个会运行
+     REQUIERD 默认: 有就加入, 无就新建
+     REQUIERS_NEW :  新建       新建
+     SUPPORTS:      有就加入   无就无
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
