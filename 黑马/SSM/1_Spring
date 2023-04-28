@@ -69,7 +69,9 @@ p15: autowire
     按名称
         xml autowire: <bean id="" class="" autowird="byName">   //按名称
     
-    
+p16 <property name="array">
+      <array>        <map>                              <props>
+        <value>         <entry key="" value="">            <prop key="">xxx</prop>
     
     
     
