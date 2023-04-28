@@ -36,9 +36,38 @@ p24
           @Value(${"key"})
           private String name;
       
- p25     
-      
-      
+ p25 调用第3方bean
+     1.导依赖
+     2.定义1个方法管理对象
+     3.声明这个方法为 @Bean
+        publc class JdbcConfig{
+           @Bean
+           public DataSource dataSource(){
+            DruidDataSource ds = new DruidDataSource();
+            ds.setDriveClassName();
+            ...
+            return ds;
+           }
+      4.一个config统一管理
+          @Config
+          @Import(JdbcConfig.class)
+          public class SpringCOnfig{ }
+
+  p26 
+      1.简单类型
+        @Value("key")
+        private String driver;
+      2.引用类型 : 形参BookDao BookDao, 只要你注册了BookDao, spring 会自动装配
+         public DataSource datasource(BookDao BookDao){}
+         
+   p27 xml vs @
+            定义                             DI                   第3方            范围                周期
+      xml   id= class=                      setter/construct      FactoryBean      <scope="">         init-method/destroy-method
+      @     @Component                      @Autowired            @Bean             @Scope            @PostConstuctor
+            @ComponentScan//扫描bean                                                                  @PreDestroy
+        
+       
+p28 spring & MyBatis    
       
       
       
