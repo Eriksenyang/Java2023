@@ -1,0 +1,70 @@
+p31 AOP: Aspect Oriented programming
+    原始的: 为连接点 joinPoint
+    追加的: 切入点 pointcut 
+    共用的: 通知   Advice
+    切面：  Aspect 通知 插入的 切入点
+
+p32 
+  1.依赖 org.aspect
+  2.共性方法
+    @Component
+    @Aspect // aop
+    public class MyAdvice{
+      3 切点                   返回值         包.class.方法()
+      @Pointcut("executing(void com.itheima.dao.Book.dao.update())")
+      private void pt(){}
+      
+      @Before("pt()") //4. 在Pointcut位置 运行这个方法
+      public void mehtod(){SOP } //通知
+    }
+   3. config
+       @Configuration
+       @ComponentScan("bean包")
+       @EnableAspectAutoProxy    //开启Aspect
+       public class SpringConfig{            }
+
+p33 proxy
+
+p34 
+    execution( return 包 接口 方法(参数))
+    * 单个任意
+    .. 多个任意
+
+p35 
+  @Before
+  @After
+  @Around("pt{}")
+  public Object around(ProceedingJoinPoint pjp) throws Throwable{
+    sop //before
+    Object obj = pjp.proceed(); //原class的方法
+    sop//after
+    return obj; //如果原方法有返回值,这里要return obj 
+  }
+
+p36 pjp.getSignature()
+
+p37
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
