@@ -68,7 +68,67 @@ p24
         
        
 p28 spring & MyBatis    
-      
+   SqlSessionFactoryBuilder sqlSessionFactoryBuilder = new SqlSessionFactoryBuilder();
+   InputStream inputStream = Resource.getResourceAsStream("sqlMapConfig.xml");
+   SqlSessinFactory  sqlSessinFactory = sqlSessionFactoryBuilder.build(inputStream);
+
+p29
+    1.依赖 ： spring-jdbc
+               mybatis-spring
+
+    2.config
+      @Configuration
+      @ComponentScan("com.itheima")//scan bean 所在的包
+      @PropertySource("jdbc.properties"); //scan properties
+      @Import({JdbcConfig.class, MybatisConfig.class} ) // 导入 jdbc config
+      public class SpringConfig{
+
+      }
+    3.第3方 jdbc 数据源
+      public class JdbcConfig{
+        @Value(${jdbc.driver})//来自jdbc.properties
+        private String driver;
+        ...
+        @Bean
+        public DataSource dataSource(){
+          DruidDataSource ds = new DruidDataSource();
+          ds.setDriverClassName(driver);
+          ...
+          return ds;
+        }     
+      }
+    4.Mybatis 
+      public class MybatisConfig{
+         @Bean
+         public SqlSessionFactoryBean sqlSessionFactory(DataSource dataSource){
+          SqlSessionFactoryBean ssfb = new SqlSessionFactoryBean();
+          ssfb.setTypeAliasesPackage("com.itheima.domain");     //scan domain(pojo)
+          ssfb.setDataSource(dataSource);
+          return ssfb;
+         }
+         @Bean
+         public MapperScannerConfigurer mapperScannerConfigurer(){
+          MapperScannerConfigurer msc = new MapperScannerConfigurer();
+          msc.setBasePackage("com.itheima.dao");                //scan dao
+          return msc;
+         }
+  
+  p30 JUnit
+      1.依赖  junit
+              spring-test
+      2.@Runwith(SpringJunit4ClassRunner.class)
+        @ContextConfiguration(classes=springConfig.class)
+        public class ATest{
+          @Autowired
+          private AcccountService acccountService;
+          @Test
+          public void testFindById(){
+            acccountService.findById(1);
+          }
+        }
+  
+  
+  
       
       
       
