@@ -43,7 +43,21 @@ p35
 
 p36 pjp.getSignature()
 
-p37
+p37  JoinPoint.getArgs()
+
+p38 例子
+     @Component
+     @Aspect
+     public classDataAdvice{
+        @Pointcut("excution(boolean com.it.*service.equal(*,*))")
+        private void servicePt(){}
+        @Around("servicePt()")
+        public Object trimSt(ProceedingJoinPoint pjp) throws Throwable{
+           Object[] args =  pjp.getArgs();
+           Object obj = pjp.proceed(args);
+           return obj;
+        }
+     }
 
 
 
