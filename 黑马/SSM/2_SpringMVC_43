@@ -1,3 +1,17 @@
 p43 表现层开发
   
 p44  
+   1.依赖 spring-webmvc
+   2. class
+      @Controller
+      public class UserController{
+        @RequestMapping("/save") //路径
+        @ResponseBody
+        public String save(){
+          return "{:}";
+        }
+      }
+     3.配置类
+       @Configuration
+       @ComponentScan("")
+       public class SpringMvcConfig{}
