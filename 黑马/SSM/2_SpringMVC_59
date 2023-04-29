@@ -32,16 +32,35 @@ p61 1.service  test
             @Transactional
             public interface BookService{}
     
-p62 json 数据封装
+p62/p63 前后端json 数据封装
      public class Result{
         private Object data;
         private Integer code;
         private String msg;
      }
+    2.常量 
+       public class Code{
+        public static final Integer SAVE_SUCCESS = 200;
+       }
+    3. 在controller中使用
+        @PostMapping
+        public Result save(@RequestBody Book book){
+            boolean flag = bookService.save(book);
+            return new Result(flag? Code.SAVE_SUC : Code.SAVE_ERR, flag);
+        }
 
-
-
-
+p64 处理异常 exception : AOP 
+    1.在 controller包 
+      @RestControllerAdvice
+      public class ProjectExceptionAdvice{
+        @ExceptionHandler(Exception.class)
+        public Result doException(Exception ex){
+             
+        }
+      }
+      2.在总config的 @ComponentScan中加入扫描这个 class
+      
+    
 
 
 
