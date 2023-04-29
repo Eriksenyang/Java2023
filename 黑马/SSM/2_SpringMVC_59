@@ -1,0 +1,11 @@
+p59 前后整合
+    1.pom依赖
+    2.config 
+      @Configuration
+      @ComponentScan("xxx.service")
+      @PropertySource("xxx.properties")
+      @Import("其他config")
+
+p60 model
+
+p61 service postman test
