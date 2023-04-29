@@ -2,6 +2,7 @@ p43 表现层开发
   
 p44  
    1.依赖 spring-webmvc
+          servlet-api
    2. class
       @Controller
       public class UserController{
@@ -15,3 +16,31 @@ p44
        @Configuration
        @ComponentScan("")
        public class SpringMvcConfig{}
+     3.init servlet
+       public class ServletContainersInitConfig extends AbstractDispatcherServletInitializer{
+         protected webApplicationContext (
+            AnnotationConfigWebApplicationContext ctx = new AnnotationConfigWebApplicationContext();
+            ctx.register(springMvcConfig.class)
+         }
+         protect String[] getServletMappings(){
+          return new String[]{"/"}; //处理servlet所以请求
+         }
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+        
