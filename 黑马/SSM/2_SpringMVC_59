@@ -8,4 +8,58 @@ p59 前后整合
 
 p60 model
 
-p61 service postman test
+p61 1.service  test
+        @Runwith(SpirngJunit4ClassRunner.class)
+        @ContextConfiguration(classes = springConfig.class)
+        public class BookServiceTest{}
+    
+    2.controller postman test
+    
+    3.transaction
+      1.在config开启
+         @Configuration
+         ...
+         @EnableTransactionManagement
+         public class SpringConfig{}
+       2.在jdbc.config中 (写在其他config中也可以， 最好跟datasource在一起,因为要用DS )
+            @Bean
+            public PlateformTransactionManager transactionManager(DataSource dataSource){
+                DataSourceTransactionManagement ds = new DataSourceTransactionManagement();
+                ds.setDataSource(dataSource);
+                return ds;
+            }
+        3.在service interface 中使用
+            @Transactional
+            public interface BookService{}
+    
+p62 json 数据封装
+     public class Result{
+        private Object data;
+        private Integer code;
+        private String msg;
+     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
