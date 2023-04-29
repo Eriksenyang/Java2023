@@ -93,7 +93,9 @@ p56 简化
       3.加入总config
         @Configuration
         @ComponentScan("com.itheima.config") //加入扫描
- 
+
+
+    
          
          
          
