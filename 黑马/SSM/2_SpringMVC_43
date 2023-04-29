@@ -25,9 +25,31 @@ p44
          protect String[] getServletMappings(){
           return new String[]{"/"}; //处理servlet所以请求
          }
+
+20230429
+p45 
+    servletContext - webApplicationContext - UserController
+
+p46 排除spring 加载springMvc的包
+      @ComponentScan(value= " ", excludeFilters= @ComponentScan.Filter(type=FilterType.ANNOTATION, classes=Controller.class))
+
+
+p47 postman
          
-         
-         
+p48 request / response
+    @RequestMapping("/user")
+    public Class User{ }
+    
+p49 传参数 ： 相同名称直接映射(postman - class)
+    @RequestMapping("/user")
+    @ResponseBody
+    public String commondParam(String username, int age){ }
+
+p50 传参数
+    @RequestMapping("/user")
+    @ResponseBody              // request的 name 映射 username
+    public String commondParam(@RequestParam("name") String username, int age){ }
+    
          
          
          
