@@ -61,7 +61,15 @@ p51 传json
         @RequestMapping("/user")
         @ResponseBody              // json 
         public String commondParam(@RequestBody User user){ }
-         
+
+p52 date
+    @DateTimeformat(pattern="yyyy-MM-dd")
+    
+p53 @ResponseBody
+
+p54 Rest
+    
+    
          
          
          
