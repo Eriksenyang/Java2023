@@ -50,7 +50,17 @@ p50 传参数
     @ResponseBody              // request的 name 映射 username
     public String commondParam(@RequestParam("name") String username, int age){ }
     
-         
+p51 传json
+    1.pom依赖 jackson-databind
+    2.config 开启接收 json : @EnableWebMvc
+      @Configuration
+      @ComponentScan
+      @EnableWebMvc
+      public class SpringMvcConfig{}
+    3.controller
+        @RequestMapping("/user")
+        @ResponseBody              // json 
+        public String commondParam(@RequestBody User user){ }
          
          
          
