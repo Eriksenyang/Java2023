@@ -50,7 +50,7 @@ p62/p63 前后端json 数据封装
         }
 
 p64 处理异常 exception : AOP 
-    1.在 controller包 
+    1.处理器在 controller包 
       @RestControllerAdvice
       public class ProjectExceptionAdvice{
         @ExceptionHandler(Exception.class)
@@ -60,7 +60,61 @@ p64 处理异常 exception : AOP
       }
       2.在总config的 @ComponentScan中加入扫描这个 class
       
-    
+p65 新建Exception包
+    1. SystemException
+         public class SystemException extends RuntimeException{
+            private Integer code;
+         }
+    2. BusinessException
+        public class BusinessException extends RuntimeException{
+            private Integer code;
+         }
+
+    3.在可能发生异常的地方 使用
+        try{
+            }catch(Exception e){
+                throw new SystemException(401, "msg", e);
+            }      
+     4.交给exception处理器 p64
+           @RestControllerAdvice
+           public class ProjectExceptionAdvice{
+                @ExceptionHandler(SystemException.class)
+                public Result doSystemException(SysetemException ex){
+                    return new Result(ex.getCode(), null, ex.getMessage()); //返回标准result
+                }
+      }
+
+p66 连前端
+    1.让springMvc 放行 页面request
+      @Configuration
+      public class springMvcHelper extends webMvcConfigurationSupport{
+        Override
+        protected void addResourceHandler(ResouceHandlerRegistry registry){
+            registry.addResourceHandler("让 springMVC skip webapp 包下的前端页面");
+        }
+      }
+
+p67      异步调用 axios.get("/book") 
+p68 
+p69
+p70
+
+
+p71
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
