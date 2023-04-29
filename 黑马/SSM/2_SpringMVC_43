@@ -58,7 +58,7 @@ p51 传json
       @EnableWebMvc
       public class SpringMvcConfig{}
     3.controller
-        @RequestMapping("/user")
+        @RequestMapping("/user" method="RequestMethod.GET")
         @ResponseBody              // json 
         public String commondParam(@RequestBody User user){ }
 
@@ -68,8 +68,50 @@ p52 date
 p53 @ResponseBody
 
 p54 Rest
-    
-    
+
+p56 简化    
+    @RestController　// == @Controller + @ResponseBody
+    @RequestMapping("/books")   
+    public class BookController{
+      @GetMapping("/{id}")
+      public String getById(){
+      }
+    }
+ 
+ p57 backend ： postman 侧接口
+ 
+ p58 pages :
+      1.放在 webapp/pages 下
+      2.让springMVC不要管理 webapp/pages
+        @Configuration      
+        public class SpringMvcSupport extends WebMvcConfigurationSupport{
+          @Override
+          protected void addResourceHandlers(ResourceHandlerRegistry registry){
+            registry.addResourceHandler("/pages/*");
+          }
+        }
+      3.加入总config
+        @Configuration
+        @ComponentScan("com.itheima.config") //加入扫描
+ 
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
          
          
          
