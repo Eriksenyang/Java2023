@@ -17,7 +17,7 @@ p78  1.隐藏自己的依赖
           <exclusion>
 
 p79 对项目同时构建,保证1个模块跟新,项目同时更新构建.
-      1.parent模块 打包成pom 
+      1.建立一个parent模块 打包成pom, 没有其他功能 
           <groupId>
           <artifactId>
           <version>
@@ -28,19 +28,62 @@ p79 对项目同时构建,保证1个模块跟新,项目同时更新构建.
               <module>../maven_03_pojo<module> 
               ...
               
-p80
+p80 继承
+    1.在子module中继承父 pom 
+      <parent>
+         <groupId>
+         <artifactId>
+         <version>
+         //<relativePath>../maven_01_parent/pom.xml<> //继承父的 pom 
+     
+    2. 父pom配上通用的依赖
+    
+    3.1 对于可选用的依赖在父 pom中配 <dependencyManagement>
+          <dependencyManagement>
+            <dependencies>
+               <dependency>
+                  <groupId>
+                  <artifactId>
+                  <version> //统一管理version 
+    3.2 当需要这个依赖的子 pom, 不需要配 <version>  , 父统一管理version   
+         <dependency>
+                  <groupId>
+                  <artifactId>
+         <dependency>
        
+  p81 变量
+     1.定义
+        <propreties>
+          <sprign.varsion>5.1.10</sprign.varsion>
+      2.使用
+            <groupId>
+            <artifactId>
+            <version>${sprign.varsion}</version>
+            
+   p82  resouce 文件使用 pom中的属性
+       1.pom 设定属性
+         propreties>
+          <jdbc.url>jdbc:mysql://..</sprign.varsion>
+       2.在resource中引用属性
+         jdbc.url=${jdbc.url}
+       3.在父 pom 开启加载 resource的 filter
+          <build>
+            <resources>
+               <resource>
+                  <directory>${project.basedir}/src/main/resources</> //resources目录下所有properties 文件
+                  <filtering>true<filtering>
        
+       3.maven如果需要打war包，skip war包报错
+         <plugin>
+             <groupId>
+             <artifactId>maven-war-plugin<>
+             <version>
+             <configuration>
+               <failOnMissingWebXml>false</>
        
-       
-       
-       
-       
-       
-       
-       
-       
-       
+  p83 SNAPSHOT
+  
+  p84
        
        
        
