@@ -1,3 +1,58 @@
 p75 多模块
 
-p76
+p76 
+   1.单独开发一个moduleA 
+   2. run maven install : 安装到仓库
+   3.在moduleB 的pom中加入 moduleA(pom中<groupId><artifactId>)的依赖,  moduleB 就能用 moduleA 
+   
+p77 dependency manage
+    1. 1个依赖如果有不同版本, 后配置的生效. (后覆盖前)
+    2.路径优先
+
+p78  1.隐藏自己的依赖
+       <version></>
+       <optional>true<> //隐藏
+     2.排除别人的依赖
+        <exclusions>
+          <exclusion>
+
+p79 对项目同时构建,保证1个模块跟新,项目同时更新构建.
+      1.parent模块 打包成pom 
+          <groupId>
+          <artifactId>
+          <version>
+          <packaging>pom<packaging> //父模块管理所以子模块, 打包成pom
+       2. 父模块管理所以子模块
+           <modules>
+              <module>../maven_02_ssm<module> 
+              <module>../maven_03_pojo<module> 
+              ...
+              
+p80
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
