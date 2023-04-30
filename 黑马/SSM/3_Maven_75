@@ -83,17 +83,53 @@ p80 继承
        
   p83 SNAPSHOT
   
-  p84
+  p84 多环境开发   maven install -P env
+      1.父 pom
+       <profiles>
+         <profile>
+            <id>env_dev</id>
+            <properties>
+               <jdbc.url>jdbc....<>
+             </properties>
+             <activation>
+               <activeByDefault>true</activeByDefault>
+             <activation>
+         <profile>
+            <id>env_tst/id>
+            <properties>
+               <jdbc.url>jdbc....<>
+       
+  p85 skip test
+     1.plugin
+       <build>
+         <plugins>
+            <plugin>
+               <artifactId>maven-surfire-plugin<>
+               <configuration>
+                  <skipTests>true<>
+                  //or <excludes>
+                           <exclude>
        
        
        
        
        
-       
-       
-       
-       
-       
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
        
        
        
