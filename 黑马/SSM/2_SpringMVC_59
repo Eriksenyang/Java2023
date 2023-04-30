@@ -128,7 +128,9 @@ p72 1.建立 Interceptor bean 在 controller包
        }
      4.在主config中扫描 这一个配置类
       
+p73 参数
 
+p74 顺序
 
 
 
