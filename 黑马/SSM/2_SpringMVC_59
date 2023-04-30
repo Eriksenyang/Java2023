@@ -100,8 +100,34 @@ p69
 p70
 
 
-p71
-
+p71 Interceptor(是springMVC技术） vs Filter(是servlet技术,可对所有request进行增强)
+    
+p72 1.建立 Interceptor bean 在 controller包
+        @Component
+        public class PInterceptor implements HandlerInterceptor{
+           preHandle
+           
+           postHandle
+           
+           afterCompletion
+        }        
+     2.配置到config文件中, 让这个包被主 Config扫描
+       @Configuration
+       @ComponentScen("Interceptor包")
+       
+     3.在一个配置类中 使用interceptor, 它 extends WebMvcConfigurationSupport
+       @Configuration
+       public class SpringMvcSupport extends WebMvcConfigurationSupport{
+        @Autowired
+        private PInterceptor pInterceptor;
+        
+        @Override
+        protacteed void addInterceptor(InterceptorRegistry registry){
+            registry.addInterceptor(pInterceptor).addPathPatterns("/books"); // 在路径 "/books" 时使用 pInterceptor
+        }
+       }
+     4.在主config中扫描 这一个配置类
+      
 
 
 
