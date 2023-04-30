@@ -109,11 +109,30 @@ p80 继承
                   <skipTests>true<>
                   //or <excludes>
                            <exclude>
-       
-       
-       
-       
-       
+
+p86 private repo
+   
+p87 
+
+p88 maven/setting      
+   1.本地repo 访问 私repo 访问权限
+     <server>
+      <id>
+      <username>
+      <password>
+    2. 本地repo 与私服 映射关系
+      <mirror>
+         <id>
+         <mirrorOf>*<> //* all
+         <url>
+ 
+ p89 项目要发到那个 repo, 在父 pom中配置
+     <distributionMangement>
+         <snapshotRepository> 
+            <id>
+            <url>
+         <snapshotRepository> 
+   
  
  
  
