@@ -4,7 +4,7 @@ P3:
     3. JPA(接口) - ORM(hib/other) - JDBC - DB
    例子： 
      1. 依赖
-     2. public class Article implements Serializable {} // pojo/entity 
+     2. public class Article implements Serializable {} // entity 
      3. mapping 映射关系
           @Entity
           @Table(name = "Article")
@@ -18,22 +18,32 @@ P3:
                   
           }
        4.配置文件 https://stackoverflow.com/questions/52546758/set-hibernate-dialect-for-jpa-in-yml
-          server:
-            port: 8096
-
+                 
+            4.1  https://mkyong.com/spring-boot/spring-boot-spring-data-jpa-mysql-example/   
             spring:
+                ## MySQL
               datasource:
                 driverClassName: org.h2.Driver
-                url: jdbc:h2:~/test
-                username: sa
-                password: 
-                h2:
-                  console:
-                    enabled: true
+                url: jdbc:mysql://localhost:3306/wordpress
+                username: username
+                password: password            
               jpa:
-                hibernate.ddl-auto: update
-                generate-ddl: false
-                show-sql: false
-                properties:
-                  hibernate:
-                    dialect: org.hibernate.dialect.H2Dialect
+                hibernate
+                    ddl-auto: update
+                    use-new-id-generator-mappings: false
+        
+           4.2  https://spring.io/guides/gs/accessing-data-mysql/
+           application.yml          
+            spring
+                datasource
+                    driver-class-name: com.mysql.cj.jdbc.Driver    
+                    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/db_example
+                    username: springuser
+                    password: ThePassword                         
+                jpa
+                  hibernate
+                    ddl-auto: update           
+                    #show-sql: true
+                    
+                    
+                    
