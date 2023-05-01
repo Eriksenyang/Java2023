@@ -9,7 +9,7 @@ SpringData common/ JPA : 黑马spring JPA https://www.bilibili.com/video/BV1RE41
    public class Article{
 
       @Column(name = "aid")
-      @GenerateValue(strategy = GenerationType.IDENTITY)
+      @GenerateValue(strategy = GenerationType.IDENTITY) //主键生成
       private Integer aid;
 
    }
