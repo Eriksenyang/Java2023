@@ -12,7 +12,28 @@ p105 mybatisPlus
        @Mapper
        public interface UserDao extends BaseMapper<User>
 
-p106
+p106 
+
+p107 CRUD
+     Lombok
+     1.依赖
+     2.@Data （@Setter/@Getter/@ToString）
+
+p108 配分页拦截器 实现分页
+     @Configuration
+     public class MpConfig{
+          @Bean
+          public MybatisPlusInterceptor pageInterceptor(){
+              MybatisPlusInterceptor mpI= new MybatisPlusInterceptor();
+              mpI.addInnerInterceptor(new PaginationInnerInterceptor());
+              return mpI;
+          }
+     }
+
+p109 DQL
+
+
+
 
 
 
