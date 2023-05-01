@@ -1,0 +1,39 @@
+P3: 
+    1. ORM: Object Relation Mapping. Hib 是 ORM framwork, 封装了 JDBC. hib 建立了 pojo relate DB table 
+    2. JPA : Java Persistence API , interface
+    3. JPA(接口) - ORM(hib/other) - JDBC - DB
+   例子： 
+     1. 依赖
+     2. public class Article implements Serializable {} // pojo/entity 
+     3. mapping 映射关系
+          @Entity
+          @Table(name = "Article")
+          public class Article implements Serializable {
+              @Id
+              @GenerateValue(strategy = GenerationType.IDENTITY) //主键生成
+              private Integer aid;
+              
+              @Column(name = "title") //与table对应
+              private String title;
+                  
+          }
+       4.配置文件 https://stackoverflow.com/questions/52546758/set-hibernate-dialect-for-jpa-in-yml
+          server:
+            port: 8096
+
+            spring:
+              datasource:
+                driverClassName: org.h2.Driver
+                url: jdbc:h2:~/test
+                username: sa
+                password: 
+                h2:
+                  console:
+                    enabled: true
+              jpa:
+                hibernate.ddl-auto: update
+                generate-ddl: false
+                show-sql: false
+                properties:
+                  hibernate:
+                    dialect: org.hibernate.dialect.H2Dialect
