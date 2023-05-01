@@ -1,1 +1,34 @@
+p105 mybatisPlus
+     1.依赖
+     2.yml 
+        spring:
+          datasource:
+            type:
+            driver-class-name:
+            username:
+            password:
+     3.domain User(pojo)
+     4.dao
+       @Mapper
+       public interface UserDao extends BaseMapper<User>
+
+p106
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
