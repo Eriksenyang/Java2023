@@ -50,7 +50,7 @@ p97 读取 yml  lesson: springboot
       @COnfigurationProperties(prefix="lesson") //读取yml 中 lesson
       public class lesson{ }
      
-p98 多环境开发
+p98 springboot 多环境开发 application.yml
       spring:
         profiles:
           active: dev
@@ -68,18 +68,68 @@ p98 多环境开发
 
 p99 java -jar xxx.jar --spring.profiles.active=test --server.port=88 //test 环境 , port 88
 
-p100
+p100 多环境开发 MVN 为主pom.xml,   springboot的application.yml为辅
+       1.pom.xml
+            <profiles>
+                 <profile>
+                    <id>env_dev</id>
+                    <properties>
+                       <profile.active>dev</> //dev环境                      
+                     </properties>
+                     <activation>
+                       <activeByDefault>true</activeByDefault> //激活
+                     <activation>
+                 <profile>
+                    <id>env_test/id>
+                    <properties>
+                       <profile.active>test</> ////tst 环境     
 
+       2.  application.yml
+             spring:
+                profiles:
+                  active: ${profile.active} //从 pom
 
+       3. 让 yml  读到 pom  profile.active的值
+              <plugin>
+                <groupId>
+                <artifactId>maven-resource-plugin<>
+                <version></>
+                 <configuration>
+                   <useDefaultDelimiters>true</>
 
+p101 配置文件
+        
+    
+p102 Junit
+    @SpringBootTest
+    class SpirngTest{
+        @Autowired
+        private BookService bookService;
+        @Test
+    }
 
+p103 Mybits
+        1.mybatis-spring-boot-start
+        2.
+        3. public class Book(){}
+        4.
+          @Mapper                        //这里让spring 生成proxy 
+          public interface BookDao(){
+            @Select("select * from tb1_user where id= #{id}")
+            public Book getById(Integer id);
+           }
+        5.application.yml
+            spring:
+                datasource:
+                    drive-class-name: com.mysql
+                    url:  jdbc:mysql:// ?serverTimezone=UTC
+                    username: root
+                    password: root
+                    type: com.alibaba.druid.pool.DruidDataSource
+                    
 
-
-
-
-
-
-
+p104                    
+        
 
 
 
