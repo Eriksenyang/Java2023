@@ -128,7 +128,7 @@ p103 Mybits
                     type: com.alibaba.druid.pool.DruidDataSource
                     
 
-p104                    
+p104 页面相关的 css,js, pages 放在 resource/static 下                  
         
 
 
