@@ -1,1 +1,98 @@
-p90
+p90 springBoot
+    @RestController
+    @RequestMapping("/books")
+    public class BookContoller{
+      
+      @GetMapping("${id}")
+      public String getById(@PathVariable Integer id){ sop }
+    }
+
+p91 pom
+    @SpringBootApplication
+    public class Application{
+      public static void main(String[] args){ SpringApplication.run(Application.class, args)}
+    }
+p92 mavne package
+    java -jar xxx.jar
+    <build>
+      <plugins>
+          <plugin>
+            <groupId>
+             <artifactId>spring-boot-maven-plugin</artifactId>
+             
+p93 spring-boot-starter-parent
+
+p94 jetty
+
+p94 setting : 加入项目，出提示 file/projctStruct/facets/+spring
+    1.application.properties 
+        server.port=80
+    2.application.yml
+        server:
+          port: 80
+
+p97 读取 yml  lesson: springboot
+   1. 用@Value(${lesson})
+        @RestController
+        @RequestMapping("/books")
+        public class BookContoller{
+          @Value(${lesson})
+          private String lesson;
+
+          @GetMapping("${id}")
+          public String getById(@PathVariable Integer id){ sop }
+        }
+    2.@Autowired
+      private Environment environment;
+
+    3.定义1个 Enterprise pojo class: 比如生成一个class 读取 DB的配置
+      @Component
+      @COnfigurationProperties(prefix="lesson") //读取yml 中 lesson
+      public class lesson{ }
+     
+p98 多环境开发
+      spring:
+        profiles:
+          active: dev
+     ---
+      spring:
+        profiles: dev
+      server:
+        port: 80   
+      ---  
+      spring:
+        profiles: test
+       server:
+        port: 81      
+      ---  
+
+p99 java -jar xxx.jar --spring.profiles.active=test --server.port=88 //test 环境 , port 88
+
+p100
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
