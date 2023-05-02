@@ -93,8 +93,9 @@
       unchecked exception(RuntimeEx) :                                              NullPointerExceptions
       checked exception(compile-timeEx)   :   try{}catch{}finally or throwsIOExceptions  IOExceptions
     
-15 Thread
-    https://github.com/Eriksenyang/2020Self/blob/master/%E9%BB%91%E9%A9%AC/Java%E9%9D%A2%E8%AF%95/Thread
+15 Thread :  https://github.com/Eriksenyang/2020Self/blob/master/%E9%BB%91%E9%A9%AC/Java%E9%9D%A2%E8%AF%95/Thread
+    light-weight processes within a process 
+   
     
 15.1 HashTable vs ConcurrentHashMap
       https://github.com/Eriksenyang/2020Self/blob/master/%E9%BB%91%E9%A9%AC/Java%E9%9D%A2%E8%AF%95/HashTable%20vs%20ConcurrentHashMap
