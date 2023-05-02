@@ -17,17 +17,19 @@
   1.2 inheritence : acquire the fields and methods from another class (reusability code) : 子用到父方法 super(), 重写父@Override
                      继承是用来表示类之间的is-a关系
                      
-  1.3 Plymorphism(having many forms) :same interface  have multiple implementations.  子类 override 父类方法, 父类引用指向子类实例
+  1.3 Plymorphism(having many forms) :same interface have multiple implementations.  子类 override 父类方法, 父类引用指向子类实例
         父类类型  变量名 = new 子类类型() Pet pet = new Cat();    Pet pet = new Bird();
         变量名.方法名()                  pet.toString();         pet.toString(); //子类 override 父类方法, 同方法call 不同子类返回不同结果
         
         向上转型 : (子类对象赋值给一个父类引用) 父类类型  变量名 = new 子类类型();
         向下转型：(一个已经向上转型的子类对象,可以使用强制类型转换，将父类引用转为子类引用)  子类类型 变量名 = (子类类型) 父类类型的变量;
         向上转型后，只能使用父类共性的内容，而无法使用子类特有的功能。若要使用子类特有的功能, 要用instanceof先判断: if (变量名 instanceof 子类类型)才能用
-        1.3.1 Method Overloading: When there are multiple functions with the same name but different parameters th
+        1.3.1 Method Overloading: When there are multiple functions with the same name but different parameters 
+                                  Compile-time Polymorphism
         1.3.2 Method overriding: subclassto provide a specific implementation of a method that is already provided by parent classes
-        
-  1.4 Abstraction(detail hiding) ：is the process of separating ideas from specific instances.  “hides” unnecessary information. T
+                                  Run Time Polymorphism
+ 
+ 1.4 Abstraction(detail hiding) ：is the process of separating ideas from specific instances.  “hides” unnecessary information. 
       抽象是如何隐藏方法的具体实现，让调用者只需要关心方法提供了哪些功能，并不需要知道这些功能是如何实现的。
     
     
@@ -41,7 +43,7 @@
                   Interfaces are used to introduce a layer of abstraction and decouple modules of code
                   
 3. JVM-JRE-JDK 
-  JVM) is a process virtual machine that can execute Java bytecode(“Platform Independent Programming Language)
+  JVM is a process virtual machine that can execute Java bytecode(“Platform Independent Programming Language)
   https://github.com/Eriksenyang/2020Self/blob/master/%E9%BB%91%E9%A9%AC/Java%E9%9D%A2%E8%AF%95/JVM
 
 4.byte(8) short(16) int(32) long(64) float(32) double(64) char(16) boolean 
@@ -55,8 +57,20 @@
     ==     : 基本类型:value,  引用类型 @
     equals : 
 
-7.Enums
-  
+7.Enums : enum type stay fixed for all time.
+
+8. final 
+    Final variables : declaring constants
+    Final methods : it cannot be overridden by a subclass
+    Final classes :  it cannot be extended by a subclass
+
+9. static
+    Shared memory allocation
+    Accessible without object instantiation
+    Associated with class, not objects
+    Cannot access non-static members
+    Can be overloaded, but not overridden
+    
 8 clone: implement Cloneable interface
   deep copy : copy original object into new objects
   shallowCopy: which shares the same references as the original object
