@@ -21,10 +21,14 @@
   Abstraction ：is the process of separating ideas from specific instances.  “hides” unnecessary information. T
     抽象是如何隐藏方法的具体实现，让调用者只需要关心方法提供了哪些功能，并不需要知道这些功能是如何实现的。
     
-2. interface vs abstract class  ： https://blog.csdn.net/chenssy/article/details/12858267
+    
+2. interface vs abstract class  ： https://www.geeksforgeeks.org/difference-between-abstract-class-and-interface-in-java/
+                                   https://blog.csdn.net/chenssy/article/details/12858267
       abstract : 抽象类是对类抽象    1.抽象类主要用来抽取子类的通用特性，作为子类的模板
+                   abstract classes are used to provide a base class for concrete subclasses to inherit from,
                   abstract classes are used to plan an inheritance hierarchy and simplify the work of subclasses
       interface： 接口是对行为的抽象 1.接口是抽象方法的集合，声明了一系列的方法操作
+                  interfaces are used to define a set of methods that a class must implement
                   Interfaces are used to introduce a layer of abstraction and decouple modules of code
                   
 3. JVM-JRE-JDK 
