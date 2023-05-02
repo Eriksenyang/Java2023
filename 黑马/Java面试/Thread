@@ -23,7 +23,7 @@ https://www.bilibili.com/video/BV1yT411H7YK/
   unit时间单位 ：emergeThread
   workQueue　：　设定Queeu容量
   threadFactory　：　
-  handler 拒绝策略　：AbourtPolicy(满了报EX), CallerRunsPolicy(满了谁调谁自己跑), DiscardPolicy(丢), DiscardOlestPolicy(丢老的)
+  handler 拒绝策略　：AbortPolicy(满了报EX)(终止), CallerRunsPolicy(满了谁调谁自己跑), DiscardPolicy(丢), DiscardOlestPolicy(丢老的)
   
   ArrayBlockingQueue<Runnable> queue = new ArrayBlockingQueue<>(2); //workQueue 容量 : 2
   ThreadPoolExecutor threadPool = new ThreadPoolExecutor(
