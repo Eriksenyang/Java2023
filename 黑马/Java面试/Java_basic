@@ -6,7 +6,11 @@
 0.2 jvm + lib = jre + dev tools = jdk
 
 
-1.OOP https://www.jianshu.com/p/d05da985ead8   https://www.cnblogs.com/taylorshi/p/16640751.html
+1.OOP 
+  https://www.geeksforgeeks.org/object-oriented-programming-oops-concept-in-java/
+  https://www.jianshu.com/p/d05da985ead8   
+  https://www.cnblogs.com/taylorshi/p/16640751.html
+  
   1.1 Encapsulation(data hiding) : purposefully hiding information(intrnal characteristics & behavior) : public/prtected/default/private
          封装也叫作信息隐藏或者数据访问保护。类通过暴露有限的访问接口，授权外部访问
          
