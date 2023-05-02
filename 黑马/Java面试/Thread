@@ -29,7 +29,7 @@ https://www.bilibili.com/video/BV1yT411H7YK/
   ThreadPoolExecutor threadPool = new ThreadPoolExecutor(
     corePoolSize 2,maximumPoolSize 3,keepAliveTime 0, TimeUnit.MILLISECONDS, queue, 
     r -> new Thread(r, "myThread" + c.getAndIncrement())//计数器,
-    new ThreadPoolExecutor.AbourtPolicy()
+    new ThreadPoolExecutor.AbortPolicy()
   );
   
   6. sleep() vs wait()
