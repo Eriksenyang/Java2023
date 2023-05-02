@@ -91,7 +91,7 @@
 14. Exception : classLevel https://github.com/Eriksenyang/2020Self/blob/master/%E9%BB%91%E9%A9%AC/Java%E9%9D%A2%E8%AF%95/%E9%A9%AC%E5%A3%AB%E5%85%B5Java
     Throwable : 
       unchecked exception(RuntimeEx) :                                              NullPointerExceptions
-      checked exception(Exception)   :   try{}catch{}finally or throwsIOExceptions  IOExceptions
+      checked exception(compile-timeEx)   :   try{}catch{}finally or throwsIOExceptions  IOExceptions
     
 15 Thread
     https://github.com/Eriksenyang/2020Self/blob/master/%E9%BB%91%E9%A9%AC/Java%E9%9D%A2%E8%AF%95/Thread
@@ -106,8 +106,10 @@
       iterator
       
       Array: int[] a = new int[size];  Arrays.sort() Arrays.binarySreach(Object[] a, Object key)
-      ArrayList: size(), get(), set(), add(), remove(), Collections.sort()
+      ArrayList(dynamic arrays) : size(), get(), set(), add(), remove(), Collections.sort()
       LinkedList: size(), get(), add(), remove(),
+      Stack: FILO push/pop
+      Queue: FIFO add/poll
       HashSet: 不重复, 有null, 无序, 线程不安全, contains(),  size(), add(), remove(),
       HashMap: 1个null key. size(), keySet(), entrySet(), values(),  put(), get(key), remove(key), clean() 
       
