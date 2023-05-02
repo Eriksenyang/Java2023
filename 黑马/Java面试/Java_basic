@@ -111,7 +111,10 @@
       Stack: FILO push/pop
       Queue: FIFO add/poll
       HashSet: 不重复, 有null, 无序, 线程不安全, contains(),  size(), add(), remove(),
-      HashMap: 1个null key. size(), keySet(), entrySet(), values(),  put(), get(key), remove(key), clean() 
+      LinkedHashSet: use double LL 保证出按入的顺序
+      sorted: 
+      treeSet
+      HashMap: 1个null key. put() size(), keySet(), entrySet(), values(),   get(key), remove(key), clean() 
       
       
     
