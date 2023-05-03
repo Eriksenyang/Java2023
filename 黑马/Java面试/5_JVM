@@ -26,13 +26,16 @@ GC : heap  -Xms | -Xmx
    metaData
 
    GC 算法:
-   1. 标记 ： GC root
+   1. mark & sweep
+      标记 ： GC root
       清除 : (有碎片)
 
-   2. 标记 ： GC root
+   2. mark and defragmentation
+      标记 ： GC root
       整理 : (无碎片)
 
-   3. 标记 ： GC root
+   3. mark and copy to
+      标记 ： GC root
       复制 : (copy to )
 
 jvm GC 回收器
