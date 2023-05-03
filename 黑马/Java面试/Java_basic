@@ -11,7 +11,7 @@
   https://www.jianshu.com/p/d05da985ead8   
   https://www.cnblogs.com/taylorshi/p/16640751.html
   
-  1.1 Encapsulation(data hiding) : purposefully hiding information(intrnal characteristics & behavior) : public/prtected/default/private
+  1.1 Encapsulation(data hiding) : purposefully hiding information(intrnal characteristics & behavior) : public/protected/default/private
          封装也叫作信息隐藏或者数据访问保护。类通过暴露有限的访问接口，授权外部访问
          
   1.2 inheritence : acquire the fields and methods from another class (reusability code) : 子用到父方法 super(), 重写父@Override
@@ -22,11 +22,12 @@
         变量名.方法名()                  pet.toString();         pet.toString(); //子类 override 父类方法, 同方法call 不同子类返回不同结果
         
         向上转型 : (子类对象赋值给一个父类引用) 父类类型  变量名 = new 子类类型();
+          向上转型后，只能使用父类共性的内容，而无法使用子类特有的功能。若要使用子类特有的功能, 要用instanceof先判断: if (变量名 instanceof 子类类型)才能用
         向下转型：(一个已经向上转型的子类对象,可以使用强制类型转换，将父类引用转为子类引用)  子类类型 变量名 = (子类类型) 父类类型的变量;
-        向上转型后，只能使用父类共性的内容，而无法使用子类特有的功能。若要使用子类特有的功能, 要用instanceof先判断: if (变量名 instanceof 子类类型)才能用
+        
         1.3.1 Method Overloading: When there are multiple functions with the same name but different parameters 
                                   Compile-time Polymorphism
-        1.3.2 Method overriding: subclassto provide a specific implementation of a method that is already provided by parent classes
+        1.3.2 Method overriding: subclass to provide a specific implementation of a method that is already provided by parent classes
                                   Run Time Polymorphism
  
  1.4 Abstraction(detail hiding) ：is the process of separating ideas from specific instances.  “hides” unnecessary information. 
