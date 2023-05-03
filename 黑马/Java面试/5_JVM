@@ -1,11 +1,11 @@
-马士兵 java面试清单
+马士兵 java面试清单 ：https://www.bilibili.com/video/BV1yA411c7Ae/?spm_id_from=333.337.search-card.all.click
 JVM : .java -> .class
-      JVM Stack : java code
-      Navtive Method Stack : no java code
+      VM Stack : java code
+      Native Method Stack : 非no java code
       program counter Register : bytecode point
       
-      method area
-      stack : new 
+      method area :持久
+      Heap : new 
       
       Interpreter(解释)
       JIT Compiler
