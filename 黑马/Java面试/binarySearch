@@ -17,7 +17,7 @@ public static int binarySearch(int[] nums, int t){
   return -1;
 }
 
-2. BubbleSort
+2. BubbleSort: 每次排好1个最大的, 数组一直减小
 public static void bubbleSort(int[] nums){
 
 for(int j = nums.length - 1; j > 0; j--){//数组一直减小
@@ -29,7 +29,8 @@ for(int j = nums.length - 1; j > 0; j--){//数组一直减小
   
   }
 }
-3. SelectSort: Select sort  O(N2) 6:00 : 从0 到 n-1, 找min, 放到0. (1~n-1, min, 放到1)
+
+3. SelectSort: 选min放到合适的位置.  O(N2) 6:00 : 从0 到 n-1, 找min, 放到0. (1~n-1, min, 放到1)
   public static void selectSort(int[] nums){
     for(int i = 0; i < nums.length - 1; i++){ //有多少个位置需要sort
       int min = i;
@@ -41,7 +42,8 @@ for(int j = nums.length - 1; j > 0; j--){//数组一直减小
       swap(nums, i, min);
     }
   }
-4. InsertSort :  0~0有序, 0~1有序,
+  
+4. InsertSort : 把无序的插入有序中.  0~0有序, 0~1有序, 
   public static void InsertionSort(int[] nums){
     for(int i = 1; i < nums.length; i++ ){ //无序的
       for(int j = i - 1; j >= 0; j--){ //有序的
@@ -51,7 +53,8 @@ for(int j = nums.length - 1; j > 0; j--){//数组一直减小
       }
     }
   }
-5.QuickSort
+  
+5.QuickSort : https://github.com/Eriksenyang/2020Self/blob/master/%E5%B7%A6%E7%A5%9E/2%20MergeSort%20%26%20QuickSort
   private static void quick(int[] nums, int l, int r){
     int mid = partition(nums, l, r);
     partition(nums, l, mid - 1);
@@ -61,7 +64,7 @@ for(int j = nums.length - 1; j > 0; j--){//数组一直减小
     int pivot = nums[l];
     int i = l;
     int j = r;
-     while(i < j){
+     while(i < j){ // 双指针, 当不满足条件时停下来 swap 
       while(i < j && nums[j] > pivat) j--; //i< j 防止i, j交叉
       while(i < j && nums[i] <= pivot) i++; //i< j 防止i, j交叉.  l为pivot,所以当 nums[l] = pivot时, i要移动.
       swap(nums, i, j);     
