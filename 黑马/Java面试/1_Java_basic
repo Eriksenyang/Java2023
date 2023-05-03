@@ -124,7 +124,11 @@
     fail-safe(java.util.concurrent) : 对集合结构的修改都会在一个复制的集合上进行(开销大 | 无法保证读取的数据是目前原始数据)
 
 
-
+18. Serialization and Deserialization
+    Serialization is a mechanism of converting the state of an object into a byte stream. 
+    Deserialization is the reverse process where the byte stream is used to recreate the actual Java object in memory
+    java.io.Serializable
+    
 
 99.concurrentHashMap thread-safe
 
