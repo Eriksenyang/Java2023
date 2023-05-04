@@ -54,7 +54,7 @@ https://www.bilibili.com/video/BV1yT411H7YK/
       ** synchroized 互斥阻止交错, 保证线程安全
       
         Thread t1 = new Thread(()->
-          sychronized(lock){
+          sychronized(资源){
             account.balance = account.balance - 5;  
           }, t1 );
    
