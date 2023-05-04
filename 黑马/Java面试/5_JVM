@@ -1,27 +1,15 @@
-p101 JVM
-     .java - .class - classloader
-     MethodArea : class
-     Heap : new
-     JVM Stack : args 
-     PC Register： 记录当前线程执行到哪行 
-     Interpreter (解释)
-     JIT Compiler
-     GC
-
-p105 GC 
-
-
 马士兵 java面试清单 ：https://www.bilibili.com/video/BV1yA411c7Ae/?spm_id_from=333.337.search-card.all.click
-JVM : .java -> .class
-      VM Stack : java code
+p101 JVM : .java -> .class - classloader
+      JVM Stack : java code
       Native Method Stack : 非no java code
       program counter Register : bytecode point
       
       method area :持久
       Heap : new 
-      
+      PC Register： 记录当前线程执行到哪行 
       Interpreter(解释)
       JIT Compiler
+      GC
 
 Class Loader
    1.load
@@ -38,10 +26,10 @@ GC : heap  -Xms | -Xmx
    (标记 清除)ould Gen         (生命长): tenured space
    metaData
 
-   GC 算法:
+p105 GC 算法:
    1. mark & sweep
-      标记 ： GC root
-      清除 : (有碎片)
+      标记(不能被清除的) ： GC root 
+      清除               : (有碎片)
 
    2. mark and defragmentation
       标记 ： GC root
@@ -51,7 +39,7 @@ GC : heap  -Xms | -Xmx
       标记 ： GC root
       复制 : (copy to )
 
-jvm GC 回收器
+jvm GC 回收器: HeapP
    单线程 : Serial 
             Serial old
    多线程 :  Parallel GC eden: minor 标记复制
@@ -59,7 +47,8 @@ jvm GC 回收器
 
    ConcurrentMaskSweep GC  标记清除
 
-G1 GC 
+P111 G1 GC
+     
 
 outOfMemory: 
    java.lang.OutOfMemeoryError: java heap space : 代码问题
