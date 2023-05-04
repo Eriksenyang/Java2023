@@ -1,24 +1,24 @@
-p134
-Application context
-1.  prepareRefresh : environment 
-    @Value("${aaa}") 从properties中读值
+p134 spring
+    Application context refresh
+    1.  prepareRefresh : environment 
+        @Value("${aaa}") 从properties中读值
+        //bean factory
+    2. obtainFreshBeanFactory: beanFactory : bean definition(xml, @Bean ,scan)
 
-2. obtainFreshBeanFactory: beanFactory : bean definition(xml, @Bean ,scan)
+    3. prepareBeanFactory : 准备beanFactory
 
-3. prepareBeanFactory
+    4. postProcessBeanFactory : 子类扩展beanFactory
 
-4. postProcessBeanFactory
+    5. invokeBeanFactoryPostProcessores : post
 
-5. invokeBeanFactoryPostProcessores
-
-6.  registerBeanPostProcessors
-
-7.  initMessageSource : applicationContext
-8.  initApplicationEventMulticaster : 发布事件
-9.  onRefresh
-10. registerLiseners : 监听器
-11. finishBeanFactoryInialization
-12. finishRefresh
+    6.  registerBeanPostProcessors
+        
+    7.  initMessageSource : applicationContext
+    8.  initApplicationEventMulticaster : 发布事件
+    9.  onRefresh
+    10. registerLiseners : 监听器
+    11. finishBeanFactoryInialization
+    12. finishRefresh
 
 bean lifeCycle
 1.处理别名, 检查缓存：三级缓存 1.singletonObject  2.earlySingletonObject 3. singletonFactories 
