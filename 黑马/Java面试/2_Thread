@@ -1,11 +1,11 @@
 https://www.bilibili.com/video/BV1yT411H7YK/
 
 1. thread lifecycle/status : 
-  new : start()
-  runnable : cpu
+  new : 
+  runnable : start()  用cpu
   terminated : 完毕
-  blocked : runnable 获取lock失败时
-  waiting : 获取lock: wait()时 / notify()激活
+  blocked : runnable 获取lock失败时, (获取lock成功时就回runable)
+  waiting : 获取lock后 wait()时 / notify()激活,再去抢lock 
   time_waiting : 获取lock: wait(long)时 / wait时间到| notify() 激活 
                  runnable: sleep(long)时 / sleep时间到
                  
@@ -16,13 +16,13 @@ https://www.bilibili.com/video/BV1yT411H7YK/
     }); 
   }
   
-3.Thread pool : submit(task)-> workQueue : 当coreThread 满, workQueue满 才开emergencyThread
+3.p66 Thread pool : submit(task)-> workQueue : 当coreThread 满, workQueue满 才开emergencyThread
   corePoolSize : 处理完还保留在pool中
   maximumPoolSize : core + emerge(处理完就销毁)
   keepAliveTime : emergeThread
   unit时间单位 ：emergeThread
   workQueue　：　设定Queeu容量
-  threadFactory　：　
+  threadFactory　：　add name to thread
   handler 拒绝策略　：AbortPolicy(满了报EX)(终止), CallerRunsPolicy(满了谁调谁自己跑), DiscardPolicy(丢), DiscardOlestPolicy(丢老的)
   
   ArrayBlockingQueue<Runnable> queue = new ArrayBlockingQueue<>(2); //workQueue 容量 : 2
@@ -32,16 +32,16 @@ https://www.bilibili.com/video/BV1yT411H7YK/
     new ThreadPoolExecutor.AbortPolicy()
   );
   
-  6. sleep() vs wait()
+  6.p68 sleep() vs wait() : 放弃cpu
       wait(): 1. instance成员方法      2.先拿到lock 才wait(),  wait后会放弃锁   3.notiy()
       sleep(time): 1.static静态方法    2.sleep()在syn代码块中执行, sleep会占锁  3.到时间或 notiy()
         
       
-  7.Lock VS synchronized : 排他(1把锁), 同步(要等)
-    synchronized :  无竞争快  1.jvm c++  2.自动解锁   3.悲观锁(互斥,同步(notify),可重复加锁), 较少功能             
-    lock(interface): 有竞争快 1.jdk java 2.手动解锁   3.悲观锁(互斥,同步(awake),可重复加锁), 更多功能(wait()), ReentrantLock(重复功能)(false 不公平)
+  7.p70 Lock VS synchronized : 排他(1把锁), 同步(要等)
+    synchronized :  无竞争快  1.jvm c++  2.自动解锁   3.悲观锁 3.1互斥(只有1个获得锁),3.2同步(如果缺东西就要等待) notify), 3.3可重复加锁, 较少功能             
+    lock(interface): 有竞争快 1.jdk java 2.手动解锁finlly   3.悲观锁(互斥,同步(awake),可重复加锁), 更多功能(wait()), ReentrantLock(重复功能)(false 不公平)
     
-  8. Lock Condition
+  8.p73 Lock Condition
       c1.await() - 放弃lock, 
       c1.signal() - 唤醒, 加入到workQueue
   
@@ -50,14 +50,18 @@ https://www.bilibili.com/video/BV1yT411H7YK/
      2.sequency: ok
      3.automic: no (thread 可以从中间插入, 造成没法执行整段代码)
    
-  10.悲观锁 Pessimistic lock:(synchro & lock) thread有lock才去操作,1个有lock, 其他都block. (synchroized 阻止交错, 保证线程安全)
-        THread t1 = new Thread(()->
+  10.悲观锁 Pessimistic lock:(sync & lock) thread有lock才去操作,1个有lock, 其他都block. 
+      ** synchroized 互斥阻止交错, 保证线程安全
+      
+        Thread t1 = new Thread(()->
           sychronized(lock){
             account.balance = account.balance - 5;  
           }, t1 );
    
-   11.乐观锁 Optimistic lock:(AtomicInteger |unsafe) 不要lock, 1个运行, 其他都不断重试直到成功. compareAndSet() + volatile type balance
-        Unsafe u = Unsafe.getUnsafe() //修改变量为原子
+   11.乐观锁 Optimistic lock (compareAndSet (cas):(AtomicInteger |unsafe) 不要lock, 1个运行, 其他都不断重试直到成功. 多核cup. compareAndSet() + volatile type balance
+        ** compareAndSet(cas) 不加锁,用unsafe.cas去比较balance, 保证
+        
+        Unsafe U = Unsafe.getUnsafe() //修改变量为原子
         BALANCE = u.objectFieldOffset(x.class, variable)
         volatile type balance = x；
         THread t1 = new Thread(()->
