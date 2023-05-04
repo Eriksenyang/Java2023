@@ -11,14 +11,15 @@ p101 JVM : .java -> .class - classloader
       JIT Compiler
       GC
 
-Class Loader
-   1.load
-      BootStrap
-      Extension : classLoader - securityClassLoader - urlClassLoader (loadClass, defineClass, findClass)
-      Application
+p117 Class Loader
+   1.load(.class/lazy load/load superClass)
+      BootStrap ClassLoader
+      Extension ClassLoader - securityClassLoader - urlClassLoader (loadClass, defineClass, findClass)
+      Application ClassLoader (classpath)
       custome
-   2.link 
+   2.link (check/static)
    3.init : 执行static 
+
 
 GC : heap  -Xms | -Xmx
 
@@ -56,15 +57,25 @@ outOfMemory:
 
 
 
-引用类型
-   1.强引用 A a = new A();
-   2.软引用 Soft s = new Soft(new A());
-   3.弱引用 
-   4.虚引用
+p127 引用类型
+         1.强引用 A a = new A();
+         2.软引用 Soft s = new Soft(new A());
+         3.弱引用 
+         4.虚引用
 
-finalize: may not run
-  1. finalizerThread, may not run
-  2. slow
+P131 finalizer: thread may not run, 
+        1. finalizerThread, may not run
+        2. slow
+        
+        重写 finalize方法, 再构造方法调用时, JVM包装成finalizer方法 
+        1. unfinalizedQueue
+        2. referenceQueue
+
+
+
+
+
+
 
 
 
