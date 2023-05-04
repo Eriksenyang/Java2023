@@ -38,8 +38,8 @@ https://www.bilibili.com/video/BV1yT411H7YK/
         
       
   7.p70 Lock VS synchronized : 排他(1把锁), 同步(要等)
-    synchronized :  无竞争快  1.jvm c++  2.自动解锁   3.悲观锁 3.1互斥(只有1个获得锁),3.2同步(如果缺东西就要等待) notify), 3.3可重复加锁, 较少功能             
-    lock(interface): 有竞争快 1.jdk java 2.手动解锁finlly   3.悲观锁(互斥,同步(awake),可重复加锁), 更多功能(wait()), ReentrantLock(重复功能)(false 不公平)
+    synchronized :  无竞争快  1.jvm c++  2.自动解锁                  3.悲观锁 3.1互斥(只有1个获得锁),3.2同步(如果缺东西就要等待) notify), 3.3可重复加锁, 较少功能             
+    lock(interface): 有竞争快 1.jdk java 2.手动解锁try/catch/finlly  3.悲观锁(互斥,同步(awake),可重复加锁), 更多功能(wait()), ReentrantLock(重复功能)(false 不公平)
     
   8.p73 Lock Condition
       c1.await() - 放弃lock, 
