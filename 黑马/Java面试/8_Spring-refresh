@@ -40,13 +40,14 @@ p143 bean lifeCycle : doGetBean
 p144
           
           
-P152 spring-transaction事物失效 异常处理
+P152 spring-transaction事物失效 异常处理: 
+    默认 error & runtimeException才rollback.  rollBackFor = exception.class  保证checkedException rollback
   
-  @Configuratjion
+  @Configuration
   @PropertySource("classpath:jdbc.properties")
   @EnableTransactionManagerment
   @ComponentScan("xxx.service") //scan 包
-  @MapperScan()
+  @MapperScan()//mybatis scan map
   public class AppConfig{
     @ConfigurationProperties("jdbc")
     @Bean
@@ -58,49 +59,63 @@ P152 spring-transaction事物失效 异常处理
     @Autowird
     private AccountMapper accountMapper;
     
-    @Transactional(rollBackFor = exception.class) // 用 rollBackFor 保证回滚
+    @Transactional(rollBackFor = exception.class) // 用 rollBackFor 保证checkedException rollback 回滚
     public void transfer(){
       
     }
   }
 
-2. try-catch 错误 : throw | setRollbackOnly()
+p153. try-catch 错误 : throw | setRollbackOnly()
     try{
-    }catch(FileNotFoundException e){
+       }catch(FileNotFoundException e){
         e.printStackTrace();
-        throw new RuntimeException(e);
-        / TransactionInterceptor.currentTransactionStatus().setRollbackOnly();
+        throw new RuntimeException(e); //1. 需要throw exception
+                                       //2.或者调用 TransactionInterceptor.currentTransactionStatus().setRollbackOnly();
     }
     
- 3.@Aspect 异常 ：throw | setRollbackOnly()　｜　
+ p154. @Aspect 异常 ： 1. throw | 2. setRollbackOnly()　｜
+       public class MyAspect{
+        @Around("execution()")
+        public Object around(ProceedingJoinPoint pjp) throws Throwable{
+            try{
+            }catch{
+                throw / setRollbackOnly
+            }
+        }
+       } 
  
- 4.非public 
-    @Transaction
-    public XXX
-  5.父子容器 : 父只scan父的
-  6.本类方法调用 :                                   @
+p155  @Transaction 要放在 public method 
+            @Transaction
+            public XXX
+    
+p156. 父子容器 : 父只scan父的
+  
+p157. 本类方法调用 :                                   @
     @Autowired                                     ((Services)AopContext.currentProxy()).bar()
     private Service poxy;
     
     poxy.bar();
-7. 原子性 :
+
+p158. Thread 原子性 :
     @Transactional(rollBackFor = exception.class) // 用 rollBackFor 保证回滚
-        public void transfer(int from, int to, int amount){
-            int fromeBalance = accountMapper.findBalanceBy(from);
-            if(fromeBalance - amount >= 0){
-                accountMapper.update(from, -1 * amount);
-                accountMapper.update(to, amount);
-            }
+    public void transfer(int from, int to, int amount){
+         int fromeBalance = accountMapper.findBalanceBy(from);
+         if(fromeBalance - amount >= 0){
+            accountMapper.update(from, -1 * amount);
+            accountMapper.update(to, amount);
+         }
     }
-    7.1 在调用方法上 lock 
+    
+    7.1 扩大sync的范围,  在调用方法上加sync, 而不是目标方法上. 
     Object lock = new Object
     new myThread(()->{
-            synchronized(lock){
+            synchronized(obj){
             bean.transfer(1, 2, 100);
         }
         latch.countDown();
     }, t1).start();
-    7.2 在DB 用 select... from update 保证原子性
+    
+    7.2 在DB用from update 保证原子性.   select... from update 
     public interface AccountMapper{
         @Select("select balance from account where accountNo=#{accountNo} from update")
         int findBalanceBy(int accountNo);
