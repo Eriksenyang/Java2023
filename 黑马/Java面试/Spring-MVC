@@ -1,34 +1,39 @@
 p160 springMVC
   1.init
-    web call-> DispatchServlet -> init -> spring web (HandlerMapping, HandlerAdapter, HandlerExceptionResolver, ViewResovler)
+    web call-> DispatchServlet -> init() -> spring web & refresh() (HandlerMapping, HandlerAdapter, HandlerExceptionResolver, ViewResovler)
 
-  2. request -> DispatchServlet 遍历 HandlerMapping 找 @RequestMapping(HandlerMethod) 生成 HandlerExecutionChain -> HandlerAdapter 找对象处理 HandlerMethod
+p161 springMVC 执行: 
+  2. request -> DispatchServlet 遍历 HandlerMapping 找 @RequestMapping(HandlerMethod) 生成 HandlerExecutionChain(HandlerInterceptor) 
+            -> HandlerAdapter 找对象处理 HandlerMethod
 
-  3.执行: 
+p162 springMVC 执行: 
     1. preHandle
     2. HandlerAdapter call HandlerMethod
-    3. normal : modleAndView / @ResponseBoday, postHandle
+    3. normal : modleAndView(viewResovler生成modle&view) / @ResponseBoday(生成json), postHandle
        exception: HandlerExceptionResolver
     4.afterCompletion
   
-Anotation
+p163 springBoot Anotation
 
 1.Spring
   1.事物 Transactional
   @Transactional
   
-  @EnableTransactionManagement: @Import(引入bean) : 
-    ProxyTransactionManagementConfiguration(BeanFactoryTransactionAttributeSourceAdvisor, TransactionAttributeSource(解析@Transactional), TransactionInterceptor(事物拦截器))
+  @EnableTransactionManagement:开启transaction
+    @Import(引入bean) : 
+    ProxyTransactionManagementConfiguration(BeanFactoryTransactionAttributeSourceAdvisor, 
+                                            TransactionAttributeSource(解析@Transactional), 
+                                            TransactionInterceptor(事物拦截器))
   
   2.核心
-  @Order 执行
+  @Order 执行order
   
-  3.切面 
+  3.切面AOP 
   @EnableAspectAutoProxy
   AspectAutoProxyRegistrar(AnotationAwareAspectAutoProxyCreator)
   
   4.Scan & set 
-  @Component
+  @Component  //bean
   @Controller
   @Service
   @Repository
@@ -37,18 +42,19 @@ Anotation
   @Conditional() 根据条件加入容器
   @Configuration（）配置类
   @Bean
-  @Import
-  @Lazy () class上延迟创建。 成员变量上解决循环依赖
+  @Import //import configuration
+  @Lazy () class上延迟创建(第1次用才创建)。 成员变量上解决循环依赖(proxy解决 )
   
   @PropertySource() 读取properties.xml
   
   @Autowired
   @Qualifier() 同一type多个 表示唯一
-  @Value() 根据 @PropertySource()读到 value  
+  @Value() 根据 @PropertySource()读到 value ${} 
   
-2.web
+164.SpringMVC
+  web
   Mapping
-  @RequestMapping
+  @RequestMapping("/") 匹配路径
   
   rest
   @RequestBody() json -> obj
@@ -57,37 +63,39 @@ Anotation
   @RestController() = @Controller +  @ResponseBody(
 
   统一处理
-  @ControllerAdvice
-  @ExceptionHandler
+  @ControllerAdvice : 
+  @ExceptionHandler： 处理异常
   
   参数
   @PathVariable()
   
   ajax
-  @CrossOrigin
+  @CrossOrigin  跨域
   
 
-3.boot
+P164.springboot
   properties
-  @ConfiguratjionProperties() 简化@Value操作 
-  @EnableConfiguratjionProperties
+  @ConfigurationProperties() 简化@Value操作 
+  @EnableConfigurationProperties
   
   Condition
-  @ConditionOnClass() 包含这个class 才启用
-  @ConditionOnMissiingBean() 缺少时启用, eg 设定default value 
-  @ConditionOnProperty() key-value 配置了才启用
+  @ConditionalOnClass() 包含这个class 才启用
+  @ConditionalOnMissiingBean() 缺少时启用, eg 设定default value 
+  @ConditionalOnProperty() key-value 配置了才启用
   
   auto
   @SpringBootApplication =  @SpringBootConfiguration + @EnableAutoConfiguration + @ConponentScan()
-  
-  @EnableAutoConfiguration
+
+p165  
+  @EnableAutoConfiguration //自动配置类
   
    
 SpringBoot 
   @SpringBootApplication
-    @Configuration
-    @ComponentScan
+    @SpringBootConfiguration
     @EnableAutoConfiguration
+    @ComponentScan
+    
   
      
               
