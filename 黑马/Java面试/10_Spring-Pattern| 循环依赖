@@ -1,16 +1,17 @@
-1. singleton bean 是singleton pattern?  No! Spring 每个容器中相同id的 bean 只有一个
+p174 design pattedn
+ 1. singleton bean 是singleton pattern?  No! Spring 每个容器中相同id的 bean 只有一个
 
-2. builder: 1 灵活 2.执行build,才产生obj 3.链式构建 ： http.ResponseEntity.HeadersBuilder
+ 2. builder: 1 灵活 2.执行build,才产生obj 3.链式构建 ： http.ResponseEntity.HeadersBuilder
 
-3. Factory Method ：  applicationContext & beanFacory : getBean
+ 3. Factory Method ：  applicationContext & beanFacory : getBean
 
-4. Adapter : HandlerAdapter : @RequestMapping
+ 4. Adapter : HandlerAdapter : @RequestMapping
 
-5. Composite : 统一分散的调用
+ 5. Composite : 统一分散的调用
 
-6. Decorator : 装饰 (功能增强)
+ 6. Decorator : 装饰 (功能增强)
 
-7. Proxy : (访问控制)
+ 7. Proxy : (访问控制)
 
 
 
