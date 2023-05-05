@@ -34,13 +34,13 @@ p143 bean lifeCycle : doGetBean
              4.注册可销毁bean: DisposableBean / Autocloseable, destroyMethod, close/shutdown, @PreDestroy 
     6.类型转换
     7.销毁 ： singleton : ApplicationContext.close 
-              prototype : 可手动销毁 AutowireCapableBeanFactory.destroyBean
+              prototype : 可手动销毁 AutowireCapableBeanFactory.destroyBean()
               request : 生命周期结束时
 
 p144
           
           
-spring-tx事物失效 异常处理
+P152 spring-transaction事物失效 异常处理
   
   @Configuratjion
   @PropertySource("classpath:jdbc.properties")
