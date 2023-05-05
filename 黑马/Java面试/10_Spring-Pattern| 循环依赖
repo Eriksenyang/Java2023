@@ -1,15 +1,26 @@
 p174 design pattedn
- 1. singleton bean 是singleton pattern?  No! Spring 每个容器中相同id的 bean 只有一个
+ 1. singleton bean 是singleton pattern?  No!singleton bean 不是singleton pattern. Spring 每个容器中相同id的 bean 只有一个
+    singleton pattern : a class has one instance, and provide a global point of access to it.  (org.springframework.aop.TruePontcut)
 
- 2. builder: 1 灵活 2.执行build,才产生obj 3.链式构建 ： http.ResponseEntity.HeadersBuilder
+ 2. builder: separate the construction fo a complex obj from its representation. (org.springframework.beans.factory.support.BeanDefinitionBuilder)
+    1 灵活 2.执行build,才产生obj 3.链式构建 ： http.ResponseEntity.HeadersBuilder
 
- 3. Factory Method ：  applicationContext & beanFacory : getBean
+ 3. Factory Method ： define an interface for createing an obj, but let subclasses decide which class to instantiate.
+    applicationContext & beanFacory : getBean()
+    
+    https://blog.csdn.net/weixin_56311692/article/details/125782919
+    3.1 beanFactory: factory 必须要严格的遵守bean的生命周期
+    3.2 FactoryBean: bean 自定义bean对象的创建 : 3个方法 isSingleton:判断是否是单例对象, getObjectType:获取对象的类型,getObject:在此方法中可以自己创建对象
+   
+   
+ 4. Adapter: convert the interface of a class into another interface clients expect
+    HandlerAdapter控制器的实现 : @RequestMapping
 
- 4. Adapter : HandlerAdapter : @RequestMapping
+ 5. Composite : compose obj into tree structures to represent part-whole
+     统一分散的调用
 
- 5. Composite : 统一分散的调用
-
- 6. Decorator : 装饰 (功能增强)
+ 6. Decorator : attach additional responsibilityies to an boj dynamically
+    装饰 (功能增强)
 
  7. Proxy : (访问控制)
 
