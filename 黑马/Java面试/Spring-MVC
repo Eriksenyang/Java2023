@@ -1,14 +1,15 @@
-1.init
-  web call-> DispatchServlet -> init -> spring web (HandlerMapping, HandlerAdapter, HandlerExceptionResolver, ViewResovler)
+p160 springMVC
+  1.init
+    web call-> DispatchServlet -> init -> spring web (HandlerMapping, HandlerAdapter, HandlerExceptionResolver, ViewResovler)
 
-2. request -> DispatchServlet 遍历 HandlerMapping 找 @RequestMapping(HandlerMethod) 生成 HandlerExecutionChain -> HandlerAdapter 找对象处理 HandlerMethod
+  2. request -> DispatchServlet 遍历 HandlerMapping 找 @RequestMapping(HandlerMethod) 生成 HandlerExecutionChain -> HandlerAdapter 找对象处理 HandlerMethod
 
-3.执行: 
-  1. preHandle
-  2. HandlerAdapter call HandlerMethod
-  3. normal : modleAndView / @ResponseBoday, postHandle
-     exception: HandlerExceptionResolver
-  4.afterCompletion
+  3.执行: 
+    1. preHandle
+    2. HandlerAdapter call HandlerMethod
+    3. normal : modleAndView / @ResponseBoday, postHandle
+       exception: HandlerExceptionResolver
+    4.afterCompletion
   
 Anotation
 
