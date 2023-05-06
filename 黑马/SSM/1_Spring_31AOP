@@ -11,7 +11,7 @@ p32
     @Aspect // aop
     public class MyAdvice{
       3 切点                   返回值         包.class.方法()
-      @Pointcut("executing(void com.itheima.dao.Book.dao.update())")
+      @Pointcut("excution(void com.itheima.dao.Book.dao.update())")
       private void pt(){}
       
       @Before("pt()") //4. 在Pointcut位置 运行这个方法
