@@ -1,1 +1,63 @@
-
+p176 proxy
+    1. aspect = 1或多个 advisor（advice + pointcut）
+    2. advisor = 1 advice + 1 pointcut
+    3. 最基本的advice  ：  MethodInterceptor
+    4.AnnotationAwareAspectJAutoProxyCreator : 调用 1.creat 2.DI 3.init
+    
+    ProxyFactory proxyFactory = new ProxyFactory();
+    proxyFactory.setTarget(new Target1()); // 调目标
+   
+   proxyFactory.addAdvice(new MethodInterceptor(){
+      @Override
+      public Object invoke(MethodInvocation invocation) throws Throwable{
+        return invocation.proceed(); //调目标
+      }
+    });
+    
+    AspectJExpressionPointcut pointcut = new AspectJExpressingPointcut(); // pointcut
+    pointcut.setExpression("execution(包 类 foo())");
+    
+    proxyFactory.addAdvisor(new DefaultPointcutAdvisor(pointcut, (MethodInvocation)invocation ->{  // advisor = 1 advice + 1 pointcut
+      return invocation.proceed(); //调目标
+    } ));
+    
+    
+    interface I1{
+      void foo();
+      void bar();
+    }
+    
+    static class Target1 implement I1{
+      public void foo(){
+        sop("foo");
+      }
+      public void bar(){
+         sop("bar");
+      }
+    }
+    
+   p179 注解方式
+      @Aspect  //aspect
+      static class Aspsect1{
+        @Around("execution(* foo())") //pointcut
+        public Object around(ProceedingJoinPoint pjp) throws Throwable{ //advice
+          sop
+          return pjp.proceed(); //执行 pointcut 原本的程序
+        }
+      }
+    
+p184 循环依赖    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
