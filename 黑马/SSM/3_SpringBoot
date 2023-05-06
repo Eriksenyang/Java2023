@@ -31,7 +31,10 @@ p94 setting : 加入项目，出提示 file/projctStruct/facets/+spring
         server:
           port: 80
 
-p97 读取 yml  lesson: springboot
+p97 读取 
+    xxx.yml
+    lesson: springboot
+
    1. 用@Value(${lesson})
         @RestController
         @RequestMapping("/books")
@@ -42,7 +45,8 @@ p97 读取 yml  lesson: springboot
           @GetMapping("${id}")
           public String getById(@PathVariable Integer id){ sop }
         }
-    2.@Autowired
+    2.使用Environment取得所有. Environment.getProperty() 
+      @Autowired
       private Environment environment;
 
     3.定义1个 Enterprise pojo class: 比如生成一个class 读取 DB的配置
