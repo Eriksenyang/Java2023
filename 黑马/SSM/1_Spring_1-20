@@ -81,7 +81,7 @@ P17 管理外部bean
 
 p18 spring 加载properies
       1.xml 开启contxt : xmlns:context
-      2.使用context加载properties文件 <context:proprety-placeholder location="xxx.properties" /> //locatijon 在resource包下
+      2.使用context加载properties文件 <context:proprety-placeholder location="xxx.properties" /> //location 在resource包下
       3.用${}读取属性值 <bean class="">
                             <property name="url" value=${properties文件中name: eg${jabc.url}}>p19
     
