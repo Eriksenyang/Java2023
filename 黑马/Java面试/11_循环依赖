@@ -46,11 +46,14 @@ p176 proxy
         }
       }
     
-p184 循环依赖    
-    
-    
-    
-    
+ 循环依赖    
+ p184   L1 : singletonObject: 保证singleton
+ p186   L3 : singletonFactory: a 到L1/L3找b,没有.生成半成品a放入L3                                返回到a, 去L1找b, 完成a构建,把a放到L1.
+                                           call b. b到L1找a,没有.b去L3找a,有半成a.完成b构建, 把b放到L1.
+ p187   L2： earlySingletonObjects: 处理proxy代理对象
+ p188                    factory: 有循环依赖 返回proxy, 正常返回原始对象
+           a到L1/L2/L3 找b,没有. a放L3的factory中                          返回到a,看是否有Pa(没有Pa就新建, 有就直接用). 完成a构建, 把a放到L1.
+                    call b. b到L1/L2找a,没有. b去L3找a,有半成a. 判断是否循环依赖,Y就生成代理Pa放到L2.  用Pa完成b构建, 把b放到L1.
     
     
     
