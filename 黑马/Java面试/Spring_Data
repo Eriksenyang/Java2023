@@ -1,7 +1,13 @@
-SpringData common/ JPA : 黑马spring JPA https://www.bilibili.com/video/BV1RE41167Pk/?spm_id_from=333.337.search-card.all.click
+1.SpringData common/ JPA : 黑马spring JPA https://www.bilibili.com/video/BV1RE41167Pk/?spm_id_from=333.337.search-card.all.click
 
- ORM : Obj Relation Mapping 
- JPA: Java Persistence API : JPA - Hibernate - JDBC - DB
+2.https://blog.csdn.net/Chen4852010/article/details/122628812
+  ORM : Obj Relation Mapping 
+  jdbc: Java Database Connectivity java提供的一个操作数据库的API，提供了很多的接口，就是一种规范
+  DataSource:建立与数据库的【连接】  hikariCP、druid、tomcat-jdbc、dbcp、c3p0
+             由于使用jdbc建立连接和销毁太过于浪费资源，因此需要一套高效的与数据库建立连接的组件，那就是数据源，数据源可以创建连接池
+  jdbcTemplate:  spring提供访问jdbc的一个模板
+  Mybatis : 是对JDBC的封装，即使CRUD操作变得更加简单了 
+  JPA: Java Persistence API : JPA - Hibernate - JDBC - DB
  
   实体类 
    @Entity
