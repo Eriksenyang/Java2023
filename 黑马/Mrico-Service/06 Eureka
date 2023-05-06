@@ -1,26 +1,27 @@
-06 跨服务调用
- @MapperScan("com.")
- @SpringBootApplication
- public class OrderApplication{
-  public static void main(String[] args){
-    SpringApplication.run(OrderApplication.class, args);
+
+06 跨服务调用: 使用 RestTemplate 发出http请求 
+  @MapperScan("com.")
+  @SpringBootApplication
+  public class OrderApplication{
+    public static void main(String[] args){
+       SpringApplication.run(OrderApplication.class, args);
+    }
+
+   @Bean
+   @LoadBalanced //10 eureka 负载均衡
+   public RestTemplate restTemlate(){
+      return new RestTemplate();
+   }  
   }
-  
-  @Bean
-  @LoadBalanced //10 eureka 负载均衡
-  public RestTemplate restTemlate(){
-    return new RestTemplate();
-  }  
- }
- 
- @Service
- public class OrderService{
-  @Autowired
-  private RestTemplate restTemplate;
-  
- 06// User user = restTemplate.getForObject(http://8081/user/, retrunObj.class);
-  User user = restTemplate.getForObject("http://userservice/user", retrunObj.class); //10 使用eureka
- }
+
+  @Service
+  public class OrderService{
+   @Autowired
+   private RestTemplate restTemplate;
+
+  06// User user = restTemplate.getForObject(http://8081/user/, retrunObj.class);
+   User user = restTemplate.getForObject("http://userservice/user", retrunObj.class); //10 使用eureka
+  }
 
 09 EurekaServer
   1.dependency: spring-cloud-start-netflix-eureka-server
@@ -38,7 +39,7 @@
  10 server register
    在需要使用eureka的服务
    1.dependency: spring-cloud-start-netflix-eureka-client
-   2.yml: spring/application/name: userservice    eureka/client/service-url/defaultZone: heep://
+   2.yml: spring/application/name: userservice    eureka/client/service-url/defaultZone: http://
  
 
 12 Ribbon : 找Eureka 要serviceList， 根据 iRule 选server
