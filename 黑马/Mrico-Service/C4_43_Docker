@@ -1,27 +1,64 @@
 docker(linux): image (read-only): pack lib, runtime env  
                container: isolate to other container
                DockerHub: hub / registry
-               client - server : docker pull/ docker run
+               client - server : 
+               docker pull/docker build                
+               docker run
+               
 
 46 centOS install docker
+    firewalld
+    systemctl start docker
 
 47  docker --help
-    docker images
+    docker images : 查看本地 image
     docker pull
     docker push/ docker save -> .tar file -> docker load
   
-49 docker run/ docker pause | unpause / docker start/ docker stop / dockr ps (status)
-
-54 volumn       将volumn html挂到container root/html下  主机8080映射80      镜像
-    docker run --name mn -v html:/root/html -p 8080:80     -d  nginx
+49 dockeer 创建 container 
+   docker run 
+   docker pause | unpause 
+   docker start | docker stop 
+   docker ps (status) / docker log
+   
+   
+50 创建容器
+    -P(映射主机端口和容器端口) 主机端口 : 容器端口  (当外部访问主机端口时映射到容器端口处理)
+    -d 后台运行
     
-55                         -e pw                        volumn  tmp 挂到 etc/mysql下
+51  进入container执行命令
+           执行  标准流
+    docker exec -it myNginx bash
+                    容器名   要执行的命令
+                    
+
+54 数据卷 volumes ： /var /lib /dock /volumes
+    1.docker volume create
+    
+    
+p54    将volumn 主机8080映射80      镜像          -p 映射主机端口和容器端
+    docker run --name myNgix -v html:/root/html  -p 8080:80               -d  nginx
+                             -v html挂到container root/html下               后台运行
+   
+55 宿主机文件               -e pw                       -v volumn  tmp 挂到 etc/mysql下
    docker run --name mysql -e MYSQL_ROOT_PASSWORD=123  -v /tmp/conf/hmy.cnf:/etc/mysql/conf.d/hmy.cnf -p 3306:3306     -d  nginx
    
-56 image : 
+   
+56 自定义 image : lib + env + setting
+    BaseImage / Layer / Entrypoint
+
 
 57 dockerfile
-    FROM java:8-alpine
+    FROM: baseImge java:8-alpine
+    ENV: 
+    COPY: copy local files to 指定目录
+    EXPOSE: image的端口
+    ENTRYPOINT: 启动命令
 
-58 DockerCompose
-  
+58 DockerCompose: 基于compose文件, 通过指令(docker run 集合) 自动部署
+      
+
+
+
+
+
