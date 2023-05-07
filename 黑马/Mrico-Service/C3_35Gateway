@@ -1,0 +1,83 @@
+p35 security/ route & loading balance / limit
+   gateway: good performence 
+
+36 Module
+    1.依赖： spring-cloud-starter-gateway
+            spring-cloud-starter-alibaba-nacos-discovery/ Eureka
+    2.main
+      @SpringBootApplication
+      public class GatewayApplication(){
+        public static void main(String[] args){
+          SpringApplication.run(GatewayApplication.class, arg)
+         }
+      }
+      3.rount: yml
+        server:
+         port:   
+         spring: 
+            application:
+                name : gateway   
+            cloud: 
+                nacos:
+                    server-addr:
+                gateway:
+                    routes:  
+                        - id: user-service
+                          uri: lb://userservice  //lb : LoadBalance
+                          predicates:            //路由规则
+                            - Path=/user/**  
+                                                   
+ 37 route predicate factory ： 读取断言 
+       After/ Before/ Header/ RemoteAddr
+ 
+ 38 gateway filter factory :处理 请求 & 返回
+    default-filters //全局
+ 
+ 
+ 39 GlobalFilter 
+    public interface GlobalFilter{  //所有信息                          //下1个filter 
+      Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain)
+    }
+    
+    @Order(11)
+    @Component
+    public class AuthorizaFilter implements GlobalFilter{
+      @Override
+      public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain)      
+          ServerHttpRequest request = exchange.getRequest();
+          MultiValueMap<String, String> params = request.getQueryParams();
+          String auth = params.getFirst("authorization");
+          if("admin".isEques(auth)){
+            return chain.filter(exchange);
+      }
+      exchange.getResponse().setStatusCOde(HttpStatus.UNAUTHORIZED);//未登录
+      return exchange.getResponse().setComplete();
+    }
+    
+   40.  default > route > globle
+   
+   41. CORS跨域 crossRegion  浏览器 禁止AJAX 跨域
+        yml setting: 
+            cloud:
+                globalecors:
+                    add-to-simple-url-handler-mapping: true
+                        corsConfigurations:
+                        
+                            allowedOrigions:
+                            allowedMethod: 
+                            allowedHeaders:
+                            allowedCrdentials:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
