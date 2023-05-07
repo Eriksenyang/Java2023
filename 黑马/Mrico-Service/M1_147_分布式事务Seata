@@ -1,8 +1,12 @@
 147 分布式事务例子 seata
-  A: Atomicity 原子
-  C: Consistency 一致
-  I: Isolation 隔离
-  D: Durability 持久
+    TC TransactionCoordinator : 协调 全局和分支事物
+    TM TransactionManager:  定义全局事务, 处理全局事物的提交&回滚
+    RM ResouceManage: 管理分支事物的资源， 处理分支事物的提交&回滚
+    
+    A: Atomicity 原子
+    C: Consistency 一致
+    I: Isolation 隔离
+    D: Durability 持久
    
  CAP:   Consistency / Availability / Partition tolerance
         如果分区, 可用性和一致性不能同时满足
@@ -19,7 +23,7 @@
               service: vgroup-mapping:/ seata-demo
 
 149 
-   XA基于DB 本身特性: 强一致 完全隔离 性能差，依赖DB
+   1.XA模式 基于DB 本身特性: 强一致 完全隔离 性能差，依赖DB
       DTP DistributedTransactinProcessing : TC 与 RM
       1.每个各种执行 2.报告TC： 成功 commit
                                失败 rollback
@@ -32,13 +36,13 @@
             orderMapper.inser(order);
             return order.getId();
           }
-   AT(16:00)弱一致 基于全局锁   加锁  RM create 快照 undo.log 性能好
+   2.AT模式16:00)弱一致 基于全局锁   加锁  RM create 快照 undo.log 性能好
       sql直接提交(不占资源), 建立快照 undo.log。 若成功, 删快照.  若失败, 按快照rollback.
       1.lock_table : 全局lock
         undo.log : 快照
       2. application.yml： seata/ data-source-proxy-mode ： AT
    
-   TCC(40：00) :弱一致 基于资源预留 类似AT, 但要通过人工 Rollback, 性能很好
+   3.TCC模式(40：00) :弱一致 基于资源预留 类似AT, 但要通过人工 Rollback, 性能很好
         Try：检测&预留资源
         Confirm: 资源操作
         Cancle: Rollback 释放资源
