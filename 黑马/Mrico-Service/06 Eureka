@@ -23,11 +23,14 @@
    User user = restTemplate.getForObject("http://userservice/user", retrunObj.class); //10 使用eureka
   }
 
-09 EurekaServer
+09 EurekaServer ： server side
   1.dependency: spring-cloud-start-netflix-eureka-server
   2.@EnableEurekaServer
-  3.application.yml ( server/port:xxx  spring/application/name:eurekaserver       eureka/client/service-url/defaultZone: heep://  
+  3.application.yml ( server/port:xxx  
+                      spring/application/name:eurekaserver              //Eureka服务名称
+                      eureka/client/service-url/defaultZone: http://    //Eureka服务地址
   
+  2.@EnableEurekaServer
   @EnableEurekaServer
   @SpringBootApplication
   public class EurekaApplication{
@@ -36,11 +39,14 @@
    }
   }
  
- 10 server register
+10 server register :client side
    在需要使用Eureka的服务
    1.dependency: spring-cloud-start-netflix-eureka-client
-   2.yml: spring/application/name: userservice    eureka/client/service-url/defaultZone: http://
- 
+   2.yml: spring/application/name: userservice    
+          eureka/client/service-url/defaultZone: http://
+
+11.1. @LoadBalance
+   2. 把url 的 端口改为 userservice
 
 12 Ribbon : 找Eureka 要serviceList， 根据 iRule 选server
        ladBalancerInterceptor - RibbonLoadBanlancerClient - DynameicServerListLoadBalancer 
