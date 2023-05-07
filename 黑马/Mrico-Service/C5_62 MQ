@@ -80,12 +80,19 @@
   
 68 SpringAMQP : Adv Msg  Queue protocol
 
-    1.依赖: spring-boot-starter-amqp
+    1.父工程引入依赖: spring-boot-starter-amqp
     
     2.publisher 
        1. application.yml
-          spring:/ rabbitmq:/ host: 192.. port: 5672 virtual-host : username: password
-       2. 测试
+          spring: 
+            rabbitmq:
+                host: 192.. 
+                port: 5672 
+                virtual-host: / 
+                username: 
+                password：
+       
+       2. 测试 ： rabbitTemplate.convertAndSend(q, msg)
           @RunWith(SpringRunner.class)
           @SpringBootTest
           public class SpringAmqpTest{
@@ -101,29 +108,40 @@
      
      3. Consumer 
        1. application.yml
-          spring:/ rabbitmq:/ host: 192.. port: 5672 virtual-host : username: password
-       2. 收消息
-          @Component
+          spring:
+            rabbitmq:
+                host: 192.. port: 5672 
+                virtual-host: 
+                username: 
+                password:
+       
+       2. 收消息 ： @RabbitListener(queue= "队列名称")
+          @Component //bean 让spring去管理
           public class SpringRabbitListener{         
-            @RabbitListener(queue="simple.queue")
+           
+            @RabbitListener(queue="simple.queue")  // 消费的 "队列名称"
             public void ListenSimpleMQ(String msg) throws InterruptedException{
               SOP(msg);
             }
           }
 
 
-71. WorkQueue
-        prefetch: 1
+71. WorkQueue：有多个consumer
+       listener:
+        simple:
+            prefetch: 1 //每次fetch 1条
 
 
-  72. publish/ subscribe : fanout/direct/topic
+72. publish / subscribe :  exchange
+        fanout/direct/topic
   
-  73. Fanout : 发每一个
-      1. 绑定       
+73. Fanout :广播 发每一个
+      
+      1. 绑定   ： fanoutExchange()    
       @Configuration
       public class FanoutConfig{
         @Bean
-        public fanoutExchange fanoutExchange(){   //exchange
+        public fanoutExchange fanoutExchange(){   //exchange 交换机
           return new FanoutExchange("f.exchange");
         }
         @Bean
@@ -135,14 +153,15 @@
           return new Queue("f.queue2");
         }
         @Bean
-        public Binding bindingQueue1(Queue fQueue1, FanoutExchange fExchange){ //q1 bind ex
+        public Binding bindingQueue1(Queue fQueue1, FanoutExchange fExchange){ //q1 bind ex  绑定
           return BindingBuilder.bind(fQueue1).to(fExchange);
         }
         @Bean
-        public Binding bindingQueue1(Queue fQueue2, FanoutExchange fExchange){ ////q2 bind ex
+        public Binding bindingQueue1(Queue fQueue2, FanoutExchange fExchange){ ////q2 bind ex 绑定
           return BindingBuilder.bind(fQueue2).to(fExchange);
         }       
       }    
+      
       2.publisher 
        1. application.yml
           spring:/ rabbitmq:/ host: 192.. port: 5672 virtual-host : username: password
@@ -157,24 +176,26 @@
             public void testFanoutQueue(){
               String exhangName = "f.exchange"
               String message = "hello";
-              rabbitTemplate.convertAndSend(exhangName, "", message);
+              rabbitTemplate.convertAndSend(exhangName, "", message); //(交换机, rountKey, msg)
             }
           }
-     3. Consumer:
+     
+     3. Consumer: 
           @Component
           public class SpringRabbitListener{
          
-            @RabbitListener(queue="f.Queue1")
+            @RabbitListener(queue="f.Queue1") // // 消费的 "队列名称"
             public void ListenFanoutMQ(String msg) throws InterruptedException{
               SOP(msg);
             }
-            @RabbitListener(queue="f.Queue2")
+            @RabbitListener(queue="f.Queue2") // // 消费的 "队列名称"
             public void ListenFanoutMQ(String msg) throws InterruptedException{
               SOP(msg);
             }
           }
   
-  74 Dirct 路由
+74 Dirct: 根据规则 路由routes 到特定的queue
+
        1.publisher  测试
           @RunWith(SpringRunner.class)
           @SpringBootTest
@@ -185,24 +206,26 @@
             @Test
             public void testDirctQueue(){
               String exhangName = "d.direct"
-              String message = "hello";
+              String message = "hello";      //(交换机, rountKey, msg)
               rabbitTemplate.convertAndSend(exhangName, "red", message);
             }
           }
-      2. Consumer:
+     
+     2. Consumer: 用注解形式
           public class SpringRabbitListener{       
-            @RabbitListener(bindings = @QueueBinding(
-                value = @Queue(name = "d.queue1"),
-                exchange = @Exchange(name = "d.direct", type = ExchangeTypes.DIRECT),
-                key = {"red", "blue"}
+            @RabbitListener(bindings = @QueueBinding(                                   //binding
+                value = @Queue(name = "d.queue1"),                                      //queue
+                exchange = @Exchange(name = "d.direct", type = ExchangeTypes.DIRECT),   //exchange
+                key = {"red", "blue"}                                                   //规则  rountKey
                 ))
             public void ListenDirectMQ1(String msg) throws InterruptedException{
               SOP(msg);
             }
           }
   
-  75 TopicExchange : key : 多个( # : 0|多 ) x: 1个
-      1.publisher  测试
+  75 TopicExchange : topic话题,. rountKey : 多个( # : 0 或 多个 ) 1个(*) 
+     
+     1.publisher  测试
           @RunWith(SpringRunner.class)
           @SpringBootTest
           public class SpringAmqpTest{
@@ -216,19 +239,21 @@
               rabbitTemplate.convertAndSend(exhangName, "China.news", message);
             }
           }
-      2. Consumer:
+     
+     2. Consumer:
           public class SpringRabbitListener{       
-            @RabbitListener(bindings = @QueueBinding(
-                value = @Queue(name = "t.queue1"),
-                exchange = @Exchange(name = "t.topic", type = ExchangeTypes.TOPIC),
-                key = {"China.#"}
+            @RabbitListener(bindings = @QueueBinding(                                //binding
+                value = @Queue(name = "t.queue1"),                                    //queue
+                exchange = @Exchange(name = "t.topic", type = ExchangeTypes.TOPIC),  //exchange
+                key = {"China.#"}                                                    //reoutKey                               
                 ))
             public void ListenTopicMQ1(String msg) throws InterruptedException{
               SOP(msg);
             }
           }
     
-  76 AMQP
+76 消息转换器 AMQP
+     
      JSON 序列化
      1.依赖：  jackson-dataformat-xml
      2.publisher中声明 MessageConverter
