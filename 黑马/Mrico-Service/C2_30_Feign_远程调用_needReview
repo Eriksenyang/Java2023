@@ -37,8 +37,8 @@
   
 31 Feign setting 
     feign.Logger.level: NONE, BASIC, HEADERS, FULL
-    feign.codec.Decoder: 结果: json->java obj
-    feign.codec.Eecoder: java->http
+    feign.codec.Decoder: 响应结果解析: json->java obj
+    feign.codec.Eecoder: 请求 java->http
     
 32 Feign优化
    1. httpClient : feign-httpclient
