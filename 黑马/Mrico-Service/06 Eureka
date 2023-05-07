@@ -56,7 +56,12 @@
     RandomRule: 
       某个服务的 application.yml:
                   userservice:/ ribbon:/ NFLoadBalancerRuleClassName　：　com.netflix.loadbalancer.RandomRule
-14   eager: userservice:/ ribbon:/ eager-load:/ enabled: true/ clients : -需要开启饥饿load的服务
+
+14  Ribbon: defult lazy load
+      eager load 开启:
+       userservice: resouce/ application.yml
+              ribbon:/ eager-load:/ enabled: true
+                                    clients : -需要开启饥饿load的服务
  
  
  
