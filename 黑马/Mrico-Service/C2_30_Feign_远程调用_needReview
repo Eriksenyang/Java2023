@@ -65,20 +65,20 @@
       @FeignClient(value="userservice")
       public interface UserClient extends UserAPI{} //FeignClient 继承UserAPI
     
-    2.新建feignAPI供其他人使用 : UserClient, pojo 
-      Feign API 
-      1.module
-        1.1 依赖 spring-cloud-starter-openfeign
-        1.2 建modul        
-              <dependency>
-                <groupId>
-                <artifactId>feign-api</>
-      2. pojo : 
-         User
-            @Data
-            public class User{
-              private lont id;
-            }
+   2. 新建feignAPI供其他人使用 : UserClient, pojo 
+        Feign API 
+        1.module
+          1.1 依赖 spring-cloud-starter-openfeign
+          1.2 建modul        
+                <dependency>
+                  <groupId>
+                  <artifactId>feign-api</>
+        2. pojo : 
+           User
+              @Data
+              public class User{
+                private lont id;
+              }
        3. client:
              @FeignClient(value="userservice")
              public interface UserClient extends UserAPI{
@@ -92,10 +92,15 @@
                   return Logger.Level.BASIC;
                 }
               }
-              
-      3. 让 Spring scan feignAPI的包
-                                  //整个包                                       //具体class              
-             @EnableFeignClients(basePackages = "cn.itcast.feign.clients") ||  (clients = {UserClient.class})
+      5. 要使用FeignAPI
+          1.引入依赖
+           <dependency>              
+               <groupId>
+                  <artifactId>feign-api</>
+                  
+      6. 让 Spring scan feignAPI的包
+                                  //具体class                       //整个包                                                  
+             @EnableFeignClients(clients = {UserClient.class}) ||   (basePackages = "cn.itcast.feign.clients") ||  
              @SpringBootApplication             
              @MappingScan("cn.itcst.order.mapper")
              public class OrderApplication{
