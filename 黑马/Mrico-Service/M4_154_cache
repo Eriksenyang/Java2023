@@ -1,8 +1,8 @@
-1. flow
+p154 flow
    request - tomcat - redis - DB
    brower cache - nginx - redis - tomcat - DB
 
-  本地 cache: caffeine(33:00)
+  本地 JVM cache: caffeine(33:00)
     @Test
     void testBasicOps(){
       Cache<String, String> cache = Caffeine.newBuilder().maximumSize(1)  .build(); //根据缓存上限建cache
@@ -63,10 +63,12 @@
           redix cache 预热
     
     
-    4. cache sync : Canal异步通知
-       
-      
-      
+157  cache ansync : Canal异步通知
+   1. openResty: 设置有效期, 到期自动删除。优点: 简单,  缺点: 时效差.  (更新频率低的)
+   2. 同步双写: 修改DB同时修改cache.       优点： 时效, 缺点: 耦合      (一致性要求高的)
+   3. 异步通知: 修改DB同时发通知.          优点： 解耦, 缺点: 时效一般.  (多个服务)
+  
+   
       
       
       
