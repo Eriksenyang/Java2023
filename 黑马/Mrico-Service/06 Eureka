@@ -49,7 +49,7 @@
    2. 把url 的 端口改为 userservice
 
 12 Ribbon : 找Eureka 要serviceList， 根据 iRule 选server
-       ladBalancerInterceptor - RibbonLoadBanlancerClient - DynameicServerListLoadBalancer 
+       loadBalancerInterceptor - RibbonLoadBanlancerClient - DynameicServerListLoadBalancer(Eureka) 
 
 13 IRule : 
     zoneAvoidanceRule : 默认
