@@ -51,7 +51,7 @@ p97 读取
 
     3.定义1个 Enterprise pojo class: 比如生成一个class 读取 DB的配置
       @Component
-      @COnfigurationProperties(prefix="lesson") //读取yml 中 lesson
+      @ConfigurationProperties(prefix="lesson") //读取yml 中 lesson
       public class lesson{ }
      
 p98 springboot 多环境开发 application.yml
