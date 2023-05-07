@@ -66,10 +66,9 @@
       public interface UserClient extends UserAPI{} //FeignClient 继承UserAPI
     
    2. 新建feignAPI供其他人使用 : UserClient, pojo 
-        Feign API 
-        1.module
-          1.1 依赖 spring-cloud-starter-openfeign
-          1.2 建modul        
+       Feign API module
+       1.1 依赖 spring-cloud-starter-openfeign
+       1.2 建modul        
                 <dependency>
                   <groupId>
                   <artifactId>feign-api</>
@@ -92,6 +91,7 @@
                   return Logger.Level.BASIC;
                 }
               }
+              
       5. 要使用FeignAPI
           1.引入依赖
            <dependency>              
