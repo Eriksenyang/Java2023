@@ -1,5 +1,16 @@
-  67 Basic 
-  
+63 Asch
+    优点 ： 低耦合  吞吐提升  故障剥离 流量消峰
+    
+64 MQ 
+
+67 Basic 
+   producer                                 consumer
+   1. connection                            1. connection
+   2. channel                               2. channel
+   3. channel queue                         3. channel queue
+   4. msg                                   4. handleDelivery()
+                                            5. binding consumer & queue
+                                            
   public class Producer{
     public static void main(Sring[] args) throw Exception{
       String queueName = "xc_queue_name";
@@ -67,8 +78,10 @@
     }   
   }
   
-  68 SpringAMQP
+68 SpringAMQP : Adv Msg  Queue protocol
+
     1.依赖: spring-boot-starter-amqp
+    
     2.publisher 
        1. application.yml
           spring:/ rabbitmq:/ host: 192.. port: 5672 virtual-host : username: password
@@ -85,6 +98,7 @@
               rabbitTemplate.convertAndSend(queueName, message);
             }
           }
+     
      3. Consumer 
        1. application.yml
           spring:/ rabbitmq:/ host: 192.. port: 5672 virtual-host : username: password
@@ -96,9 +110,12 @@
               SOP(msg);
             }
           }
-  71. WorkQueue
+
+
+71. WorkQueue
         prefetch: 1
-  
+
+
   72. publish/ subscribe : fanout/direct/topic
   
   73. Fanout : 发每一个
@@ -157,7 +174,7 @@
             }
           }
   
-  74 Dirct 
+  74 Dirct 路由
        1.publisher  测试
           @RunWith(SpringRunner.class)
           @SpringBootTest
