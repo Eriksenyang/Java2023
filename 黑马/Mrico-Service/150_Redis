@@ -1,34 +1,37 @@
-Redis(150) : persistence
+p150 Redis : 
+  1.数据丢失： persistence
         read/write
         哨兵
         clust
 
-RDB :内存快照 Redis Database Backup:默认服务停止时
-      1.redis-cli
-             save//单线程, 会block所有其他命令
-             gbsave//异步 后台save
-      2.redis.confi 自己设定
-            save 900 1 ...
-      3. main thread fork new thread to bgsave, new RDB
+        1.RDB :内存快照 Redis Database Backup:默认服务停止时
+              1.redis-cli
+                     save//单线程, 会block所有其他命令
+                     bgsave//异步 后台save
+              2.redis.confi 自己设定
+                    save 900 1 ...
+              3. main thread fork new thread to bgsave, new RDB
 
-AOF(28:00)Append Only File(备份) : 记录写的命令到AOF文件
-     1.开启: redis.conf : appendonly yes
+        2.AOF(28:00)Append Only File(备份) : 记录写的命令到AOF文件
+             1.开启: redis.conf : appendonly yes
                always
                everysec : 默认
                no
       2.bgrewriteaof: 合并同类项(减少大小)
  
  
- Redis(151)主master-从slave/replica： 写少读多
+ Redis(151)
+       并发能力： 主master-从slave/replica： 写少读多
          1.replicaof master' ip port
          2.同步：
                全量同步(第一次)
                 bgsave(RDB) -> slave & repl_backlog(当主发RDB时新产生的)
-                replcat 根据 offset的数量去要求更新, 更新到master的replicationId
+                replica 根据 offset的数量去要求更新, 更新到master的replicationId
                 (增大repl_backlog)
-                增量同步(restart): replac提交offset, master根据repl_backlog,把offset之后的命令给replcat
+                增量同步(restart): repliac提交offset, master根据repl_backlog,把offset之后的命令给replcat
                 
-sentinel哨兵(152)                
+p152 sentinel哨兵 ： 故障恢复
+        
        1.sentinel : slave upto master
        2.sentinel 通知 谁是 master
        3.检测: ping/sencend (quorum : )
@@ -55,14 +58,17 @@ sentinel哨兵(152)
                 }
              // return clientConfigBuilder -> clientConfigBuilder.readFrom(ReadFrom.REPLICA_PREFERRED);
            
-分片集群(153) redis-cli --cluster create
+p153 分片集群 存储能力： redis-cli --cluster create
         slot
         新增 25:00 :  add-node 
         手动换master: clust fallover
         Resttemple（41：00） 
         1.application.yml 
-                spring: / redis/ cluster :/ nodes:
-        2.
+                spring:  
+                        redis: 
+                                cluster:
+                                        nodes:
+
 
 
 
