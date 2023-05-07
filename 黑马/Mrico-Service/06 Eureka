@@ -25,7 +25,7 @@
 
 09 EurekaServer
   1.dependency: spring-cloud-start-netflix-eureka-server
-  2.@EnableEurakaServer
+  2.@EnableEurekaServer
   3.application.yml ( server/port:xxx  spring/application/name:eurekaserver       eureka/client/service-url/defaultZone: heep://  
   
   @EnableEurekaServer
@@ -37,7 +37,7 @@
   }
  
  10 server register
-   在需要使用eureka的服务
+   在需要使用Eureka的服务
    1.dependency: spring-cloud-start-netflix-eureka-client
    2.yml: spring/application/name: userservice    eureka/client/service-url/defaultZone: http://
  
