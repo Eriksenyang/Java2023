@@ -41,47 +41,59 @@
     feign.codec.Eecoder: 请求 java->http
     
 32 Feign优化
-   1. httpClient : feign-httpclient
-   2. yml setting
+   1. 默认 URLConnection 不支持连接池, 使用支持连接池的 HttpClient
+       1.1 依赖 : frign-httpclient  
+       1.2 yml: 开启 
+           feign: 
+              httpclient:
+                 enabled: true;
+        httpClient : feign-httpclient
+   2. 不开日志
+      yml setting
 
 33 best prectics
-   1. interface to FeignClient & controller
+   1. 提供1个 interface 给 FeignClient 和 controller 
+      
       public interface UserAPI{
           @GetMapping("/user/{id}")
           User findById(@PthVariable("id") Long id);
       }
       
       @RestController
-      public class UserController implements UserAPI{}
+      public class UserController implements UserAPI{} //controller 实现UserAPI
       
       @FeignClient(value="userservice")
-      public interface UserClient extends UserAPI{}
+      public interface UserClient extends UserAPI{} //FeignClient 继承UserAPI
     
-    2.新建feignAPI : UserClient, pojo 
-      1.依赖
-        <dependency>
-          <groupId>
-          <artifactId>feign-api</>
+    2.新建feignAPI供其他人使用 : UserClient, pojo 
+      Feign API 
+      1.module
+        1.1 依赖 spring-cloud-starter-openfeign
+        1.2 建modul        
+              <dependency>
+                <groupId>
+                <artifactId>feign-api</>
       2. pojo : 
          User
             @Data
             public class User{
               private lont id;
             }
-         client:
+       3. client:
              @FeignClient(value="userservice")
              public interface UserClient extends UserAPI{
                @GetMapping("/user/{id}")
                User findById(@PthVariable("id") Long id);
              }
-         settings:
+       4. settings bean:  / yml
               public class DefaultFeignConfiguration{
                 @Bean
                 public Logger.Level logLevel(){
                   return Logger.Level.BASIC;
                 }
               }
-        3. 让 Spring scan feignAPI的包
+              
+      3. 让 Spring scan feignAPI的包
                                   //整个包                                       //具体class              
              @EnableFeignClients(basePackages = "cn.itcast.feign.clients") ||  (clients = {UserClient.class})
              @SpringBootApplication             
