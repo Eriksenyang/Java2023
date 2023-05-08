@@ -7,7 +7,7 @@ P5   例子：
      1. 依赖: 
         <mysql>mysql-connector-java
         <hib>  hibernate-entirymanager
-        <jpa>
+       
      2. public class Article implements Serializable {} // entity 
      3. mapping 映射关系
           @Entity //bean
@@ -22,6 +22,9 @@ P5   例子：
                   
           }
        4.配置文件 https://stackoverflow.com/questions/52546758/set-hibernate-dialect-for-jpa-in-yml
+         P8  <provide>org.hibernate.jap.HeibernatePersistenceProvider<>  JPA provide   
+             <class>com.it.domain.Article<> 实体class
+             
              <persistence-unit name="jpa01" transaction-type="RESOURCE_LOCAL">
                 <properties>
                 <property name="javax.persistence.jdbc.diver" value="com.mysql.jdbc.Driver">
@@ -73,7 +76,41 @@ p7 test
         }
    }
 
-p8 setting file
+p10 SpringData JPA
+   1. 依赖: 
+        <mysql> mysql-connector-java
+        <hib>  hibernate-entirymanager
+        <spring> spring-context
+                 spring-orm
+                 spring-test
+                 aspectjweaver
+         <jpa>spring-data-jpa        
+
+    2. mapping 映射关系
+          @Entity //bean
+          @Table(name = "Article") //与DB table 对应
+          public class Article implements Serializable {
+              @Id 
+              @GenerateValue(strategy = GenerationType.IDENTITY) //主键生成
+              private Integer aid;
+              
+              @Column(name = "title") //与table对应
+              private String title;                  
+          }
+    3. Dao :                                  //entity, key                                  entity
+        public interface extends JpaRepository<Article, Interge>, JpaSpecificationExecutor<Article>{
+            
+        }
+
+
+
+
+
+
+
+
+
+
 
 
 
