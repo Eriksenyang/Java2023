@@ -27,7 +27,7 @@ P5   例子：
              
              <persistence-unit name="jpa01" transaction-type="RESOURCE_LOCAL">
                 <properties>
-                <property name="javax.persistence.jdbc.diver" value="com.mysql.jdbc.Driver">
+                <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver">
                 <property name="javax.persistence.jdbc.url" value="jdbc:mysql:///springdata">
                 <property name="javax.persistence.jdbc.user" value="admin">
                 <property name="javax.persistence.jdbc.password" value="admin">
@@ -98,14 +98,53 @@ p10 SpringData JPA
               private String title;                  
           }
     3. Dao :                                  //entity, key                                  entity
-        public interface extends JpaRepository<Article, Interge>, JpaSpecificationExecutor<Article>{
-            
+        public interface extends JpaRepository<Article, Interge>, JpaSpecificationExecutor<Article>{            
         }
+     4.setting
+        //dataSource
+        <bean id="dataSource" class=""org.springframework.jdbc.datasource.DriverManagerDataSource> 
+            <property name="driverClassName" value="com.mysql.jdbc.Driver">
+            <property name="url" value="jdbc:mysql:///springdata">
+            <property name="username" value="admin">
+            <property name="password" value="admin">
+        </>
+        //entityManagerFactory
+        <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+             <property name="dataSource" ref="dataSource">
+             <property name="persistenceProvider">
+                <bean class="org.hibernate.jpa.HibernatePersistenceProvide"></>
+             </>
+             <property name="jpaVendorAdapter">
+                <bean class="org.springframework.orm.jap.vendor.HibernateJpaVendorAdapter">
+                    <property name="database" value="MYSQL">
+                 </>
+              </>   
+             <property name="packagesToScan" value="com.it.domain"> // scan domain包
+        </>     
+        //TransactionManager
+        <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+            <property name="dataSource" ref=dataSource>
+        <>   
+        //jpa
+        <jpa: repositories base-package="com.it.dao" //dao 包
+                            entity-manager-factory-ref="entityManagerFactory"
+                            transaction-manager-ref="transactionManager"
+                            >
 
-
-
-
-
+    5.test p13
+        @RunWith(springJunit4ClassRunner.class)
+        @ContextConfiguration("classpath:applicationContext-jpa.xml")
+        public class SpringDataJpaTest{
+            @Autowired
+            private ArticleDao articleDao;
+            
+            @Test
+            public void testSave(){
+                Article article= new Article();
+                article.setTitle("test");
+                articleDao.save(article);
+            }
+        }
 
 
 
