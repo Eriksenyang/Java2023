@@ -111,22 +111,37 @@
             }
 
   消费者消息确认(53:00)
-     1. manual
-     2. auto: 
+     1. manual: 手动发ack
+     2. auto: spring 监听 listener. 没异常发 ack
      3. none:
-     cosummer : application.yml
+    
+    cosummer : application.yml
       spring: 
         rabbitmq： 
-            listener? simple/ prefetch: 1/acknowledge-mode: auto
+            listener: 
+                simple: 
+                    prefetch: 1
+                        acknowledge-mode: auto
       
-  失败重试（1：02）
+  失败重试（1：02）： 
       1.在本地retry
           cosummer : application.yml                      //重试                               1s        等待时间为3的倍数    最多3次                                                           //
-          spring:/ rabbitmq/ listener? simple/ prefetch: 1/retry/ enable: true/ initial-interval: 1000/multiplier:3/max-attempts:3/ stateless: true
-      2.消费者失败消息处理 MessageRecoverer
-         RejectAndDontRequestRecoverer ： reject,default
-         ImmediateRequeueMessageRecoverer: 重入Q
-         RepublishMessageRecoverer: 重发到指定exchange
+                    spring:
+                        rabbitmq:
+                            listener: 
+                                simple: 
+                                    prefetch: 1
+                                        retry: 
+                                            enable: true          //重试
+                                            initial-interval: 1000
+                                            multiplier:3
+                                            max-attempts:3
+                                            stateless: true// 如果是transaction 用false
+                                            
+      2.消费者失败消息处理 MessageRecoverer(1:12:00) ： 消费者投失败信到republishMsgRecoverer
+         2.1 RejectAndDontRequestRecoverer ： reject,default
+         2.2 ImmediateRequeueMessageRecoverer: 重入Q
+         2.3 RepublishMessageRecoverer: 重发到指定exchange
          
          1.error msg exchange, queue, binding
            consummer 
@@ -134,11 +149,11 @@
            public class ErrorMessageConfig{
             @Bean
             public DirectExchange errorMsgExchange(){
-                return new DirectExchange("error.dirct");
+                return new DirectExchange("error.dirct"); //exchange
             }
             @Bean
             publc Queue errorQ(){
-                return new Queue("error.queue", true);
+                return new Queue("error.queue", true); //q
             }
             @Bean
             public Binding errorBinding(){                                        //routingKey
@@ -150,8 +165,16 @@
             }
            } 
 
-159 dead letter
-    TTL(Time To live)
+159 dead letter exchange : DLX 队列投死信到 DLX 
+     1.deal letter
+        1.reject
+        2.overtime 
+        3.MQ full
+     2.handle 
+       dead-letter-exchange
+       dead-letter-routing-key
+     
+    TTL(Time To live) 09:00 超时机制
         Consummer 消费者
             @Sfl4j
             @Componont
@@ -164,7 +187,7 @@
                 }          
             }
             
-        publisher 生产者
+        Configuer
            @Configuration
            public class TTLMessageConfig{
             @Bean
@@ -173,7 +196,7 @@
             }
             @Bean
             publc Queue ttlQ(){
-                return new QueueBuilder
+                return QueueBuilder
                              .durable("ttl.queue")
                              .ttl(10000)             //队列延迟 time (10s)
                              .deadLettlerExchange("ttl.dirct")
@@ -189,11 +212,30 @@
                 return new RepublishMssageRecoverer(rabbitTemplate, "error.dirct", "error");
             }
            } 
+      
+      publisher 生产者 (20:00)
+       
+            @RunWith(SpringRunner.class)
+            @SpringBootTest
+            @Slf4j
+            public class SpringAmqpTest{
+               @Autowired
+               private RabbitTemplate rabbitTemplate;
+                @Test
+                public void testTTLMessage(){
+                    Message msg = MessageBuilder
+                                   .withBody("msg".getBytes(StandardCharasets.UTF_8))
+                                   .setDeliveryMode(MessageDeliveryMode.PERSISTENT)        //  3.msg  消息持久化
+                                   .setExpiration("5000")                                  //msg延迟5秒
+                                   .build();
+                    rabbitTemplate.convertAndSend("ttl.direct", "ttl", msg); //发消息
+                }
+            }
        
    1.拿cookie
         
         
-    延迟队列(25:00)  Delay Exchange
+    延迟交换机(25:00)  Delay Exchange
          Consummer 消费者
             @Sfl4j
             @Componont
@@ -213,8 +255,8 @@
             public class SpringAmqpTest{
                @Autowired
                private RabbitTemplate rabbitTemplate;
-                @Test
-                public void testDelayMessage(){
+               @Test
+               public void testDelayMessage(){
                     Message msg = MessageBuilder.withBody("msg".getBytes(StandardCharasets.UTF_8))
                                    .setDeliveryMode(MessageDeliveryMode.PERSISTENT)  //  3.msg  消息持久化
                                    .setHeader("x-delay" ,5000)                       //msg 延迟5秒
@@ -239,8 +281,9 @@
                 log.error(“msg 发送失败”, message.toString(), replyCode, replyText, exchange, routingKey )});
             }          
           }
-       
-   160 消息堆积 Lazy Queue 惰性Q, 直接写入desk
+ 
+ 
+ 160 消息堆积 Lazy Queue 惰性Q, 直接写入desk
       Consummer 消费者
         @Configuration
         public class LazyConfig{ 
