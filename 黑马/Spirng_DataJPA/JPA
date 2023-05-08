@@ -1,15 +1,19 @@
-P3: 
-    1. ORM: Object Relation Mapping. Hib 是 ORM framwork, 封装了 JDBC. hib 建立了 pojo relate DB table 
-    2. JPA : Java Persistence API , interface
-    3. JPA(接口) - ORM(hib/other) - JDBC - DB
-   例子： 
-     1. 依赖
+P3: JPA 控制 
+    1. ORM: Object Relation Mapping. Hib 是 ORM framwork, 封装了 JDBC. hib 建立了 pojo relate DB table. hib自动生成sql语句 
+    2. JPA(interface) : Java Persistence API 
+    3. JPA(接口: 可以使用各种ORM) - ORM(hib/other ORM framwork) - JDBC - DB
+   
+P5   例子： 
+     1. 依赖: 
+        <mysql>mysql-connector-java
+        <hib>  hibernate-entirymanager
+        <jpa>
      2. public class Article implements Serializable {} // entity 
      3. mapping 映射关系
-          @Entity
-          @Table(name = "Article")
+          @Entity //bean
+          @Table(name = "Article") //与DB table 对应
           public class Article implements Serializable {
-              @Id
+              @Id 
               @GenerateValue(strategy = GenerationType.IDENTITY) //主键生成
               private Integer aid;
               
@@ -18,7 +22,13 @@ P3:
                   
           }
        4.配置文件 https://stackoverflow.com/questions/52546758/set-hibernate-dialect-for-jpa-in-yml
-                 
+             <persistence-unit name="jpa01" transaction-type="RESOURCE_LOCAL">
+                <properties>
+                <property name="javax.persistence.jdbc.diver" value="com.mysql.jdbc.Driver">
+                <property name="javax.persistence.jdbc.url" value="jdbc:mysql:///springdata">
+                <property name="javax.persistence.jdbc.user" value="admin">
+                <property name="javax.persistence.jdbc.password" value="admin">
+             
             4.1  https://mkyong.com/spring-boot/spring-boot-spring-data-jpa-mysql-example/   
             spring:
                 ## MySQL
@@ -44,6 +54,38 @@ P3:
                   hibernate
                     ddl-auto: update           
                     #show-sql: true
-                    
+                  
+p7 test
+   public class JpaTest{
+        @Test
+        public void testSave(){
+            Article article = new Article();
+            article.setTitle("");
+            
+            String persistenceUnitName = "jpa01"; // setting L25
+            EntityManagerFactory factory = Persistence.createEntityManagerFactory(persistenceUnitName); //factory
+            EntityManager entityMng = factory.createEntityManager();                                 //entityManage
+            EntityTransaction transaction = entityMng.getTransactjion();                             //transaction
+            transaction.begin();
+            entityMng.persist(article);                 //save()
+            transaction.commit();
+            entityMng.close();            
+        }
+   }
+
+p8 setting file
+
+
+
+
+
+
+
+
+
+
+
+
+
                     
                     
