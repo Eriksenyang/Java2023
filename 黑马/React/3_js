@@ -1,1 +1,64 @@
 p5
+    <script>
+      let a = document.getElementById();
+      a.innerText = '2222';
+    </script>
+
+    <script src="1.js"/>
+  
+p6
+  1. let a(变量) = value;
+  2. const： 常量. 只能被赋值1次， 但内容可修改： const c = [1,2,3] const[2] = 4 => c[1,2,4]
+  3. var
+
+p7
+  nudefined : (JS产生) 没有返回值 / 对象不存在 / 未定义的
+  null : (人工定义)
+  
+p8 String
+    模板拼接: JS 反引号 ` (esc下的波浪线)
+    let name = ;
+    let age = ;
+    let uri = '/test${name}&age=${age}';
+
+p9 
+1. number (float)
+   parseInt("10")  -> 10(还是小数)
+   parseInt("abc ") 失败 NaN
+ 2. bigint: 整数
+    10n
+p10
+   let a = 1;
+   if(a){} 
+   falsy : false, Nullish(null, undefined), 0, 0n, NaN, "", '',``
+
+p11 obj
+  1.Function 
+      function 名（参数）{ }
+      function add(a, b) {return a + b;}
+      
+   2.  default value
+        function add(10, 10){return a + b;} //默认 10 ， 10    | 当你调它不给值 function add() 取默认值
+        function add(10, 10){return a + b;} //默认 10          | 当你调它不给值 function add(undefined, 15) => 25
+   3. anonymous
+      (function (a, b){ return a + b; })(5,6) //定义后马上赋值调用
+   4. 简化
+      () =>{return }
+
+  2.Array
+  
+  3.Object
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
