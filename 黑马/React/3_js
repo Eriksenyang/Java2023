@@ -34,9 +34,12 @@ p10
 
 p11 obj
   1.Function 
+  2.Array
+  3.Object 
+  
+   1.Function 
       function 名（参数）{ }
       function add(a, b) {return a + b;}
-      
    2.  default value
         function add(10, 10){return a + b;} //默认 10 ， 10    | 当你调它不给值 function add() 取默认值
         function add(10, 10){return a + b;} //默认 10          | 当你调它不给值 function add(undefined, 15) => 25
@@ -44,10 +47,19 @@ p11 obj
       (function (a, b){ return a + b; })(5,6) //定义后马上赋值调用
    4. 简化
       () =>{return }
-
-  2.Array
   
-  3.Object
+p13 function is obj
+     function c(){
+        console.log("c");
+        function d(){
+            console.log("d");
+        }
+        return d;
+     }
+     c()() => c()执行,返回d 再调用 d() 
+
+p14 scope 
+
     
     
     
