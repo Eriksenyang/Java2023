@@ -68,8 +68,23 @@ p16 var： 普通{}不当作1层边界
     let : 普通{}也当作1层边界
 
 p17 Array
+    let arr= [1,2,3]
+    push: add at tail
+    shift: del at head
+    splice:  del at splice(起点, 删多少个)
+    join: let arr= ['a','b','c'] arr.join -> abc
     
-    
+    map:
+        let arr = [1, 2, 3]
+        function a(i){
+            return i * 10;
+        }
+        arr.map(a)
+     filter
+     
+     forEach
+  
+p19 obj    
     
     
     
