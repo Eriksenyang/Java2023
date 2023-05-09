@@ -59,8 +59,15 @@ p13 function is obj
      c()() => c()执行,返回d 再调用 d() 
 
 p14 scope 
+    自身 ， 是否有父函数嵌套， 全局
 
-    
+p15 function闭包
+   函数访问自己函数的作用域
+ 
+p16 var： 普通{}不当作1层边界
+    let : 普通{}也当作1层边界
+
+p17 Array
     
     
     
