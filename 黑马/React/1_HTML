@@ -10,3 +10,22 @@ p2
 
 4. <p id="p1">
    <a href="#p1">  #页面内跳转
+   
+   mdn : https://developer.mozilla.org/zh-CN/docs/Web/HTML
+   
+   52:00
+   <form action="https://www.baidu.com/s">
+    <input type="text" name="提交的name">
+    <input type="passwor" name="提交的内容命名给接受">
+    <input type="hidden" name="id" value="1">//默认值 1
+    <input type="date" name="birthday">
+    <hr>
+      Male<input type="radio" name="提交的name" value="m" checked>
+    <hr>
+    <input type="file" name="avatar">
+    <hr>
+    <form active="服务器地址" method="post" enctype="multipart/form-data">
+      <input type="submit" value="sub">
+    </form>
+    <input type="submit" value="search">
+    
