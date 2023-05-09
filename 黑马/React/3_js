@@ -85,10 +85,55 @@ p17 Array
      forEach
   
 p19 obj    
+    let stu = {
+                name: "";
+                study(){ }
+               }
+
+p20 obj 属性 对象可动态改变
+    let stu = {name: "a"};
+    stu.age =  19；
+    delete stu.age;
     
+    let stu = {_name : null};
+    Object.defineProperty(stu, "name", {
+        get(){return this._name;}
+        set(name){this._name = name;}
+    });
     
-    
-    
+p21 this    
+    1.落单的函数： this 代表 window 对象
+    2.通过对象调用： （stu.study） this: 代表stu
+    3.通过call: (study.call(xx,) :  可以放任意对象在xx位置， this 代表这个对象
+    4.多层 this 看functions ()12:00
+    5.=> 看外层。 
+
+p22 inheritance : 
+        java:  2 个类
+        js: 2个对象 _proto_
+            let son = Object.creat(father); //father top proto 为Object
+            
+p23            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     
     
     
