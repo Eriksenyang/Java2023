@@ -1,1 +1,25 @@
 P4
+  <link rel="stylesheet" href="style.css">
+  
+ 1.select: id > class > type
+    type:  p{}
+    class： .c1{}
+    id: #id{}
+    
+  2.value
+    display : none隐藏 / block 
+  
+  3.layout:
+      Header aside  main footer
+      div : 容器
+      template : 隐藏/js 动态加载
+    
+     p{ 
+      key: value;
+     }  
+     .c1{
+      key: value;
+     }
+     #id{
+       key: value;
+     }
