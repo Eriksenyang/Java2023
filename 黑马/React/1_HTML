@@ -51,9 +51,42 @@ p2 Html
           
     表单提交: 
     <form active="服务器地址" method="post" enctype="multipart/form-data">                                   //encode
-    enctype： 默认 application/x-www-form-urlencoded : 对应POSt 请求体 Content-Type: application/x-www-form-urlencoded //请求格式
-                   application/x-www-form-urlencoded :传 form
-                   application/json: json {"name" : "zhang", "age":"17"}
+    enctype： 默认 application/x-www-form-urlencoded :URL 对应POSt 请求体 Content-Type: application/x-www-form-urlencoded //请求格式
+                   application/multipart/form-data :传 form
+                   application/json:utf-8 json {"name" : "zhang", "age":"17"} ||@RequestMappint("/test")
+                                                                           @ResponseBody
+                                                                           public void test(@RequestBoday Req requ){}
+   39:00 multipart/form-data： boundary=123 //分割符
+          --123  //起
+          Content-Disposition: form-data： name=“name”
+          --123-- //终
+   
+   49:00 session: serverside 建 session obj(key value) return jsessionid(客户端接收) Cookie： JESSIONID 
+   
+   1:00 单机 Login
+        client - loginController                    - session(返回给client)
+        client -                - logingteterceptor(检查session) 
+   
+   1：04 分布式 JWT  
+        client - loginController                    - Token(返回给client)
+        client(token) -                - logingteterceptor(检查token) 
+        Authorization：
+        
+        token : header  payload  signature
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
