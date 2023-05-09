@@ -29,3 +29,42 @@ p2
     </form>
     <input type="submit" value="search">
     
+p2 Html
+  1.
+    请求行： 方式   URI HTTP/1.1
+            POST /test2 HTTP/1.1
+    请求头: Host: 
+            Host: localhost
+    请求体: （post） 发出请求体
+    Content-Type: application/x-www-form-urlencoded //请求格式
+    Content-Length: 17(对应下面的数据length)
+
+    name=zhang&age=18(数据放在请求体内)
+  2.
+    get:  数据跟在URL后 GET/test？name=zhang&age=18 HTTP/1.1
+    post: 数据放在请求体内
+          POST /test2 HTTP/1.1
+          Content-Type: application/x-www-form-urlencoded //请求格式
+          Content-Length: 17(对应下面的数据length)
+
+          name=zhang&age=18(数据放在请求体内)
+          
+    表单提交: 
+    <form active="服务器地址" method="post" enctype="multipart/form-data">                                   //encode
+    enctype： 默认 application/x-www-form-urlencoded : 对应POSt 请求体 Content-Type: application/x-www-form-urlencoded //请求格式
+                   application/x-www-form-urlencoded :传 form
+                   application/json: json {"name" : "zhang", "age":"17"}
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    
