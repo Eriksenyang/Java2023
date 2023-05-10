@@ -14,5 +14,36 @@ p31 DriverManager
    oracle url: "jdbc:oracle:thin:@tcp://my-host:1522/my-service";
 
 p31 Connection:
+    SQL transaction
+      BEGIN/ START TRANSACTION
+      COMMIT;
+      ROLLBACK;
+    JDBC transaction
+      setAutoCommit(false); false 开启手动提交
+      commit;
+      rollback;
+      
+      try{
+        conn.setAutoCommit(false);
+        ...
+        conn.commit();
+      }catch{
+        conn.rollback();
+      }
+
+p32 Statement
     createStatement
-    
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
