@@ -113,7 +113,46 @@ p22 inheritance :
         js: 2个对象 _proto_
             let son = Object.creat(father); //father top proto 为Object
             
-p23            
+p23 函数
+
+p24 json : 字符串
+    js： obj 
+    JSON.parse(json) => JS obj
+    JSON.stringify(JS) => json
+    
+p25 dynamic
+    变量没有类型 let    
+    let a = 100；
+     a = true;
+
+p26 
+    === : 绝对相等, (==会自动转换类型)
+    typeof: 查看type
+
+p27  x || y : if x 是false 就用 y              
+    function test(n = n || “male”);
+    
+p28 
+  ?? : n = n ?? x : if n是undefined 或 null， 就用x
+  ?. : n ?. x : n 如果是nullish时 返回undefined. 不去读x(读x会报错)
+  
+p29 展开运算符 ...浅拷贝
+    let arr= [1,2,3];
+    ...arr 打开arr let arr2 = ...arr
+ 
+p30 [] {} 解构赋值
+    1.
+    let arr = [1, 2, 3];
+    let [a, b, c] = arr;  // 1交给a. a：1    
+    2. obj
+       let {name, age} = obj;
+
+p31 for in 遍历
+    for(const n in father){ } //遍历father 每个部分放到 n 返回  son[n]
+ 
+p32 for(const i of arr) 
+
+p33 try catch
 
 
 
