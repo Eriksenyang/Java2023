@@ -1,1 +1,19 @@
+DBMS : DB Management System
+
+p5 SQL
+  DDL : Data definition language
+      database
+        C CREATE DADABASE name;
+        R SHOW DATABASES;
+        U USE name
+        D DROP DATABASE name;
+      table
+        C CREATE TABLE name( id int, name varchar(10));
+        R SHOW ;
+        U USE name
+        D DROP TABLE IF EXISTS;
+        修改 ALTER TABLE 表名
+
+
+
 
