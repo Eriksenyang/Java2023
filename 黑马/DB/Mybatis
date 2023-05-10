@@ -35,22 +35,32 @@ p48
 p49 IDEA 连接DB
 
 P50 Mapper 代理
-       1.在resource包下新建包 
-        1.1 UserMapper.xml 
+      1. interface 
+            public interface UserMapper{
+                List<User> selectAll();
+            }
+      2.在resource包下新建包同interface com/XXX/mapper. 把UserMapper.xml 放在这个包下 
+         UserMapper.xml 
             <mapper namespace="com.it.mapper.UserMapper">
                 <select id="selectAll" resultType="com.itheima.pojo.User">
                     select * from tb_user;
                 </select>
-        1.2 interface 
-            public interface UserMapper{
-                List<User> selectAll();
-            }
-        1.3
+   
+       3 test 
           sqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(ipStream);
            SqlSession sqlSession = sqlSessionFactory.openSession();
            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
            List<User> users = userMapper.selectAll();
- 
+       4. mybatis-config.xml
+        dirver 
+        url
+        username
+        password
+        
+        <mappers>
+            <package name="com.xxx.mapper"/>  //扫描 mapper 包
+        </mappers>
+        
 p52
     1.pojo
     2.
