@@ -16,7 +16,7 @@ p48
             <mapper resource="UserMapper.xml">
         </mappers>
         
-   3. UserMapper.xml
+   3. UserMapper.xml (resource包下)
         <mapper namespace="test">
             <select id="selectAll" resultType="com.itheima.pojo.User">
                 select * from tb_user;
@@ -35,8 +35,13 @@ p48
 p49 IDEA 连接DB
 
 P50 Mapper 代理
-       
-       
+       1.在resource包下新建包 
+        1.1 UserMapper.xml 
+            <mapper namespace="com.it.mapper.UserMapper">
+                <select id="selectAll" resultType="com.itheima.pojo.User">
+                    select * from tb_user;
+                </select>
+        1.2 
        
        
        
