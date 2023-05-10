@@ -2,4 +2,53 @@ P47
     MyBatis: 持久层framework, 简化JDBC
 
 p48
-  
+  1 依赖 
+        mybatis
+        mysql-connector-java
+        
+  2. mybatis-config.xml
+        dirver 
+        url
+        username
+        password
+        
+        <mappers>
+            <mapper resource="UserMapper.xml">
+        </mappers>
+        
+   3. UserMapper.xml
+        <mapper namespace="test">
+            <select id="selectAll" resultType="com.itheima.pojo.User">
+                select * from tb_user;
+            </select>
+   
+   4. pojo         
+   
+   5. main
+       String resource = "mybatis-config.xml";  //配置文件
+       InputStream ipStream = Resources.getResourceAsStream(resource);
+       sqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(ipStream);
+       
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        sqlSession.selectList(test.selectAll);
+       
+p49 IDEA 连接DB
+
+P50 Mapper 代理
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
