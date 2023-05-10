@@ -32,7 +32,71 @@ p31 Connection:
       }
 
 p32 Statement
-    createStatement
+    1.executeUpdate(sql) : DML:修改数据  DDL:创建表 (不报错就ok)
+    2.executeQuery(sql):
+        boolean next(): 1.向下移动1行 2.是否是有效数据
+                        true: 有效行，有数据
+                        false: 无效行,无数据
+        类型 get类型(arg): arg like 列名 : String getString(id);
+                                   列的编号:  int getInt(1); //表从第1列开始
+       Connection conn = DriverManager.getConnection(url, username, password);
+        String sql = "SELECT * FROM account";
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.excuteQuery(sql);
+        
+        while(re.next()){
+          int id = rs.getString(id);
+          String name = rs.getString(name);
+        }
+        rs.close();
+
+p35 sql Inject 
+
+p36 prepareStatement 防止 SQL INJECT
+      String name = "aa";
+      String password = "pw";
+      String sql = "SELECT * FROM user WHERE username= ? AND password = ?";
+      
+      PrepareStatement pstmt = conn.prepareStatement(sql);
+      pstmt.setString(1, name);   //PrepareStatement 拼接 防止sql inject 
+      pstmt.setString(2, password);
+      
+      ResultSet rs = pstmt.executeQuery(); // 或者  executeUpdate() 
+
+p37 开启预编译
+    useServerPrepStmts=true;
+ 
+
+p38 Connectin pool: manager connection
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
   
   
