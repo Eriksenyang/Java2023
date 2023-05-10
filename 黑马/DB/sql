@@ -1,9 +1,0 @@
-p25
-SELECT * FROM emp JOIN dep ON emp.dep_id = dept.did;
-
-left t1 & t1交t2 : SELECT t1 LEFT JOIN t2  ON t1_id = t2_id; 
-
-right t2 & t1交t2 : SELECT t1 RIGHT JOIN t2  ON t1_id = t2_id; 
-
-P26
-SELECT * FROM  t1 WHERE t1_id IN ();

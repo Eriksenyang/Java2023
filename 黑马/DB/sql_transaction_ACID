@@ -1,0 +1,19 @@
+p25
+SELECT * FROM emp JOIN dep ON emp.dep_id = dept.did;
+
+left t1 & t1交t2 : SELECT t1 LEFT JOIN t2  ON t1_id = t2_id; 
+
+right t2 & t1交t2 : SELECT t1 RIGHT JOIN t2  ON t1_id = t2_id; 
+
+P26
+SELECT * FROM  t1 WHERE t1_id IN ();
+
+P29 事物
+  START TRANSACTION / BEGIN;
+  COMMIT;
+  ROLLBACK;
+  4大特征
+  Atomicity: min unit. all suceess or all fault
+  Consistency: all data as the same: 转账后 2账户总额不变
+  Isolation：isolate multi transaction. 只有commit/rollback之后 别人才能看到这个信息被改变了。
+  Durability： commit/rollback之后数据才被修改(别人看到你修改了数据).  commit/rollback之前 数据改动为临时(别人看不到你修改了数据)
