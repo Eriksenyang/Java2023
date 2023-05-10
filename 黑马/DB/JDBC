@@ -1,1 +1,11 @@
+P30
+JDBC : java - jDBC - DB
 
+  Connection conn = DriverManager.getConnection(url, username, password);
+  String sql = "UPDATE account SET money = 200 WHERE id = 1";
+  Statement stmt = conn.createStatement();
+  int count = stmt.excuteUpdate(sql);
+  stmt.close();
+  conn.close();
+  
+p31 API
