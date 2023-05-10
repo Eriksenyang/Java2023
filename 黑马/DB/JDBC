@@ -8,4 +8,11 @@ JDBC : java - jDBC - DB
   stmt.close();
   conn.close();
   
-p31 API
+p31 DriverManager
+  DriverManager.getConnection(url, username, password)
+   mysql  url: jdbc:mysql://ip:3306/dbname
+   oracle url: "jdbc:oracle:thin:@tcp://my-host:1522/my-service";
+
+p31 Connection:
+    createStatement
+    
