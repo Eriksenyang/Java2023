@@ -113,9 +113,30 @@ p102 Junit
     }
 
 p103 Mybits
-        1.mybatis-spring-boot-start
+   spring + Mybits
+    1.@Import(JdbcConfig.class, MyBatisConfig.class)
+    2. JdbcConfig
+        driver / url/ username/ password
+        DruildDatasource: ds.serDriverClassName, ds.setUrl, ds.setUsernamel ds.setPassword
+    3.MybatisConfig
+        @Bean
+        public SqlSessionFactoryBean getSqlSessionFactoryBean(DataSource ds){   // sqlSessionFactory
+            SqlSessionFactoryBean ssfb = new SqlSessionFactoryBean();
+            ssfb.setTypeAliasesPackage("com.xx.domain");
+            ssfb.setDataSource(ds);
+            return ssfb;
+        }
+        @Bean                                                            //在springboot 中用 @Mapper 代替
+        public MapperScanConfigurer getMapperScanConfigurer(){
+            MapperScanConfigurer msc = new MapperScanConfigurer();
+            msg.seBasePackage("com.xx.dao");
+            return msc;
+        }   
+            
+    spring-boot
+        1. mybatis-spring-boot-start
         2.
-        3. public class Book(){}
+        3. domain : public class Book(){}
         4.
           @Mapper                        //这里让spring 生成proxy 
           public interface BookDao(){
@@ -125,11 +146,11 @@ p103 Mybits
         5.application.yml
             spring:
                 datasource:
-                    drive-class-name: com.mysql
+                    drive-class-name: com.mysql.cj.jdbc.Driver
                     url:  jdbc:mysql:// ?serverTimezone=UTC
                     username: root
                     password: root
-                    type: com.alibaba.druid.pool.DruidDataSource
+                    type: com.alibaba.druid.pool.DruidDataSource  //add dataSource
                     
 
 p104 页面相关的 css,js, pages 放在 resource/static 下                  
