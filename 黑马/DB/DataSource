@@ -4,4 +4,16 @@ P38 DataSource
     DRUID
     
     1.依赖
-    2.
+    2.druid.properties
+        driverClassName=com.mysql.jdbc.Driver
+        url=jdbc:mysql://db1
+        username=
+        password=
+        initialSize=10
+        maxActive=20
+        maxWait=5000
+    3.
+        Properties prop = new Properties();
+        prop.load(new FileInputStream("src/druid.properties"));        // load property file
+        DataSource ds = DruidDataSourceFactory.createDataSource(prop);  //create DS
+        Connection conn = ds.getConnection();                           //get connection
